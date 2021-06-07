@@ -1,0 +1,27 @@
+1a. etapa: Análise Léxica
+
+Esta etapa servirá de exercício para as partes finais... (o valor é de 10% da nota total do semestre).
+
+Neste momento, é fundamental que a identificação dos grupos (duplas ou individual) seja realizada, nos comentários desta página.
+
+A descrição dos tokens devem ser baseada na identificação de um código (exemplo, em anexo nos comentários desta página)
+e considerando a experiência de vocês com a linguagem alvo (C).
+
+Prazo: (definição dos grupos): 07/06.
+
+Prazo: (entrega): 15/06.
+
+
+Forma de entrega: encaminhamento dos arquivos, também através desta página (única forma aceita).
+
+Informações adicionais: não façam discussões/explicações a respeito da implementação nos comentários... fazer o detalhamento em arquivo (.pdf).
+
+Resultados esperados:
+
+Definição da gramática (Forma de Backus-Naur - https://en.wikipedia.org/wiki/Backus-Naur_form)
+Especificação FLEX
+Comentários sobre a implementação (tabela de símbolos)
+Destaque para a compilação / ambiente / linguagem
+Importante! Lembrem-se que destaquei a necessidade da construção da tabela de símbolos.
+Assim, os elementos a ser tratados aqui são basicamente quanto a identificação do token, o registro de posição, etc...
+para que os erros léxicos e sintáticos sejam possíveis de ser localizados, considerando as linhas e colunas do texto em análise.
