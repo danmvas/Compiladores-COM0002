@@ -3,16 +3,10 @@
 <espaço-opt>   ::= " " <espaço-opt> | ""
 <integer>      ::= <digit> | <digit><integer>
 <double>       ::= <integer>"."<integer>
-<symbol>       ::= "?" | "@" | "#" | "&" | "." | "," | ";" | "`" | "'" | '"' | <operator>
-<variable-name>::= <char> | <char><string> | <char><integer> | <char><integer><string> | ""
-<string>       ::= <char> | <char><string> | <symbol> | <symbol><string> | <integer> | <integer><string> | <double> | <double><string> | <espaco-opt> | <espaco-opt><string> | <boolean> | <boolean><string> | <keyword> | <keyword><string> | ""
+<symbol>       ::= "@" | "#" | "&" | "'" | '"' | <operator> | <punctuation>
+<punctuation>  ::= "?" | "." | "," | ";" | "`" | "!" | "^" | "~"
 <boolean>      ::= "TRUE" | "FALSE"
-<type>         ::= pegar da parte de baixo e depois substituir
-<keyword>      ::= "auto" | "double" | "int" | "struct" | "break" | "else" | "long" | "switch" | "case" | "enum" | "register" | "typedef" | "char" | "extern" | "return" | "union" | "continue" | "for" | "signed" | "void" | "do" | "if" | "static" | "while" | "default" | "goto" | "sizeof" | "volatile" | "const" | "float" | "short" | "unsigned"
+<type>         ::= "double" | "int" | "long" | "char" | "signed" | "struct" | "enum" | "union" | "float" | "short" | "unsigned"
+<keyword>      ::= "auto" | "break" | "else" | "switch" | "case" | "register" | "typedef" | "extern" | "return" | "continue" | "for" | "void" | "do" | "if" | "static" | "while" | "default" | "goto" | "sizeof" | "volatile" | "const" | <type>
 <operator>     ::= "+" | "-" | "*" | "/" | "%" | "++" | "--" | "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "==" | ">" | "<" | "!=" | ">=" | "<=" | "&&" | "||" | "!" | "&" | "^" | "~" | "<<" | ">>" | "|" | "?:" | "<<=" | ">>=" | "&=" | "^=" | "|=" | "->"
-<declaration>  ::= <type>" "<variable-name>";" | <type>" "<variable-name>"="<string>";" | <type>" "<variable-name>" ="<string>";" | <type>" "<variable-name>"= "<string>";" | <type>" "<variable-name>" = "<string>";" | <type>" "<variable-name>"["<string>"];" | <type>" "<variable-name>"["<string>"]""={"<string>"};" | <type>" "<variable-name>"["<string>"]"" ={"<string>"};" | <type>" "<variable-name>"["<string>"]""= {"<string>"};" | <type>" "<variable-name>"["<string>"]"" = {"<string>"};"
-<expression>   ::= 
-
-<command ou statement>     ::= 
-tem uma diferenca entre expression e statement, mas não lembro :(, acho que vou deixar tudo como expression mesmo
-mas antes vou perguntar para o professor se tudo isso é necessário mesmo, talvez eu esteja exagerando
+<string>       ::= <char> | <char><string> | <symbol> | <symbol><string> | <integer> | <integer><string> | <double> | <double><string> | <espaco-opt> | <espaco-opt><string> | <boolean> | <boolean><string> | <keyword> | <keyword><string> | ""
