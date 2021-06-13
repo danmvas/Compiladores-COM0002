@@ -1,0 +1,12 @@
+<char>         ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+<digit>        ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<espaço-opt>   ::= " " <espaço-opt> | ""
+<integer>      ::= <digit> | <digit><integer>
+<double>       ::= <integer>"."<integer>
+<symbol>       ::= "@" | "#" | "&" | "'" | '"' | <operator> | <punctuation>
+<punctuation>  ::= "?" | "." | "," | ";" | "`" | "!" | "^" | "~"
+<boolean>      ::= "TRUE" | "FALSE"
+<type>         ::= "double" | "int" | "long" | "char" | "signed" | "struct" | "enum" | "union" | "float" | "short" | "unsigned"
+<keyword>      ::= "auto" | "break" | "else" | "switch" | "case" | "register" | "typedef" | "extern" | "return" | "continue" | "for" | "void" | "do" | "if" | "static" | "while" | "default" | "goto" | "sizeof" | "volatile" | "const" | <type>
+<operator>     ::= "+" | "-" | "*" | "/" | "%" | "++" | "--" | "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "==" | ">" | "<" | "!=" | ">=" | "<=" | "&&" | "||" | "!" | "&" | "^" | "~" | "<<" | ">>" | "|" | "?:" | "<<=" | ">>=" | "&=" | "^=" | "|=" | "->"
+<string>       ::= <char> | <char><string> | <symbol> | <symbol><string> | <integer> | <integer><string> | <double> | <double><string> | <espaco-opt> | <espaco-opt><string> | <boolean> | <boolean><string> | <keyword> | <keyword><string> | ""
