@@ -10,12 +10,15 @@ int main()
 	int i, aux, contador;
 	
 	printf("Entre com dez números para preencher o array, e pressione enter após digitar cada um:\n");
+	
 	for (i = 0; i < TAM; i++) {
 		scanf("%d", &numeros[i]);
 	}
+	
 	printf("Ordem atual dos itens no array:\n");
+
 	for (i = 0; i < TAM; i++) {
-	printf("%4d", numeros[i]);
+		printf("%4d", numeros[i]);
 	}
 	
 	for (contador = 1; contador < TAM; contador++) {
