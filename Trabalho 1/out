@@ -1,0 +1,315 @@
+Uma diretiva de inclusão: #include. Encontrado em linha: 0 e coluna: 0
+Uma biblioteca: <stdio.h>. Encontrado em linha: 0 e coluna: 9
+Caracter não reconhecido: . Encontrado em linha: 0 e coluna: 18
+Uma diretiva de inclusão: #include. Encontrado em linha: 1 e coluna: 0
+Uma biblioteca: <stdlib.h>. Encontrado em linha: 1 e coluna: 9
+Caracter não reconhecido: . Encontrado em linha: 1 e coluna: 19
+Uma diretiva de inclusão: #include. Encontrado em linha: 2 e coluna: 0
+Uma biblioteca: <locale.h>. Encontrado em linha: 2 e coluna: 9
+Caracter não reconhecido: . Encontrado em linha: 2 e coluna: 19
+Uma diretiva de definição: #define. Encontrado em linha: 3 e coluna: 0
+Um identificador: TAM. Encontrado em linha: 3 e coluna: 8
+Um valor inteiro: 10. Encontrado em linha: 3 e coluna: 12
+Caracter não reconhecido: . Encontrado em linha: 3 e coluna: 14
+Caracter não reconhecido: . Encontrado em linha: 4 e coluna: 0
+Uma palavra-chave de tipo de dado: int. Encontrado em linha: 5 e coluna: 0
+Um identificador: main. Encontrado em linha: 5 e coluna: 4
+Outro símbolo: (. Encontrado em linha: 5 e coluna: 8
+Outro símbolo: ). Encontrado em linha: 5 e coluna: 9
+Caracter não reconhecido: . Encontrado em linha: 5 e coluna: 10
+Outro símbolo: {. Encontrado em linha: 6 e coluna: 0
+Caracter não reconhecido: . Encontrado em linha: 6 e coluna: 1
+Um identificador: setlocale. Encontrado em linha: 7 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 7 e coluna: 9
+Um identificador: LC. Encontrado em linha: 7 e coluna: 10
+Outro símbolo: _. Encontrado em linha: 7 e coluna: 12
+Um identificador: ALL. Encontrado em linha: 7 e coluna: 13
+Um símbolo de pontuação: ,. Encontrado em linha: 7 e coluna: 16
+Outro símbolo: ". Encontrado em linha: 7 e coluna: 18
+Outro símbolo: ". Encontrado em linha: 7 e coluna: 19
+Outro símbolo: ). Encontrado em linha: 7 e coluna: 20
+Um símbolo de pontuação: ;. Encontrado em linha: 7 e coluna: 21
+Caracter não reconhecido: . Encontrado em linha: 7 e coluna: 22
+Uma palavra-chave de tipo de dado: int. Encontrado em linha: 8 e coluna: 0
+Um identificador: numeros. Encontrado em linha: 8 e coluna: 4
+Outro símbolo: [. Encontrado em linha: 8 e coluna: 11
+Um identificador: TAM. Encontrado em linha: 8 e coluna: 12
+Outro símbolo: ]. Encontrado em linha: 8 e coluna: 15
+Um símbolo de pontuação: ;. Encontrado em linha: 8 e coluna: 16
+Caracter não reconhecido: . Encontrado em linha: 8 e coluna: 17
+Uma palavra-chave de tipo de dado: int. Encontrado em linha: 9 e coluna: 0
+Um identificador: i. Encontrado em linha: 9 e coluna: 4
+Um símbolo de pontuação: ,. Encontrado em linha: 9 e coluna: 5
+Um identificador: aux. Encontrado em linha: 9 e coluna: 7
+Um símbolo de pontuação: ,. Encontrado em linha: 9 e coluna: 10
+Um identificador: contador. Encontrado em linha: 9 e coluna: 12
+Um símbolo de pontuação: ;. Encontrado em linha: 9 e coluna: 20
+Caracter não reconhecido: . Encontrado em linha: 9 e coluna: 21
+Caracter não reconhecido: . Encontrado em linha: 10 e coluna: 0
+Um identificador: printf. Encontrado em linha: 11 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 11 e coluna: 6
+Outro símbolo: ". Encontrado em linha: 11 e coluna: 7
+Um identificador: Entre. Encontrado em linha: 11 e coluna: 8
+Um identificador: com. Encontrado em linha: 11 e coluna: 14
+Um identificador: dez. Encontrado em linha: 11 e coluna: 18
+Um identificador: n. Encontrado em linha: 11 e coluna: 22
+Caracter não reconhecido: �. Encontrado em linha: 11 e coluna: 23
+Caracter não reconhecido: �. Encontrado em linha: 11 e coluna: 23
+Um identificador: meros. Encontrado em linha: 11 e coluna: 23
+Um identificador: para. Encontrado em linha: 11 e coluna: 29
+Um identificador: preencher. Encontrado em linha: 11 e coluna: 34
+Um identificador: o. Encontrado em linha: 11 e coluna: 44
+Um identificador: array. Encontrado em linha: 11 e coluna: 46
+Um símbolo de pontuação: ,. Encontrado em linha: 11 e coluna: 51
+Um identificador: e. Encontrado em linha: 11 e coluna: 53
+Um identificador: pressione. Encontrado em linha: 11 e coluna: 55
+Um identificador: enter. Encontrado em linha: 11 e coluna: 65
+Um identificador: ap. Encontrado em linha: 11 e coluna: 71
+Caracter não reconhecido: �. Encontrado em linha: 11 e coluna: 73
+Caracter não reconhecido: �. Encontrado em linha: 11 e coluna: 73
+Um identificador: s. Encontrado em linha: 11 e coluna: 73
+Um identificador: digitar. Encontrado em linha: 11 e coluna: 75
+Um identificador: cada. Encontrado em linha: 11 e coluna: 83
+Um identificador: um. Encontrado em linha: 11 e coluna: 88
+Outro símbolo: :. Encontrado em linha: 11 e coluna: 90
+Caracter não reconhecido: \. Encontrado em linha: 11 e coluna: 91
+Um identificador: n. Encontrado em linha: 11 e coluna: 91
+Outro símbolo: ". Encontrado em linha: 11 e coluna: 92
+Outro símbolo: ). Encontrado em linha: 11 e coluna: 93
+Um símbolo de pontuação: ;. Encontrado em linha: 11 e coluna: 94
+Caracter não reconhecido: . Encontrado em linha: 11 e coluna: 95
+Caracter não reconhecido: . Encontrado em linha: 12 e coluna: 0
+Uma palavra-chave de fluxo: for. Encontrado em linha: 13 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 13 e coluna: 4
+Um identificador: i. Encontrado em linha: 13 e coluna: 5
+Outro operador: =. Encontrado em linha: 13 e coluna: 7
+Um valor inteiro: 0. Encontrado em linha: 13 e coluna: 9
+Um símbolo de pontuação: ;. Encontrado em linha: 13 e coluna: 10
+Um identificador: i. Encontrado em linha: 13 e coluna: 12
+Outro operador: <. Encontrado em linha: 13 e coluna: 14
+Um identificador: TAM. Encontrado em linha: 13 e coluna: 16
+Um símbolo de pontuação: ;. Encontrado em linha: 13 e coluna: 19
+Um identificador: i. Encontrado em linha: 13 e coluna: 21
+Outro operador: ++. Encontrado em linha: 13 e coluna: 22
+Outro símbolo: ). Encontrado em linha: 13 e coluna: 24
+Outro símbolo: {. Encontrado em linha: 13 e coluna: 26
+Caracter não reconhecido: . Encontrado em linha: 13 e coluna: 27
+Um identificador: scanf. Encontrado em linha: 14 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 14 e coluna: 5
+Outro símbolo: ". Encontrado em linha: 14 e coluna: 6
+Outro operador: %. Encontrado em linha: 14 e coluna: 7
+Um identificador: d. Encontrado em linha: 14 e coluna: 8
+Outro símbolo: ". Encontrado em linha: 14 e coluna: 9
+Um símbolo de pontuação: ,. Encontrado em linha: 14 e coluna: 10
+Outro símbolo: &. Encontrado em linha: 14 e coluna: 12
+Um identificador: numeros. Encontrado em linha: 14 e coluna: 13
+Outro símbolo: [. Encontrado em linha: 14 e coluna: 20
+Um identificador: i. Encontrado em linha: 14 e coluna: 21
+Outro símbolo: ]. Encontrado em linha: 14 e coluna: 22
+Outro símbolo: ). Encontrado em linha: 14 e coluna: 23
+Um símbolo de pontuação: ;. Encontrado em linha: 14 e coluna: 24
+Caracter não reconhecido: . Encontrado em linha: 14 e coluna: 25
+Outro símbolo: }. Encontrado em linha: 15 e coluna: 0
+Caracter não reconhecido: . Encontrado em linha: 15 e coluna: 1
+Caracter não reconhecido: . Encontrado em linha: 16 e coluna: 0
+Um identificador: printf. Encontrado em linha: 17 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 17 e coluna: 6
+Outro símbolo: ". Encontrado em linha: 17 e coluna: 7
+Um identificador: Ordem. Encontrado em linha: 17 e coluna: 8
+Um identificador: atual. Encontrado em linha: 17 e coluna: 14
+Um identificador: dos. Encontrado em linha: 17 e coluna: 20
+Um identificador: itens. Encontrado em linha: 17 e coluna: 24
+Um identificador: no. Encontrado em linha: 17 e coluna: 30
+Um identificador: array. Encontrado em linha: 17 e coluna: 33
+Outro símbolo: :. Encontrado em linha: 17 e coluna: 38
+Caracter não reconhecido: \. Encontrado em linha: 17 e coluna: 39
+Um identificador: n. Encontrado em linha: 17 e coluna: 39
+Outro símbolo: ". Encontrado em linha: 17 e coluna: 40
+Outro símbolo: ). Encontrado em linha: 17 e coluna: 41
+Um símbolo de pontuação: ;. Encontrado em linha: 17 e coluna: 42
+Caracter não reconhecido: . Encontrado em linha: 17 e coluna: 43
+Caracter não reconhecido: . Encontrado em linha: 18 e coluna: 0
+Uma palavra-chave de fluxo: for. Encontrado em linha: 19 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 19 e coluna: 4
+Um identificador: i. Encontrado em linha: 19 e coluna: 5
+Outro operador: =. Encontrado em linha: 19 e coluna: 7
+Um valor inteiro: 0. Encontrado em linha: 19 e coluna: 9
+Um símbolo de pontuação: ;. Encontrado em linha: 19 e coluna: 10
+Um identificador: i. Encontrado em linha: 19 e coluna: 12
+Outro operador: <. Encontrado em linha: 19 e coluna: 14
+Um identificador: TAM. Encontrado em linha: 19 e coluna: 16
+Um símbolo de pontuação: ;. Encontrado em linha: 19 e coluna: 19
+Um identificador: i. Encontrado em linha: 19 e coluna: 21
+Outro operador: ++. Encontrado em linha: 19 e coluna: 22
+Outro símbolo: ). Encontrado em linha: 19 e coluna: 24
+Outro símbolo: {. Encontrado em linha: 19 e coluna: 26
+Caracter não reconhecido: . Encontrado em linha: 19 e coluna: 27
+Um identificador: printf. Encontrado em linha: 20 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 20 e coluna: 6
+Outro símbolo: ". Encontrado em linha: 20 e coluna: 7
+Outro operador: %. Encontrado em linha: 20 e coluna: 8
+Um valor inteiro: 4. Encontrado em linha: 20 e coluna: 9
+Um identificador: d. Encontrado em linha: 20 e coluna: 10
+Outro símbolo: ". Encontrado em linha: 20 e coluna: 11
+Um símbolo de pontuação: ,. Encontrado em linha: 20 e coluna: 12
+Um identificador: numeros. Encontrado em linha: 20 e coluna: 14
+Outro símbolo: [. Encontrado em linha: 20 e coluna: 21
+Um identificador: i. Encontrado em linha: 20 e coluna: 22
+Outro símbolo: ]. Encontrado em linha: 20 e coluna: 23
+Outro símbolo: ). Encontrado em linha: 20 e coluna: 24
+Um símbolo de pontuação: ;. Encontrado em linha: 20 e coluna: 25
+Caracter não reconhecido: . Encontrado em linha: 20 e coluna: 26
+Outro símbolo: }. Encontrado em linha: 21 e coluna: 0
+Caracter não reconhecido: . Encontrado em linha: 21 e coluna: 1
+Caracter não reconhecido: . Encontrado em linha: 22 e coluna: 0
+Uma palavra-chave de fluxo: for. Encontrado em linha: 23 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 23 e coluna: 4
+Um identificador: contador. Encontrado em linha: 23 e coluna: 5
+Outro operador: =. Encontrado em linha: 23 e coluna: 14
+Um valor inteiro: 1. Encontrado em linha: 23 e coluna: 16
+Um símbolo de pontuação: ;. Encontrado em linha: 23 e coluna: 17
+Um identificador: contador. Encontrado em linha: 23 e coluna: 19
+Outro operador: <. Encontrado em linha: 23 e coluna: 28
+Um identificador: TAM. Encontrado em linha: 23 e coluna: 30
+Um símbolo de pontuação: ;. Encontrado em linha: 23 e coluna: 33
+Um identificador: contador. Encontrado em linha: 23 e coluna: 35
+Outro operador: ++. Encontrado em linha: 23 e coluna: 43
+Outro símbolo: ). Encontrado em linha: 23 e coluna: 45
+Outro símbolo: {. Encontrado em linha: 23 e coluna: 47
+Caracter não reconhecido: . Encontrado em linha: 23 e coluna: 48
+Uma palavra-chave de fluxo: for. Encontrado em linha: 24 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 24 e coluna: 4
+Um identificador: i. Encontrado em linha: 24 e coluna: 5
+Outro operador: =. Encontrado em linha: 24 e coluna: 7
+Um valor inteiro: 0. Encontrado em linha: 24 e coluna: 9
+Um símbolo de pontuação: ;. Encontrado em linha: 24 e coluna: 10
+Um identificador: i. Encontrado em linha: 24 e coluna: 12
+Outro operador: <. Encontrado em linha: 24 e coluna: 14
+Um identificador: TAM. Encontrado em linha: 24 e coluna: 16
+Um operador: -. Encontrado em linha: 24 e coluna: 20
+Um valor inteiro: 1. Encontrado em linha: 24 e coluna: 22
+Um símbolo de pontuação: ;. Encontrado em linha: 24 e coluna: 23
+Um identificador: i. Encontrado em linha: 24 e coluna: 25
+Outro operador: ++. Encontrado em linha: 24 e coluna: 26
+Outro símbolo: ). Encontrado em linha: 24 e coluna: 28
+Outro símbolo: {. Encontrado em linha: 24 e coluna: 30
+Caracter não reconhecido: . Encontrado em linha: 24 e coluna: 31
+Uma palavra-chave de fluxo: if. Encontrado em linha: 25 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 25 e coluna: 3
+Um identificador: numeros. Encontrado em linha: 25 e coluna: 4
+Outro símbolo: [. Encontrado em linha: 25 e coluna: 11
+Um identificador: i. Encontrado em linha: 25 e coluna: 12
+Outro símbolo: ]. Encontrado em linha: 25 e coluna: 13
+Outro operador: >. Encontrado em linha: 25 e coluna: 15
+Um identificador: numeros. Encontrado em linha: 25 e coluna: 17
+Outro símbolo: [. Encontrado em linha: 25 e coluna: 24
+Um identificador: i. Encontrado em linha: 25 e coluna: 25
+Um operador: +. Encontrado em linha: 25 e coluna: 27
+Um valor inteiro: 1. Encontrado em linha: 25 e coluna: 29
+Outro símbolo: ]. Encontrado em linha: 25 e coluna: 30
+Outro símbolo: ). Encontrado em linha: 25 e coluna: 31
+Outro símbolo: {. Encontrado em linha: 25 e coluna: 33
+Caracter não reconhecido: . Encontrado em linha: 25 e coluna: 34
+Um identificador: aux. Encontrado em linha: 26 e coluna: 0
+Outro operador: =. Encontrado em linha: 26 e coluna: 4
+Um identificador: numeros. Encontrado em linha: 26 e coluna: 6
+Outro símbolo: [. Encontrado em linha: 26 e coluna: 13
+Um identificador: i. Encontrado em linha: 26 e coluna: 14
+Outro símbolo: ]. Encontrado em linha: 26 e coluna: 15
+Um símbolo de pontuação: ;. Encontrado em linha: 26 e coluna: 16
+Caracter não reconhecido: . Encontrado em linha: 26 e coluna: 17
+Um identificador: numeros. Encontrado em linha: 27 e coluna: 0
+Outro símbolo: [. Encontrado em linha: 27 e coluna: 7
+Um identificador: i. Encontrado em linha: 27 e coluna: 8
+Outro símbolo: ]. Encontrado em linha: 27 e coluna: 9
+Outro operador: =. Encontrado em linha: 27 e coluna: 11
+Um identificador: numeros. Encontrado em linha: 27 e coluna: 13
+Outro símbolo: [. Encontrado em linha: 27 e coluna: 20
+Um identificador: i. Encontrado em linha: 27 e coluna: 21
+Um operador: +. Encontrado em linha: 27 e coluna: 23
+Um valor inteiro: 1. Encontrado em linha: 27 e coluna: 25
+Outro símbolo: ]. Encontrado em linha: 27 e coluna: 26
+Um símbolo de pontuação: ;. Encontrado em linha: 27 e coluna: 27
+Caracter não reconhecido: . Encontrado em linha: 27 e coluna: 28
+Um identificador: numeros. Encontrado em linha: 28 e coluna: 0
+Outro símbolo: [. Encontrado em linha: 28 e coluna: 7
+Um identificador: i. Encontrado em linha: 28 e coluna: 8
+Um operador: +. Encontrado em linha: 28 e coluna: 10
+Um valor inteiro: 1. Encontrado em linha: 28 e coluna: 12
+Outro símbolo: ]. Encontrado em linha: 28 e coluna: 13
+Outro operador: =. Encontrado em linha: 28 e coluna: 15
+Um identificador: aux. Encontrado em linha: 28 e coluna: 17
+Um símbolo de pontuação: ;. Encontrado em linha: 28 e coluna: 20
+Caracter não reconhecido: . Encontrado em linha: 28 e coluna: 21
+Outro símbolo: }. Encontrado em linha: 29 e coluna: 0
+Caracter não reconhecido: . Encontrado em linha: 29 e coluna: 1
+Outro símbolo: }. Encontrado em linha: 30 e coluna: 0
+Caracter não reconhecido: . Encontrado em linha: 30 e coluna: 1
+Outro símbolo: }. Encontrado em linha: 31 e coluna: 0
+Caracter não reconhecido: . Encontrado em linha: 31 e coluna: 1
+Caracter não reconhecido: . Encontrado em linha: 32 e coluna: 0
+Um identificador: printf. Encontrado em linha: 33 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 33 e coluna: 6
+Outro símbolo: ". Encontrado em linha: 33 e coluna: 7
+Caracter não reconhecido: \. Encontrado em linha: 33 e coluna: 8
+Um identificador: nElementos. Encontrado em linha: 33 e coluna: 8
+Uma palavra-chave de fluxo: do. Encontrado em linha: 33 e coluna: 19
+Um identificador: array. Encontrado em linha: 33 e coluna: 22
+Um identificador: em. Encontrado em linha: 33 e coluna: 28
+Um identificador: ordem. Encontrado em linha: 33 e coluna: 31
+Um identificador: crescente. Encontrado em linha: 33 e coluna: 37
+Outro símbolo: :. Encontrado em linha: 33 e coluna: 46
+Caracter não reconhecido: \. Encontrado em linha: 33 e coluna: 47
+Um identificador: n. Encontrado em linha: 33 e coluna: 47
+Outro símbolo: ". Encontrado em linha: 33 e coluna: 48
+Outro símbolo: ). Encontrado em linha: 33 e coluna: 49
+Um símbolo de pontuação: ;. Encontrado em linha: 33 e coluna: 50
+Caracter não reconhecido: . Encontrado em linha: 33 e coluna: 51
+Uma palavra-chave de fluxo: for. Encontrado em linha: 34 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 34 e coluna: 4
+Um identificador: i. Encontrado em linha: 34 e coluna: 5
+Outro operador: =. Encontrado em linha: 34 e coluna: 7
+Um valor inteiro: 0. Encontrado em linha: 34 e coluna: 9
+Um símbolo de pontuação: ;. Encontrado em linha: 34 e coluna: 10
+Um identificador: i. Encontrado em linha: 34 e coluna: 12
+Outro operador: <. Encontrado em linha: 34 e coluna: 14
+Um identificador: TAM. Encontrado em linha: 34 e coluna: 16
+Um símbolo de pontuação: ;. Encontrado em linha: 34 e coluna: 19
+Um identificador: i. Encontrado em linha: 34 e coluna: 21
+Outro operador: ++. Encontrado em linha: 34 e coluna: 22
+Outro símbolo: ). Encontrado em linha: 34 e coluna: 24
+Outro símbolo: {. Encontrado em linha: 34 e coluna: 26
+Caracter não reconhecido: . Encontrado em linha: 34 e coluna: 27
+Um identificador: printf. Encontrado em linha: 35 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 35 e coluna: 6
+Outro símbolo: ". Encontrado em linha: 35 e coluna: 7
+Outro operador: %. Encontrado em linha: 35 e coluna: 8
+Um valor inteiro: 4. Encontrado em linha: 35 e coluna: 9
+Um identificador: d. Encontrado em linha: 35 e coluna: 10
+Outro símbolo: ". Encontrado em linha: 35 e coluna: 11
+Um símbolo de pontuação: ,. Encontrado em linha: 35 e coluna: 12
+Um identificador: numeros. Encontrado em linha: 35 e coluna: 14
+Outro símbolo: [. Encontrado em linha: 35 e coluna: 21
+Um identificador: i. Encontrado em linha: 35 e coluna: 22
+Outro símbolo: ]. Encontrado em linha: 35 e coluna: 23
+Outro símbolo: ). Encontrado em linha: 35 e coluna: 24
+Um símbolo de pontuação: ;. Encontrado em linha: 35 e coluna: 25
+Caracter não reconhecido: . Encontrado em linha: 35 e coluna: 26
+Outro símbolo: }. Encontrado em linha: 36 e coluna: 0
+Caracter não reconhecido: . Encontrado em linha: 36 e coluna: 1
+Um identificador: printf. Encontrado em linha: 37 e coluna: 0
+Outro símbolo: (. Encontrado em linha: 37 e coluna: 6
+Outro símbolo: ". Encontrado em linha: 37 e coluna: 7
+Caracter não reconhecido: \. Encontrado em linha: 37 e coluna: 8
+Um identificador: n. Encontrado em linha: 37 e coluna: 8
+Outro símbolo: ". Encontrado em linha: 37 e coluna: 9
+Outro símbolo: ). Encontrado em linha: 37 e coluna: 10
+Um símbolo de pontuação: ;. Encontrado em linha: 37 e coluna: 11
+Caracter não reconhecido: . Encontrado em linha: 37 e coluna: 12
+Uma palavra-chave de fluxo: return. Encontrado em linha: 38 e coluna: 0
+Um valor inteiro: 0. Encontrado em linha: 38 e coluna: 7
+Um símbolo de pontuação: ;. Encontrado em linha: 38 e coluna: 8
+Caracter não reconhecido: . Encontrado em linha: 38 e coluna: 9
+Outro símbolo: }. Encontrado em linha: 39 e coluna: 0
+# total de linhas = 39
+# total de tokens = 265
