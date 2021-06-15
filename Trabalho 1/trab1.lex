@@ -19,9 +19,6 @@ int tokens = 0;
 
 DIGITO   [0-9]
 ID       [a-zA-Z][a-zA-Z0-9]*
-INCLUSAO  #include
-DEFINICAO   #define
-BIBLIOTECA <[a-z][a-z]*.h>
 
 %%
 
@@ -33,12 +30,6 @@ BIBLIOTECA <[a-z][a-z]*.h>
 
 {DIGITO}+"."{DIGITO}* {
     printf( "Um valor real: %s. Encontrado em linha: %d e coluna: %d\n", yytext, num_lines, num_columns);
-    num_columns += strlen(yytext);
-    tokens++;
-}
-
-{BIBLIOTECA} {
-    printf( "Uma biblioteca: %s. Encontrado em linha: %d e coluna: %d\n", yytext, num_lines, num_columns );
     num_columns += strlen(yytext);
     tokens++;
 }
@@ -73,18 +64,6 @@ TRUE|FALSE {
     tokens++;
 }
 
-{DEFINICAO} {
-    printf( "Uma diretiva de definição: %s. Encontrado em linha: %d e coluna: %d\n", yytext, num_lines, num_columns );
-    num_columns += strlen(yytext);
-    tokens++;
-}
-
-{INCLUSAO} {
-    printf( "Uma diretiva de inclusão: %s. Encontrado em linha: %d e coluna: %d\n", yytext, num_lines, num_columns );
-    num_columns += strlen(yytext);
-    tokens++;
-}
-
 {ID} {
     printf( "Um identificador: %s. Encontrado em linha: %d e coluna: %d\n", yytext, num_lines, num_columns );
     num_columns += strlen(yytext);
@@ -98,7 +77,7 @@ TRUE|FALSE {
     tokens++;
 }
 
-"@"|"#"|"&"|":"|"_"|"("|")"|"["|"]"|"{"|"}"|"'"|\" {
+"@"|"#"|"&"|":"|"_"|"("|")"|"["|"]"|"{"|"}"|"'"|\"|"\\" {
     printf( "Outro símbolo: %s. Encontrado em linha: %d e coluna: %d\n", yytext, num_lines, num_columns );
     num_columns += strlen(yytext);
     tokens++;
@@ -125,7 +104,6 @@ TRUE|FALSE {
 \n {
     ++num_lines; /* Gera um warning pois não retorna nada */
     num_columns = 0;
-
 }
 
 .           printf( "Caracter não reconhecido: %s. Encontrado em linha: %d e coluna: %d\n", yytext, num_lines, num_columns );
