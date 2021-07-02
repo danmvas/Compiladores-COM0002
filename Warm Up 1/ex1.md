@@ -10,7 +10,7 @@ C -> A B => SEGUINTES (A, B) = {a, b}
 D -> d => PRIMEIROS (d) = {d}
 
 Construa a tabela LL(1) para a gramática acima, considerando eventuais possibilidades/necessidades de adequação.
-
+ 
 <hr>
 
 ## Método top-down; Analisador Sintático
