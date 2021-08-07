@@ -22,9 +22,18 @@ ID          [a-zA-Z][a-zA-Z0-9]*
 "++"|"--"                   {return T_COMPLEXOPERATOR;}
 "=="                        {return T_EQUAL;}
 "="                         {return T_ASSING;}
+":"                         {return T_TWODOTS;}
 "+"|"-"|"*"|"/"             {return T_BASICOPERATOR;}
-else|switch|case|if|default {return T_CONDITIONAL;}
-break|continue|for|do|while {return T_LOOP;}        // Coloco break aonde?
+if                          {return T_CONDITIONALIF;}
+else                        {return T_CONDITIONALELSE;}
+switch                      {return T_CONDITIONALSWITCH;}
+case                        {return T_CONDITIONALCASE;}
+default                     {return T_CONDITIONALDEFAULT;}
+for                         {return T_LOOPFOR;}    
+continue                    {return T_LOOPCONTINUE;}
+do                          {return T_LOOPDO;}
+while                       {return T_LOOPWHILE;}
+break                       {return T_BREAK;}  
 double|int                  {return T_TYPE;}
 return                      {return T_RETURN;}
 {ID}                        {return T_ID;}
