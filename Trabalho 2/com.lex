@@ -2,10 +2,11 @@
 
 %{
 #include <stdio.h>
+#include <stdbool.h>
 
 #define YY_DECL int yylex()
 
-#include "calc.tab.h"
+#include "com.tab.h"
 
 %}
 
@@ -19,11 +20,15 @@ ID          [a-zA-Z][a-zA-Z0-9]*
 {DIGITO}+\.{DIGITO}+ 		{yylval.fval = atof(yytext); return T_REAL;}
 {DIGITO}+					{yylval.ival = atoi(yytext); return T_INT;}
 \n							{return T_NEWLINE;}
-"++"|"--"                   {return T_COMPLEXOPERATOR;}
+"++"                        {return T_COMPLEXOPERATORPLUS;}
+"--"                        {return T_COMPLEXOPERATORMINUS;}
 "=="                        {return T_EQUAL;}
 "="                         {return T_ASSING;}
 ":"                         {return T_TWODOTS;}
-"+"|"-"|"*"|"/"             {return T_BASICOPERATOR;}
+"+"                         {return T_PLUS;}
+"-"                         {return T_MINUS;}
+"*"                         {return T_MULTIPLY;}
+"/"                         {return T_DIVIDE;}
 if                          {return T_CONDITIONALIF;}
 else                        {return T_CONDITIONALELSE;}
 switch                      {return T_CONDITIONALSWITCH;}
@@ -34,7 +39,8 @@ continue                    {return T_LOOPCONTINUE;}
 do                          {return T_LOOPDO;}
 while                       {return T_LOOPWHILE;}
 break                       {return T_BREAK;}  
-double|int                  {return T_TYPE;}
+double                      {return T_TYPEDOUBLE;}
+int                         {return T_TYPEINT;}
 return                      {return T_RETURN;}
 {ID}                        {return T_ID;}
 "("							{return T_LEFT;}
