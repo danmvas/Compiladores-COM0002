@@ -31,6 +31,7 @@ void yyerror(const char* s);
 %left T_PLUS T_MINUS
 %left T_MULTIPLY T_DIVIDE
 
+// o que tem que ser retornado?
 %type<ival> expr
 %type<fval> mixed_expr
 %type<bval> bool_expr
@@ -58,87 +59,89 @@ line: T_NEWLINE
 	| loop T_NEWLINE						{ printf("\tResultado: %i\n", $1); } 
 	;
 
-mixed_expr: T_REAL							{ $$ = $1; }
-	| mixed_expr T_PLUS mixed_expr			{ $$ = $1 + $3; }
-	| mixed_expr T_MINUS mixed_expr			{ $$ = $1 - $3; }
-	| mixed_expr T_MULTIPLY mixed_expr		{ $$ = $1 * $3; }
-	| mixed_expr T_DIVIDE mixed_expr		{ $$ = $1 / $3; }
-	| T_LEFT mixed_expr T_RIGHT				{ $$ = $2; }
-	| expr T_PLUS mixed_expr				{ $$ = $1 + $3; }
-	| expr T_MINUS mixed_expr				{ $$ = $1 - $3; }
-	| expr T_MULTIPLY mixed_expr			{ $$ = $1 * $3; }
-	| expr T_DIVIDE mixed_expr				{ $$ = $1 / $3; }
-	| mixed_expr T_PLUS expr				{ $$ = $1 + $3; }
-	| mixed_expr T_MINUS expr				{ $$ = $1 - $3; }
-	| mixed_expr T_MULTIPLY expr			{ $$ = $1 * $3; }
-	| mixed_expr T_DIVIDE expr				{ $$ = $1 / $3; }
-	| expr T_DIVIDE expr					{ $$ = $1 / (float)$3; }
+mixed_expr: T_REAL							{ }
+	| mixed_expr T_PLUS mixed_expr			{ }
+	| mixed_expr T_MINUS mixed_expr			{ }
+	| mixed_expr T_MULTIPLY mixed_expr		{ }
+	| mixed_expr T_DIVIDE mixed_expr		{ }
+	| T_LEFT mixed_expr T_RIGHT				{ }
+	| expr T_PLUS mixed_expr				{ }
+	| expr T_MINUS mixed_expr				{ }
+	| expr T_MULTIPLY mixed_expr			{ }
+	| expr T_DIVIDE mixed_expr				{ }
+	| mixed_expr T_PLUS expr				{ }
+	| mixed_expr T_MINUS expr				{ }
+	| mixed_expr T_MULTIPLY expr			{ }
+	| mixed_expr T_DIVIDE expr				{ }
+	| expr T_DIVIDE expr					{ }
 	;
 
-expr: T_INT									{ $$ = $1; }
-	| expr T_PLUS expr						{ $$ = $1 + $3; }
-	| expr T_MINUS expr						{ $$ = $1 - $3; }
-	| expr T_MULTIPLY expr					{ $$ = $1 * $3; }
-	| T_LEFT expr T_RIGHT					{ $$ = $2; }
+expr: T_INT									{ }
+	| expr T_PLUS expr						{ }
+	| expr T_MINUS expr						{ }
+	| expr T_MULTIPLY expr					{ }
+	| T_LEFT expr T_RIGHT					{ }
 	; 
 
-bool_expr: T_ID T_EQUAL T_ID				{ $$ = $1 == $3; }
-	| T_ID T_EQUAL expr						{ $$ = $1 == $3; }
-	| T_ID T_EQUAL mixed_expr				{ $$ = $1 == $3; }
-	| T_ID									{ $$ = $1; }
+bool_expr: T_ID bool_expr_linha				{ }
 	;
 
-assing_expr: T_ID T_ASSING expr				{ $1 = $3; }
-	| T_ID T_ASSING mixed_expr				{ $1 = $3; }
-	| T_ID T_COMPLEXOPERATORPLUS			{ $1 = $1 + 1; }
-	| T_ID T_COMPLEXOPERATORMINUS			{ $1 = $1 - 1; }
-	| T_ID T_COMPLEXOPERATORMINUS			{ $1 = $1 - 1; }
-	| T_TYPEINT T_ID T_ASSING expr			{ $1 = $3; }
-	| T_TYPEINT T_ID T_ASSING mixed_expr	{ $1 = $3; }
-	| T_TYPEINT T_ID T_COMPLEXOPERATORPLUS	{ $1 = $1 + 1; }
-	| T_TYPEINT T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
-	| T_TYPEINT T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
-	| T_TYPEDOUBLE T_ID T_ASSING expr			{ $1 = $3; }
-	| T_TYPEDOUBLE T_ID T_ASSING mixed_expr		{ $1 = $3; }
-	| T_TYPEDOUBLE T_ID T_COMPLEXOPERATORPLUS	{ $1 = $1 + 1; }
-	| T_TYPEDOUBLE T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
-	| T_TYPEDOUBLE T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
+bool_expr_linha: 							{ } // vazio
+	| T_EQUAL bool_expr_2linha				{ }
 	;
 
-cond: // Arrumar a parte de fatoração a esquerda pois não tem apenas 1 lookahead
-	  T_CONDITIONALIF T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY		{ 
-		  if ($3) {
-			  $$ = $6;
-		  } else {
-			  $$ = $10;
-		  }
-	  }
-	| T_CONDITIONALIF T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY		{
-		if ($3) {
-			$$ = $6;
-		}
-	}
-	| T_CONDITIONALIF T_LEFT bool_expr T_RIGHT expr								{ if ($3) $5; }
+bool_expr_2linha: T_ID						{ }
+	| expr						    		{ }
+	| mixed_expr				    		{ }
+	;
+
+assing_expr: T_ID assing_expr_linha			{ }
+	| T_TYPEINT T_ID assing_expr_linha		{ }
+	| T_TYPEDOUBLE T_ID assing_expr_linha	{ }
+	;
+
+assing_expr_linha: T_ASSING assing_expr_2linha	{ }
+	| T_COMPLEXOPERATORPLUS								{ }
+	| T_COMPLEXOPERATORMINUS							{ }
+	| T_COMPLEXOPERATORMINUS							{ }
+	;
+
+assing_expr_2linha: expr	{ }
+	| mixed_expr			{ }
+	;
+
+cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha				    {}
 	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case T_RIGHTCURLY	{}
 	;
 
-case: // Arrumar a parte de fatoração a esquerda pois não tem apenas 1 lookahead
-	  T_CONDITIONALCASE expr T_TWODOTS expr									{}
-	| T_CONDITIONALCASE expr T_TWODOTS expr case							{}
-	| T_CONDITIONALCASE expr T_TWODOTS expr	T_BREAK							{}
-	| T_CONDITIONALCASE expr T_TWODOTS expr case T_BREAK					{}
+cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha		{}
+	| expr													{}
+	;
+
+cond_2linha: 											{} // vazio
+	| T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY	{}
+	;
+
+case: T_CONDITIONALCASE expr T_TWODOTS expr	case_linha						{}
 	| T_CONDITIONALDEFAULT expr T_TWODOTS expr								{}
 	;
 
-loop: // Arrumar a parte de fatoração a esquerda pois não tem apenas 1 lookahead
-	  T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY			{}
-	| T_LOOPWHILE T_LEFT expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY				{}
-	| T_LOOPWHILE T_LEFT expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY				{}
-	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT expr T_RIGHT 	{}
+case_linha:							{} // vazio
+	| case							{}
+	| T_BREAK						{}
+	| case T_BREAK					{}
 	;
 
-loopcond:
-	assing_expr ';' {}
+loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY				{}
+	| T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY			{}
+	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT 	{}
+	;
+
+loopcond: assing_expr ';' cond ';' loopcond_linha {}
+	;
+
+loopcond_linha: expr    {}
+	| mixed_expr 		{}
 	;
 
 %%
