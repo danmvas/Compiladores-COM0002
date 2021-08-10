@@ -18,7 +18,6 @@ void yyerror(const char* s);
 }
 
 /* Declaração dos tokens... */
-// Arrumar os tokens
 
 %token<ival> T_INT
 %token<fval> T_REAL
@@ -35,7 +34,7 @@ void yyerror(const char* s);
 %type<ival> expr
 %type<fval> mixed_expr
 %type<bval> bool_expr
-%type<ival> assing_expr
+%type<bval> assing_expr
 %type<bval> cond
 %type<bval> case
 %type<bval> loop
@@ -83,23 +82,44 @@ expr: T_INT									{ $$ = $1; }
 	| T_LEFT expr T_RIGHT					{ $$ = $2; }
 	; 
 
-bool_expr: T_ID T_EQUAL T_ID				{}
-	| T_ID T_EQUAL expr						{}
-	| T_ID T_EQUAL mixed_expr				{}
-	| T_ID									{}
+bool_expr: T_ID T_EQUAL T_ID				{ $$ = $1 == $3; }
+	| T_ID T_EQUAL expr						{ $$ = $1 == $3; }
+	| T_ID T_EQUAL mixed_expr				{ $$ = $1 == $3; }
+	| T_ID									{ $$ = $1; }
 	;
 
-assing_expr: T_ID T_ASSING expr				{ $$ = $3; } // só para testar
-	| T_ID T_ASSING mixed_expr				{}
-	| T_ID T_COMPLEXOPERATORPLUS			{}
-	| T_ID T_COMPLEXOPERATORMINUS			{}
+assing_expr: T_ID T_ASSING expr				{ $1 = $3; }
+	| T_ID T_ASSING mixed_expr				{ $1 = $3; }
+	| T_ID T_COMPLEXOPERATORPLUS			{ $1 = $1 + 1; }
+	| T_ID T_COMPLEXOPERATORMINUS			{ $1 = $1 - 1; }
+	| T_ID T_COMPLEXOPERATORMINUS			{ $1 = $1 - 1; }
+	| T_TYPEINT T_ID T_ASSING expr			{ $1 = $3; }
+	| T_TYPEINT T_ID T_ASSING mixed_expr	{ $1 = $3; }
+	| T_TYPEINT T_ID T_COMPLEXOPERATORPLUS	{ $1 = $1 + 1; }
+	| T_TYPEINT T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
+	| T_TYPEINT T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
+	| T_TYPEDOUBLE T_ID T_ASSING expr			{ $1 = $3; }
+	| T_TYPEDOUBLE T_ID T_ASSING mixed_expr		{ $1 = $3; }
+	| T_TYPEDOUBLE T_ID T_COMPLEXOPERATORPLUS	{ $1 = $1 + 1; }
+	| T_TYPEDOUBLE T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
+	| T_TYPEDOUBLE T_ID T_COMPLEXOPERATORMINUS	{ $1 = $1 - 1; }
 	;
 
 cond: // Arrumar a parte de fatoração a esquerda pois não tem apenas 1 lookahead
-	  T_CONDITIONALIF T_LEFT expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY		{}
-	| T_CONDITIONALIF T_LEFT expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY		{}
-	| T_CONDITIONALIF T_LEFT expr T_RIGHT expr								{}
-	| T_CONDITIONALSWITCH T_LEFT expr T_RIGHT T_LEFTCURLY case T_RIGHTCURLY	{}
+	  T_CONDITIONALIF T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY		{ 
+		  if ($3) {
+			  $$ = $6;
+		  } else {
+			  $$ = $10;
+		  }
+	  }
+	| T_CONDITIONALIF T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY		{
+		if ($3) {
+			$$ = $6;
+		}
+	}
+	| T_CONDITIONALIF T_LEFT bool_expr T_RIGHT expr								{ if ($3) $5; }
+	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case T_RIGHTCURLY	{}
 	;
 
 case: // Arrumar a parte de fatoração a esquerda pois não tem apenas 1 lookahead
@@ -118,7 +138,7 @@ loop: // Arrumar a parte de fatoração a esquerda pois não tem apenas 1 lookah
 	;
 
 loopcond:
-	// Esse ainda não sei
+	assing_expr ';' {}
 	;
 
 %%
