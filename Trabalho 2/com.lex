@@ -3,10 +3,23 @@
 %{
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 
 #define YY_DECL int yylex()
 
 #include "com.tab.h"
+
+    typedef struct token
+        {
+
+        int id;
+        int linha;
+        int coluna;
+        char *tipo;
+        char descricao[40];
+
+        } token;
+    token **tabelaDeSimbolos; 
 
 %}
 

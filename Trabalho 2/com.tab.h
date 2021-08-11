@@ -73,16 +73,14 @@ extern int yydebug;
     T_BREAK = 279,
     T_EQUAL = 280,
     T_SEMMICOLON = 281,
-    T_LOOPCONTINUE = 282,
-    T_TYPEDOUBLE = 283,
-    T_TYPEINT = 284,
-    T_RETURN = 285,
-    T_CONST = 286,
-    T_GREATER = 287,
-    T_GREATEREQUAL = 288,
-    T_MINOREQUAL = 289,
-    T_MINOR = 290,
-    T_NOTEQUAL = 291
+    T_TYPEDOUBLE = 282,
+    T_TYPEINT = 283,
+    T_CONST = 284,
+    T_GREATER = 285,
+    T_GREATEREQUAL = 286,
+    T_MINOREQUAL = 287,
+    T_MINOR = 288,
+    T_NOTEQUAL = 289
   };
 #endif
 
@@ -96,7 +94,7 @@ union YYSTYPE
 	float fval;
 	bool bval;
 
-#line 100 "com.tab.h"
+#line 98 "com.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

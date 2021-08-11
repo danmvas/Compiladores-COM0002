@@ -1,9 +1,3 @@
-Terminals unused in grammar
-
-    T_LOOPCONTINUE
-    T_RETURN
-
-
 Grammar
 
     0 $accept: calculation $end
@@ -104,77 +98,75 @@ Terminals, with rules where they appear
     T_BREAK (279) 44
     T_EQUAL (280) 15
     T_SEMMICOLON (281) 4 23 24 25 26 44 47 48
-    T_LOOPCONTINUE (282)
-    T_TYPEDOUBLE (283) 25 32
-    T_TYPEINT (284) 24 31
-    T_RETURN (285)
-    T_CONST (286) 26
-    T_GREATER (287) 16
-    T_GREATEREQUAL (288) 17
-    T_MINOREQUAL (289) 18
-    T_MINOR (290) 19
-    T_NOTEQUAL (291) 20
+    T_TYPEDOUBLE (282) 25 32
+    T_TYPEINT (283) 24 31
+    T_CONST (284) 26
+    T_GREATER (285) 16
+    T_GREATEREQUAL (286) 17
+    T_MINOREQUAL (287) 18
+    T_MINOR (288) 19
+    T_NOTEQUAL (289) 20
 
 
 Nonterminals, with rules where they appear
 
-    $accept (37)
+    $accept (35)
         on left: 0
-    calculation (38)
+    calculation (36)
         on left: 1 2
         on right: 0 2
-    line (39)
+    line (37)
         on left: 3 4 5 6 7
         on right: 2 35 39 40 41 45 46 47
-    number (40)
+    number (38)
         on left: 8 9
         on right: 10 11 12
-    math_expr (41)
+    math_expr (39)
         on left: 10 11 12
         on right: 4 22 30 36 40
-    bool_expr (42)
+    bool_expr (40)
         on left: 13
         on right: 33 46 47 48
-    bool_expr_linha (43)
+    bool_expr_linha (41)
         on left: 14 15 16 17 18 19 20
         on right: 13
-    bool_expr_2linha (44)
+    bool_expr_2linha (42)
         on left: 21 22
         on right: 15 16 17 18 19 20
-    assing_expr (45)
+    assing_expr (43)
         on left: 23 24 25 26
         on right: 5 37 48
-    assing_expr_linha (46)
+    assing_expr_linha (44)
         on left: 27 28 29
         on right: 23 48
-    assing_expr_2linha (47)
+    assing_expr_2linha (45)
         on left: 30
         on right: 24 25 27 31 32
-    assing_expr_3linha (48)
+    assing_expr_3linha (46)
         on left: 31 32
         on right: 26
-    cond (49)
+    cond (47)
         on left: 33 34
         on right: 6
-    cond_linha (50)
+    cond_linha (48)
         on left: 35 36 37
         on right: 33
-    cond_2linha (51)
+    cond_2linha (49)
         on left: 38 39
         on right: 35
-    case (52)
+    case (50)
         on left: 40
         on right: 34 43
-    case_default (53)
+    case_default (51)
         on left: 41
         on right: 34
-    case_linha (54)
+    case_linha (52)
         on left: 42 43 44
         on right: 40
-    loop (55)
+    loop (53)
         on left: 45 46 47
         on right: 7
-    loopcond (56)
+    loopcond (54)
         on left: 48
         on right: 45
 

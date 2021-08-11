@@ -48,7 +48,7 @@ line: T_QUIT 						{ printf("Até mais...\n"); exit(0); }
 	| loop 						 
 	;
 
-number: T_INT							{ printf("Inteiro: \n"); } // printar a árvore
+number: T_INT								{ printf("Inteiro: \n"); } // printar a árvore
 	| T_REAL								{ printf("Real: \n"); } // printar a árvore
 	;
 
