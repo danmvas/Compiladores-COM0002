@@ -17,7 +17,7 @@ ID          [a-zA-Z][a-zA-Z0-9]*
 
 "sair"						{return T_QUIT;}
 [ \t]	                    ; // ignore todos os espaços em branco
-
+\/\/[^\n\r]+?([\n\r])       ; // ignore o comentário de uma linha
 {DIGITO}+\.{DIGITO}+ 		{yylval.fval = atof(yytext); return T_REAL;}
 {DIGITO}+					{yylval.ival = atoi(yytext); return T_INT;}
 \n							; //{return T_NEWLINE;}
