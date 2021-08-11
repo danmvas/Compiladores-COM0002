@@ -21,24 +21,15 @@ void yyerror(const char* s);
 
 %token<ival> T_INT
 %token<fval> T_REAL
+%token T_NEWLINE T_QUIT
 %token T_PLUS T_MINUS T_MULTIPLY T_DIVIDE T_LEFT T_RIGHT
 %token T_ID T_ASSING T_COMPLEXOPERATORPLUS T_COMPLEXOPERATORMINUS
-%token T_CONDITIONALIF T_LEFTCURLY T_RIGHTCURLY T_CONDITIONALELSE
+%token T_CONDITIONALIF T_RIGHTCURLY T_LEFTCURLY T_CONDITIONALELSE
 %token T_CONDITIONALSWITCH T_CONDITIONALCASE T_TWODOTS T_CONDITIONALDEFAULT
-%token T_LOOPFOR T_LOOPWHILE T_LOOPDO T_BREAK T_EQUAL
+%token T_LOOPFOR T_LOOPWHILE T_LOOPDO T_BREAK T_EQUAL T_SEMMICOLON
 %token T_LOOPCONTINUE T_TYPEDOUBLE T_TYPEINT T_RETURN T_SPACE
-%token T_NEWLINE T_QUIT
 %left T_PLUS T_MINUS
 %left T_MULTIPLY T_DIVIDE
-
-// o que tem que ser retornado?
-%type<ival> expr
-%type<fval> mixed_expr
-%type<bval> bool_expr
-%type<bval> assing_expr
-%type<bval> cond
-%type<bval> case
-%type<bval> loop
 
 %start calculation
 
@@ -50,13 +41,13 @@ calculation:	/* Aqui temos a representação do epsilon na gramática... */
 
 line: T_NEWLINE
 	| T_QUIT T_NEWLINE						{ printf("Até mais...\n"); exit(0); }
-	| mixed_expr T_NEWLINE					{ printf("\tResultado: %f\n", $1);}
-	| expr T_NEWLINE						{ printf("\tResultado: %i\n", $1); }
-	| bool_expr T_NEWLINE					{ printf("\tResultado: %i\n", $1); }
-	| assing_expr T_NEWLINE					{ printf("\tResultado: %i\n", $1); }
-	| cond T_NEWLINE						{ printf("\tResultado: %i\n", $1); }
-	| case T_NEWLINE						{ printf("\tResultado: %i\n", $1); }
-	| loop T_NEWLINE						{ printf("\tResultado: %i\n", $1); } 
+	| mixed_expr T_NEWLINE					
+	| expr T_NEWLINE						
+	| bool_expr T_NEWLINE					
+	| assing_expr T_NEWLINE					
+	| cond T_NEWLINE						
+	| case T_NEWLINE						
+	| loop T_NEWLINE						 
 	;
 
 mixed_expr: T_REAL							{ }
@@ -96,13 +87,12 @@ bool_expr_2linha: T_ID						{ }
 	;
 
 assing_expr: T_ID assing_expr_linha			{ }
-	| T_TYPEINT T_ID assing_expr_linha		{ }
-	| T_TYPEDOUBLE T_ID assing_expr_linha	{ }
+	| T_TYPEINT T_ID assing_expr_3linha		{ }
+	| T_TYPEDOUBLE T_ID assing_expr_3linha	{ }
 	;
 
-assing_expr_linha: T_ASSING assing_expr_2linha	{ }
+assing_expr_linha: assing_expr_3linha					{ }
 	| T_COMPLEXOPERATORPLUS								{ }
-	| T_COMPLEXOPERATORMINUS							{ }
 	| T_COMPLEXOPERATORMINUS							{ }
 	;
 
@@ -110,38 +100,43 @@ assing_expr_2linha: expr	{ }
 	| mixed_expr			{ }
 	;
 
-cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha				    {}
-	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case T_RIGHTCURLY	{}
+assing_expr_3linha: T_ASSING assing_expr_2linha			{ }
 	;
 
-cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha		{}
-	| expr													{}
+cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha				    { }
+	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case T_RIGHTCURLY { }
 	;
 
-cond_2linha: 											{} // vazio
-	| T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY	{}
+cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha		{ }
+	| expr													{ }
+	| mixed_expr											{ }
+	| assing_expr											{ }
 	;
 
-case: T_CONDITIONALCASE expr T_TWODOTS expr	case_linha						{}
-	| T_CONDITIONALDEFAULT expr T_TWODOTS expr								{}
+cond_2linha: 											{ } // vazio
+	| T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY	{ }
 	;
 
-case_linha:							{} // vazio
-	| case							{}
-	| T_BREAK						{}
-	| case T_BREAK					{}
+case: T_CONDITIONALCASE expr T_TWODOTS expr	case_linha						{ }
+	| T_CONDITIONALDEFAULT T_TWODOTS expr									{ }
 	;
 
-loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY				{}
-	| T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY			{}
-	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT 	{}
+case_linha:							{ } // vazio
+	| case							{ }
+	| T_BREAK						{ }
+	| case T_BREAK					{ }
 	;
 
-loopcond: assing_expr ';' cond ';' loopcond_linha {}
+loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY				{ }
+	| T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY			{ }
+	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT 	{ }
 	;
 
-loopcond_linha: expr    {}
-	| mixed_expr 		{}
+loopcond: assing_expr T_SEMMICOLON cond T_SEMMICOLON loopcond_linha { }
+	;
+
+loopcond_linha: expr    { }
+	| mixed_expr 		{ }
 	;
 
 %%

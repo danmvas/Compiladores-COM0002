@@ -15,8 +15,8 @@ ID          [a-zA-Z][a-zA-Z0-9]*
 
 %%
 
+"sair"						{return T_QUIT;}
 [ \t]	                    ; // ignore todos os espaços em branco
-"{"[^}\n]*"}"               ; /* Lembre-se... comentários não tem utilidade! */
 {DIGITO}+\.{DIGITO}+ 		{yylval.fval = atof(yytext); return T_REAL;}
 {DIGITO}+					{yylval.ival = atoi(yytext); return T_INT;}
 \n							{return T_NEWLINE;}
@@ -47,8 +47,8 @@ return                      {return T_RETURN;}
 ")"							{return T_RIGHT;}
 "{"                         {return T_LEFTCURLY;}
 "}"                         {return T_RIGHTCURLY;}
+";"                         {return T_SEMMICOLON;}
 [ ]                         {return T_SPACE;}
-"sair"						{return T_QUIT;}
 .							{printf("Caracter misterioso... %s\n", yytext);}
 
 %%
