@@ -72,7 +72,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <graphviz>
 
 extern int yylex();
 extern int yyparse();
@@ -80,7 +79,7 @@ extern FILE* yyin;
 
 void yyerror(const char* s);
 
-#line 84 "com.tab.c"
+#line 83 "com.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -169,13 +168,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 18 "com.y"
+#line 17 "com.y"
 
 	int ival;
 	float fval;
 	bool bval;
 
-#line 179 "com.tab.c"
+#line 178 "com.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -531,11 +530,11 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    41,    41,    42,    45,    46,    47,    48,    49,    52,
-      53,    56,    57,    58,    61,    64,    65,    66,    67,    68,
-      69,    70,    73,    74,    77,    78,    79,    80,    83,    84,
-      85,    88,    91,    92,    95,    96,    99,   100,   101,   104,
-     105,   108,   111,   114,   115,   116,   119,   120,   121,   124
+       0,    40,    40,    41,    44,    45,    46,    47,    48,    51,
+      52,    55,    56,    57,    60,    63,    64,    65,    66,    67,
+      68,    69,    72,    73,    76,    77,    78,    79,    82,    83,
+      84,    87,    90,    91,    94,    95,    98,    99,   100,   103,
+     104,   107,   110,   113,   114,   115,   118,   119,   120,   123
 };
 #endif
 
@@ -606,18 +605,18 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,    11,     1,     9,    10,     4,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     3,     0,     0,     6,
-       7,     8,     0,    11,    29,    30,     0,    28,     0,     0,
-       0,     0,    11,     0,     0,     0,     0,     0,     0,     5,
+       2,     0,     1,     9,    10,     4,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     3,    11,     0,     6,
+       7,     8,     0,     0,    29,    30,     0,    28,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     5,
       13,    31,    24,    15,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    27,    12,    11,    11,    11,    11,
-      11,    11,    14,    11,     0,     0,     0,     0,     0,    26,
+       0,     0,     0,     0,    27,    12,     0,     0,     0,     0,
+       0,     0,    14,     0,     0,     0,     0,     0,     0,    26,
       25,    33,    32,    22,    23,    16,    17,    18,    19,    20,
-      21,    11,    37,    38,    34,     0,     0,    11,    11,     0,
-       0,    11,     0,     0,     0,     0,     0,    39,     0,     0,
-       0,    49,    46,    47,     0,     0,    36,    11,    11,    35,
-       0,    11,    43,    42,    48,     0,     0,    44,    41,    40,
+      21,     0,    37,    38,    34,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    39,     0,     0,
+       0,    49,    46,    47,     0,     0,    36,     0,     0,    35,
+       0,     0,    43,    42,    48,     0,     0,    44,    41,    40,
       45
 };
 
@@ -709,7 +708,7 @@ static const yytype_int8 yyr1[] =
 static const yytype_int8 yyr2[] =
 {
        0,     2,     0,     2,     1,     2,     1,     1,     1,     1,
-       1,     0,     3,     3,     2,     0,     2,     2,     2,     2,
+       1,     1,     3,     3,     2,     0,     2,     2,     2,     2,
        2,     2,     1,     1,     3,     4,     4,     3,     1,     1,
        1,     2,     3,     3,     5,     8,     4,     1,     1,     0,
        4,     5,     3,     0,     1,     2,     7,     7,     9,     5
@@ -1668,91 +1667,97 @@ yyreduce:
     switch (yyn)
       {
   case 4:
-#line 45 "com.y"
+#line 44 "com.y"
                                                         { printf("Até mais...\n"); exit(0); }
-#line 1674 "com.tab.c"
+#line 1673 "com.tab.c"
     break;
 
   case 9:
-#line 52 "com.y"
+#line 51 "com.y"
                                                                 { printf("Inteiro: \n"); }
-#line 1680 "com.tab.c"
+#line 1679 "com.tab.c"
     break;
 
   case 10:
-#line 53 "com.y"
+#line 52 "com.y"
                                                                                 { printf("Real: \n"); }
-#line 1686 "com.tab.c"
+#line 1685 "com.tab.c"
+    break;
+
+  case 11:
+#line 55 "com.y"
+                                                                { printf("Numero: \n"); }
+#line 1691 "com.tab.c"
     break;
 
   case 12:
-#line 57 "com.y"
-                                                { printf("Operação básica: \n"); }
-#line 1692 "com.tab.c"
+#line 56 "com.y"
+                                                        { printf("Operação básica: \n"); }
+#line 1697 "com.tab.c"
     break;
 
   case 13:
-#line 58 "com.y"
+#line 57 "com.y"
                                                         { printf("Parenteses: \n"); }
-#line 1698 "com.tab.c"
+#line 1703 "com.tab.c"
     break;
 
   case 24:
-#line 77 "com.y"
+#line 76 "com.y"
                                                                 { printf("Atribuição de valor: \n"); }
-#line 1704 "com.tab.c"
+#line 1709 "com.tab.c"
     break;
 
   case 25:
-#line 78 "com.y"
+#line 77 "com.y"
                                                                 { printf("Declaração de variável int: \n"); }
-#line 1710 "com.tab.c"
+#line 1715 "com.tab.c"
     break;
 
   case 26:
-#line 79 "com.y"
+#line 78 "com.y"
                                                                 { printf("Declaração de variável double: \n"); }
-#line 1716 "com.tab.c"
+#line 1721 "com.tab.c"
     break;
 
   case 27:
-#line 80 "com.y"
+#line 79 "com.y"
                                                                         { printf("Declaração de constante: \n"); }
-#line 1722 "com.tab.c"
+#line 1727 "com.tab.c"
     break;
 
   case 34:
-#line 95 "com.y"
+#line 94 "com.y"
                                                                                                                  { printf("If: \n"); }
-#line 1728 "com.tab.c"
+#line 1733 "com.tab.c"
     break;
 
   case 35:
-#line 96 "com.y"
+#line 95 "com.y"
                                                                                              { printf("Switch: \n"); }
-#line 1734 "com.tab.c"
+#line 1739 "com.tab.c"
     break;
 
   case 46:
-#line 119 "com.y"
+#line 118 "com.y"
                                                                                                                         { printf("Loop for: \n"); }
-#line 1740 "com.tab.c"
+#line 1745 "com.tab.c"
     break;
 
   case 47:
-#line 120 "com.y"
+#line 119 "com.y"
                                                                                                                         { printf("Loop while: \n"); }
-#line 1746 "com.tab.c"
+#line 1751 "com.tab.c"
     break;
 
   case 48:
-#line 121 "com.y"
+#line 120 "com.y"
                                                                                                         { printf("Loop do while: \n"); }
-#line 1752 "com.tab.c"
+#line 1757 "com.tab.c"
     break;
 
 
-#line 1756 "com.tab.c"
+#line 1761 "com.tab.c"
 
         default: break;
       }
@@ -1996,7 +2001,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 127 "com.y"
+#line 126 "com.y"
 
 
 int main( argc, argv )

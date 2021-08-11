@@ -4,9 +4,6 @@ Terminals unused in grammar
     T_RETURN
 
 
-State 63 conflicts: 7 shift/reduce
-
-
 Grammar
 
     0 $accept: calculation $end
@@ -23,7 +20,7 @@ Grammar
     8 number: T_INT
     9       | T_REAL
 
-   10 math_expr: %empty
+   10 math_expr: number
    11          | number T_OPERATOR number
    12          | T_LEFT number T_RIGHT
 
@@ -131,7 +128,7 @@ Nonterminals, with rules where they appear
         on right: 2 35 39 40 41 45 46 47
     number (40)
         on left: 8 9
-        on right: 11 12
+        on right: 10 11 12
     math_expr (41)
         on left: 10 11 12
         on right: 4 22 30 36 40
@@ -210,8 +207,6 @@ State 1
     T_TYPEDOUBLE         shift, and go to state 13
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
-
-    $default  reduce using rule 10 (math_expr)
 
     line         go to state 16
     number       go to state 17
@@ -339,9 +334,12 @@ State 16
 
 State 17
 
-   11 math_expr: number . T_OPERATOR number
+   10 math_expr: number .
+   11          | number . T_OPERATOR number
 
     T_OPERATOR  shift, and go to state 38
+
+    $default  reduce using rule 10 (math_expr)
 
 
 State 18
@@ -386,8 +384,6 @@ State 23
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
-
-    $default  reduce using rule 10 (math_expr)
 
     number     go to state 17
     math_expr  go to state 41
@@ -476,8 +472,6 @@ State 32
     T_TYPEDOUBLE         shift, and go to state 13
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
-
-    $default  reduce using rule 10 (math_expr)
 
     line         go to state 49
     number       go to state 17
@@ -679,8 +673,6 @@ State 56
     T_LEFT  shift, and go to state 6
     T_ID    shift, and go to state 73
 
-    $default  reduce using rule 10 (math_expr)
-
     number            go to state 17
     math_expr         go to state 74
     bool_expr_2linha  go to state 75
@@ -694,8 +686,6 @@ State 57
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
     T_ID    shift, and go to state 73
-
-    $default  reduce using rule 10 (math_expr)
 
     number            go to state 17
     math_expr         go to state 74
@@ -711,8 +701,6 @@ State 58
     T_LEFT  shift, and go to state 6
     T_ID    shift, and go to state 73
 
-    $default  reduce using rule 10 (math_expr)
-
     number            go to state 17
     math_expr         go to state 74
     bool_expr_2linha  go to state 77
@@ -726,8 +714,6 @@ State 59
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
     T_ID    shift, and go to state 73
-
-    $default  reduce using rule 10 (math_expr)
 
     number            go to state 17
     math_expr         go to state 74
@@ -743,8 +729,6 @@ State 60
     T_LEFT  shift, and go to state 6
     T_ID    shift, and go to state 73
 
-    $default  reduce using rule 10 (math_expr)
-
     number            go to state 17
     math_expr         go to state 74
     bool_expr_2linha  go to state 79
@@ -758,8 +742,6 @@ State 61
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
     T_ID    shift, and go to state 73
-
-    $default  reduce using rule 10 (math_expr)
 
     number            go to state 17
     math_expr         go to state 74
@@ -785,15 +767,6 @@ State 63
     T_TYPEDOUBLE  shift, and go to state 13
     T_TYPEINT     shift, and go to state 14
     T_CONST       shift, and go to state 15
-
-    T_INT         [reduce using rule 10 (math_expr)]
-    T_REAL        [reduce using rule 10 (math_expr)]
-    T_LEFT        [reduce using rule 10 (math_expr)]
-    T_ID          [reduce using rule 10 (math_expr)]
-    T_TYPEDOUBLE  [reduce using rule 10 (math_expr)]
-    T_TYPEINT     [reduce using rule 10 (math_expr)]
-    T_CONST       [reduce using rule 10 (math_expr)]
-    $default      reduce using rule 10 (math_expr)
 
     number       go to state 17
     math_expr    go to state 82
@@ -938,8 +911,6 @@ State 81
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
 
-    $default  reduce using rule 10 (math_expr)
-
     line         go to state 90
     number       go to state 17
     math_expr    go to state 18
@@ -1003,8 +974,6 @@ State 87
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
 
-    $default  reduce using rule 10 (math_expr)
-
     line         go to state 94
     number       go to state 17
     math_expr    go to state 18
@@ -1030,8 +999,6 @@ State 88
     T_TYPEDOUBLE         shift, and go to state 13
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
-
-    $default  reduce using rule 10 (math_expr)
 
     line         go to state 95
     number       go to state 17
@@ -1062,8 +1029,6 @@ State 91
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
-
-    $default  reduce using rule 10 (math_expr)
 
     number     go to state 17
     math_expr  go to state 98
@@ -1205,8 +1170,6 @@ State 107
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
 
-    $default  reduce using rule 10 (math_expr)
-
     line         go to state 112
     number       go to state 17
     math_expr    go to state 18
@@ -1232,8 +1195,6 @@ State 108
     T_TYPEDOUBLE         shift, and go to state 13
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
-
-    $default  reduce using rule 10 (math_expr)
 
     line         go to state 113
     number       go to state 17
@@ -1274,8 +1235,6 @@ State 111
     T_TYPEDOUBLE         shift, and go to state 13
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
-
-    $default  reduce using rule 10 (math_expr)
 
     line         go to state 115
     number       go to state 17
