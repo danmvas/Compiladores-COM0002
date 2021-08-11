@@ -49,35 +49,37 @@ extern int yydebug;
     T_REAL = 259,
     T_NEWLINE = 260,
     T_QUIT = 261,
-    T_PLUS = 262,
-    T_MINUS = 263,
-    T_MULTIPLY = 264,
-    T_DIVIDE = 265,
-    T_LEFT = 266,
-    T_RIGHT = 267,
-    T_ID = 268,
-    T_ASSING = 269,
-    T_COMPLEXOPERATORPLUS = 270,
-    T_COMPLEXOPERATORMINUS = 271,
-    T_CONDITIONALIF = 272,
-    T_RIGHTCURLY = 273,
-    T_LEFTCURLY = 274,
-    T_CONDITIONALELSE = 275,
-    T_CONDITIONALSWITCH = 276,
-    T_CONDITIONALCASE = 277,
-    T_TWODOTS = 278,
-    T_CONDITIONALDEFAULT = 279,
-    T_LOOPFOR = 280,
-    T_LOOPWHILE = 281,
-    T_LOOPDO = 282,
-    T_BREAK = 283,
-    T_EQUAL = 284,
-    T_SEMMICOLON = 285,
-    T_LOOPCONTINUE = 286,
-    T_TYPEDOUBLE = 287,
-    T_TYPEINT = 288,
-    T_RETURN = 289,
-    T_SPACE = 290
+    T_OPERATOR = 262,
+    T_LEFT = 263,
+    T_RIGHT = 264,
+    T_ID = 265,
+    T_ASSING = 266,
+    T_COMPLEXOPERATORPLUS = 267,
+    T_COMPLEXOPERATORMINUS = 268,
+    T_CONDITIONALIF = 269,
+    T_RIGHTCURLY = 270,
+    T_LEFTCURLY = 271,
+    T_CONDITIONALELSE = 272,
+    T_CONDITIONALSWITCH = 273,
+    T_CONDITIONALCASE = 274,
+    T_TWODOTS = 275,
+    T_CONDITIONALDEFAULT = 276,
+    T_LOOPFOR = 277,
+    T_LOOPWHILE = 278,
+    T_LOOPDO = 279,
+    T_BREAK = 280,
+    T_EQUAL = 281,
+    T_SEMMICOLON = 282,
+    T_LOOPCONTINUE = 283,
+    T_TYPEDOUBLE = 284,
+    T_TYPEINT = 285,
+    T_RETURN = 286,
+    T_SPACE = 287,
+    T_CONST = 288,
+    T_PLUS = 289,
+    T_MINUS = 290,
+    T_MULTIPLY = 291,
+    T_DIVIDE = 292
   };
 #endif
 
@@ -86,13 +88,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "com.y" /* yacc.c:1909  */
+#line 17 "com.y" /* yacc.c:1909  */
 
 	int ival;
 	float fval;
 	bool bval;
 
-#line 96 "com.tab.h" /* yacc.c:1909  */
+#line 98 "com.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

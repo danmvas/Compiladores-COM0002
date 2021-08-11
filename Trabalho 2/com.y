@@ -11,6 +11,9 @@ extern FILE* yyin;
 void yyerror(const char* s);
 %}
 
+%define parse.lac full
+%define parse.error verbose
+
 %union {
 	int ival;
 	float fval;
@@ -22,14 +25,12 @@ void yyerror(const char* s);
 %token<ival> T_INT
 %token<fval> T_REAL
 %token T_NEWLINE T_QUIT
-%token T_PLUS T_MINUS T_MULTIPLY T_DIVIDE T_LEFT T_RIGHT
+%token T_OPERATOR T_LEFT T_RIGHT
 %token T_ID T_ASSING T_COMPLEXOPERATORPLUS T_COMPLEXOPERATORMINUS
 %token T_CONDITIONALIF T_RIGHTCURLY T_LEFTCURLY T_CONDITIONALELSE
 %token T_CONDITIONALSWITCH T_CONDITIONALCASE T_TWODOTS T_CONDITIONALDEFAULT
 %token T_LOOPFOR T_LOOPWHILE T_LOOPDO T_BREAK T_EQUAL T_SEMMICOLON
-%token T_LOOPCONTINUE T_TYPEDOUBLE T_TYPEINT T_RETURN T_SPACE
-%left T_PLUS T_MINUS
-%left T_MULTIPLY T_DIVIDE
+%token T_LOOPCONTINUE T_TYPEDOUBLE T_TYPEINT T_RETURN T_SPACE T_CONST
 
 %start calculation
 
@@ -41,8 +42,7 @@ calculation:	/* Aqui temos a representação do epsilon na gramática... */
 
 line: T_NEWLINE
 	| T_QUIT T_NEWLINE						{ printf("Até mais...\n"); exit(0); }
-	| mixed_expr T_NEWLINE					
-	| expr T_NEWLINE						
+	| math_expr T_NEWLINE									
 	| bool_expr T_NEWLINE					
 	| assing_expr T_NEWLINE					
 	| cond T_NEWLINE						
@@ -50,93 +50,76 @@ line: T_NEWLINE
 	| loop T_NEWLINE						 
 	;
 
-mixed_expr: T_REAL							{ }
-	| mixed_expr T_PLUS mixed_expr			{ }
-	| mixed_expr T_MINUS mixed_expr			{ }
-	| mixed_expr T_MULTIPLY mixed_expr		{ }
-	| mixed_expr T_DIVIDE mixed_expr		{ }
-	| T_LEFT mixed_expr T_RIGHT				{ }
-	| expr T_PLUS mixed_expr				{ }
-	| expr T_MINUS mixed_expr				{ }
-	| expr T_MULTIPLY mixed_expr			{ }
-	| expr T_DIVIDE mixed_expr				{ }
-	| mixed_expr T_PLUS expr				{ }
-	| mixed_expr T_MINUS expr				{ }
-	| mixed_expr T_MULTIPLY expr			{ }
-	| mixed_expr T_DIVIDE expr				{ }
-	| expr T_DIVIDE expr					{ }
+math_expr: T_INT							{ printf("Inteiro: \n"); } // printar a árvore
+	| T_REAL								{ printf("Real: \n"); } // printar a árvore
+	| math_expr T_OPERATOR math_expr		{ printf("Operação básica: \n"); } // printar a árvore
+	| T_LEFT math_expr T_RIGHT				{ printf("Parenteses: \n"); } // printar a árvore
 	;
 
-expr: T_INT									{ }
-	| expr T_PLUS expr						{ }
-	| expr T_MINUS expr						{ }
-	| expr T_MULTIPLY expr					{ }
-	| T_LEFT expr T_RIGHT					{ }
-	; 
-
-bool_expr: T_ID bool_expr_linha				{ }
+bool_expr: T_ID bool_expr_linha				
 	;
 
-bool_expr_linha: 							{ } // vazio
-	| T_EQUAL bool_expr_2linha				{ }
+bool_expr_linha: 							 // vazio
+	| T_EQUAL bool_expr_2linha				
 	;
 
-bool_expr_2linha: T_ID						{ }
-	| expr						    		{ }
-	| mixed_expr				    		{ }
+bool_expr_2linha: T_ID						
+	| math_expr						    					    		
 	;
 
-assing_expr: T_ID assing_expr_linha			{ }
-	| T_TYPEINT T_ID assing_expr_3linha		{ }
-	| T_TYPEDOUBLE T_ID assing_expr_3linha	{ }
+assing_expr: T_ID assing_expr_linha			{ printf("Atribuição de valor: \n"); } // printar a árvore
+	| T_TYPEINT T_ID assing_expr_3linha		{ printf("Declaração de variável int: \n"); } // printar a árvore
+	| T_TYPEDOUBLE T_ID assing_expr_3linha	{ printf("Declaração de variável double: \n"); } // printar a árvore
+	| T_CONST assing_expr_4linha			{ printf("Declaração de constante: \n"); } // printar a árvore
 	;
 
-assing_expr_linha: assing_expr_3linha					{ }
-	| T_COMPLEXOPERATORPLUS								{ }
-	| T_COMPLEXOPERATORMINUS							{ }
+assing_expr_linha: assing_expr_3linha					
+	| T_COMPLEXOPERATORPLUS								
+	| T_COMPLEXOPERATORMINUS							
 	;
 
-assing_expr_2linha: expr	{ }
-	| mixed_expr			{ }
+assing_expr_2linha: math_expr		
 	;
 
-assing_expr_3linha: T_ASSING assing_expr_2linha			{ }
+assing_expr_3linha: T_ASSING assing_expr_2linha			
 	;
 
-cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha				    { }
-	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case T_RIGHTCURLY { }
+assing_expr_4linha: T_TYPEINT T_ID assing_expr_3linha
+	| T_TYPEDOUBLE T_ID assing_expr_3linha
 	;
 
-cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha		{ }
-	| expr													{ }
-	| mixed_expr											{ }
-	| assing_expr											{ }
+cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha				    { printf("If: \n"); } // printar a árvore
+	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case T_RIGHTCURLY { printf("Switch: \n"); } // printar a árvore
 	;
 
-cond_2linha: 											{ } // vazio
-	| T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY	{ }
+cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha		
+	| math_expr																							
+	| assing_expr											
 	;
 
-case: T_CONDITIONALCASE expr T_TWODOTS expr	case_linha						{ }
-	| T_CONDITIONALDEFAULT T_TWODOTS expr									{ }
+cond_2linha: 											 // vazio
+	| T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY	
 	;
 
-case_linha:							{ } // vazio
-	| case							{ }
-	| T_BREAK						{ }
-	| case T_BREAK					{ }
+case: T_CONDITIONALCASE math_expr T_TWODOTS math_expr case_linha						
+	| T_CONDITIONALDEFAULT T_TWODOTS math_expr									
 	;
 
-loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY				{ }
-	| T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY			{ }
-	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT 	{ }
+case_linha:							 // vazio
+	| case							
+	| T_BREAK						
+	| case T_BREAK					
 	;
 
-loopcond: assing_expr T_SEMMICOLON cond T_SEMMICOLON loopcond_linha { }
+loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY				{ printf("Loop for: \n"); } // printar a árvore
+	| T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY			{ printf("Loop while: \n"); } // printar a árvore
+	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT 	{ printf("Loop do while: \n"); } // printar a árvore
 	;
 
-loopcond_linha: expr    { }
-	| mixed_expr 		{ }
+loopcond: assing_expr T_SEMMICOLON cond T_SEMMICOLON loopcond_linha 
+	;
+
+loopcond_linha: math_expr    	
 	;
 
 %%

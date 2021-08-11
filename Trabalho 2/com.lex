@@ -25,10 +25,7 @@ ID          [a-zA-Z][a-zA-Z0-9]*
 "=="                        {return T_EQUAL;}
 "="                         {return T_ASSING;}
 ":"                         {return T_TWODOTS;}
-"+"                         {return T_PLUS;}
-"-"                         {return T_MINUS;}
-"*"                         {return T_MULTIPLY;}
-"/"                         {return T_DIVIDE;}
+"+"|"-"|"*"|"/"             {return T_OPERATOR;}
 if                          {return T_CONDITIONALIF;}
 else                        {return T_CONDITIONALELSE;}
 switch                      {return T_CONDITIONALSWITCH;}
@@ -41,6 +38,7 @@ while                       {return T_LOOPWHILE;}
 break                       {return T_BREAK;}  
 double                      {return T_TYPEDOUBLE;}
 int                         {return T_TYPEINT;}
+const                       {return T_CONST;}
 return                      {return T_RETURN;}
 {ID}                        {return T_ID;}
 "("							{return T_LEFT;}
