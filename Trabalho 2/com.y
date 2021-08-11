@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <graphviz>
 
 extern int yylex();
 extern int yyparse();
@@ -52,7 +53,7 @@ math_expr: T_INT							{ printf("Inteiro: \n"); } // printar a árvore
 	| T_REAL								{ printf("Real: \n"); } // printar a árvore
 	| math_expr T_OPERATOR math_expr		{ printf("Operação básica: \n"); } // printar a árvore
 	| T_LEFT math_expr T_RIGHT				{ printf("Parenteses: \n"); } // printar a árvore
-	;
+	;	
 
 bool_expr: T_ID bool_expr_linha				
 	;

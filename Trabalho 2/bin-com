@@ -1,4 +1,5 @@
 #!/bin/bash
-bison -d com.y
+bison -d com.y -v --graph
 flex com.lex
+dot -Tpdf $(com).dot -o $(com)3.pdf -v
 gcc com.tab.c lex.yy.c -o com -lm

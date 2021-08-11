@@ -803,7 +803,7 @@ case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
 #line 20 "com.lex"
-{printf("Comentário"); } // ignore todos os espaços em branco
+; // ignore o comentário de uma linha
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
