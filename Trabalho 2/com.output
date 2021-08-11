@@ -4,7 +4,7 @@ Terminals unused in grammar
     T_RETURN
 
 
-State 54 conflicts: 1 shift/reduce
+State 63 conflicts: 7 shift/reduce
 
 
 Grammar
@@ -20,61 +20,63 @@ Grammar
     6     | cond
     7     | loop
 
-    8 math_expr: T_INT
-    9          | T_REAL
-   10          | math_expr T_OPERATOR math_expr
-   11          | T_LEFT math_expr T_RIGHT
+    8 number: T_INT
+    9       | T_REAL
 
-   12 bool_expr: T_ID bool_expr_linha
+   10 math_expr: %empty
+   11          | number T_OPERATOR number
+   12          | T_LEFT number T_RIGHT
 
-   13 bool_expr_linha: %empty
-   14                | T_EQUAL bool_expr_2linha
-   15                | T_GREATER bool_expr_2linha
-   16                | T_GREATEREQUAL bool_expr_2linha
-   17                | T_MINOREQUAL bool_expr_2linha
-   18                | T_MINOR bool_expr_2linha
-   19                | T_NOTEQUAL bool_expr_2linha
+   13 bool_expr: T_ID bool_expr_linha
 
-   20 bool_expr_2linha: T_ID
-   21                 | math_expr
+   14 bool_expr_linha: %empty
+   15                | T_EQUAL bool_expr_2linha
+   16                | T_GREATER bool_expr_2linha
+   17                | T_GREATEREQUAL bool_expr_2linha
+   18                | T_MINOREQUAL bool_expr_2linha
+   19                | T_MINOR bool_expr_2linha
+   20                | T_NOTEQUAL bool_expr_2linha
 
-   22 assing_expr: T_ID assing_expr_linha T_SEMMICOLON
-   23            | T_TYPEINT T_ID assing_expr_2linha T_SEMMICOLON
-   24            | T_TYPEDOUBLE T_ID assing_expr_2linha T_SEMMICOLON
-   25            | T_CONST assing_expr_3linha T_SEMMICOLON
+   21 bool_expr_2linha: T_ID
+   22                 | math_expr
 
-   26 assing_expr_linha: assing_expr_2linha
-   27                  | T_COMPLEXOPERATORPLUS
-   28                  | T_COMPLEXOPERATORMINUS
+   23 assing_expr: T_ID assing_expr_linha T_SEMMICOLON
+   24            | T_TYPEINT T_ID assing_expr_2linha T_SEMMICOLON
+   25            | T_TYPEDOUBLE T_ID assing_expr_2linha T_SEMMICOLON
+   26            | T_CONST assing_expr_3linha T_SEMMICOLON
 
-   29 assing_expr_2linha: T_ASSING math_expr
+   27 assing_expr_linha: assing_expr_2linha
+   28                  | T_COMPLEXOPERATORPLUS
+   29                  | T_COMPLEXOPERATORMINUS
 
-   30 assing_expr_3linha: T_TYPEINT T_ID assing_expr_2linha
-   31                   | T_TYPEDOUBLE T_ID assing_expr_2linha
+   30 assing_expr_2linha: T_ASSING math_expr
 
-   32 cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha
-   33     | T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
+   31 assing_expr_3linha: T_TYPEINT T_ID assing_expr_2linha
+   32                   | T_TYPEDOUBLE T_ID assing_expr_2linha
 
-   34 cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha
-   35           | math_expr
-   36           | assing_expr
+   33 cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha
+   34     | T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
 
-   37 cond_2linha: %empty
-   38            | T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY
+   35 cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha
+   36           | math_expr
+   37           | assing_expr
 
-   39 case: T_CONDITIONALCASE math_expr T_TWODOTS line case_linha
+   38 cond_2linha: %empty
+   39            | T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY
 
-   40 case_default: T_CONDITIONALDEFAULT T_TWODOTS line
+   40 case: T_CONDITIONALCASE math_expr T_TWODOTS line case_linha
 
-   41 case_linha: %empty
-   42           | case
-   43           | T_BREAK T_SEMMICOLON
+   41 case_default: T_CONDITIONALDEFAULT T_TWODOTS line
 
-   44 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
-   45     | T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
-   46     | T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
+   42 case_linha: %empty
+   43           | case
+   44           | T_BREAK T_SEMMICOLON
 
-   47 loopcond: assing_expr bool_expr T_SEMMICOLON T_ID assing_expr_linha
+   45 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+   46     | T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+   47     | T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
+
+   48 loopcond: assing_expr bool_expr T_SEMMICOLON T_ID assing_expr_linha
 
 
 Terminals, with rules where they appear
@@ -84,37 +86,37 @@ Terminals, with rules where they appear
     T_INT <ival> (258) 8
     T_REAL <fval> (259) 9
     T_QUIT (260) 3
-    T_OPERATOR (261) 10
-    T_LEFT (262) 11 32 33 44 45 46
-    T_RIGHT (263) 11 32 33 44 45 46
-    T_ID (264) 12 20 22 23 24 30 31 33 47
-    T_ASSING (265) 29
-    T_COMPLEXOPERATORPLUS (266) 27
-    T_COMPLEXOPERATORMINUS (267) 28
-    T_CONDITIONALIF (268) 32
-    T_RIGHTCURLY (269) 33 34 38 44 45 46
-    T_LEFTCURLY (270) 33 34 38 44 45 46
-    T_CONDITIONALELSE (271) 38
-    T_CONDITIONALSWITCH (272) 33
-    T_CONDITIONALCASE (273) 39
-    T_TWODOTS (274) 39 40
-    T_CONDITIONALDEFAULT (275) 40
-    T_LOOPFOR (276) 44
-    T_LOOPWHILE (277) 45 46
-    T_LOOPDO (278) 46
-    T_BREAK (279) 43
-    T_EQUAL (280) 14
-    T_SEMMICOLON (281) 4 22 23 24 25 43 46 47
+    T_OPERATOR (261) 11
+    T_LEFT (262) 12 33 34 45 46 47
+    T_RIGHT (263) 12 33 34 45 46 47
+    T_ID (264) 13 21 23 24 25 31 32 34 48
+    T_ASSING (265) 30
+    T_COMPLEXOPERATORPLUS (266) 28
+    T_COMPLEXOPERATORMINUS (267) 29
+    T_CONDITIONALIF (268) 33
+    T_RIGHTCURLY (269) 34 35 39 45 46 47
+    T_LEFTCURLY (270) 34 35 39 45 46 47
+    T_CONDITIONALELSE (271) 39
+    T_CONDITIONALSWITCH (272) 34
+    T_CONDITIONALCASE (273) 40
+    T_TWODOTS (274) 40 41
+    T_CONDITIONALDEFAULT (275) 41
+    T_LOOPFOR (276) 45
+    T_LOOPWHILE (277) 46 47
+    T_LOOPDO (278) 47
+    T_BREAK (279) 44
+    T_EQUAL (280) 15
+    T_SEMMICOLON (281) 4 23 24 25 26 44 47 48
     T_LOOPCONTINUE (282)
-    T_TYPEDOUBLE (283) 24 31
-    T_TYPEINT (284) 23 30
+    T_TYPEDOUBLE (283) 25 32
+    T_TYPEINT (284) 24 31
     T_RETURN (285)
-    T_CONST (286) 25
-    T_GREATER (287) 15
-    T_GREATEREQUAL (288) 16
-    T_MINOREQUAL (289) 17
-    T_MINOR (290) 18
-    T_NOTEQUAL (291) 19
+    T_CONST (286) 26
+    T_GREATER (287) 16
+    T_GREATEREQUAL (288) 17
+    T_MINOREQUAL (289) 18
+    T_MINOR (290) 19
+    T_NOTEQUAL (291) 20
 
 
 Nonterminals, with rules where they appear
@@ -126,55 +128,58 @@ Nonterminals, with rules where they appear
         on right: 0 2
     line (39)
         on left: 3 4 5 6 7
-        on right: 2 34 38 39 40 44 45 46
-    math_expr (40)
-        on left: 8 9 10 11
-        on right: 4 10 11 21 29 35 39
-    bool_expr (41)
-        on left: 12
-        on right: 32 45 46 47
-    bool_expr_linha (42)
-        on left: 13 14 15 16 17 18 19
-        on right: 12
-    bool_expr_2linha (43)
-        on left: 20 21
-        on right: 14 15 16 17 18 19
-    assing_expr (44)
-        on left: 22 23 24 25
-        on right: 5 36 47
-    assing_expr_linha (45)
-        on left: 26 27 28
-        on right: 22 47
-    assing_expr_2linha (46)
-        on left: 29
-        on right: 23 24 26 30 31
-    assing_expr_3linha (47)
-        on left: 30 31
-        on right: 25
-    cond (48)
-        on left: 32 33
+        on right: 2 35 39 40 41 45 46 47
+    number (40)
+        on left: 8 9
+        on right: 11 12
+    math_expr (41)
+        on left: 10 11 12
+        on right: 4 22 30 36 40
+    bool_expr (42)
+        on left: 13
+        on right: 33 46 47 48
+    bool_expr_linha (43)
+        on left: 14 15 16 17 18 19 20
+        on right: 13
+    bool_expr_2linha (44)
+        on left: 21 22
+        on right: 15 16 17 18 19 20
+    assing_expr (45)
+        on left: 23 24 25 26
+        on right: 5 37 48
+    assing_expr_linha (46)
+        on left: 27 28 29
+        on right: 23 48
+    assing_expr_2linha (47)
+        on left: 30
+        on right: 24 25 27 31 32
+    assing_expr_3linha (48)
+        on left: 31 32
+        on right: 26
+    cond (49)
+        on left: 33 34
         on right: 6
-    cond_linha (49)
-        on left: 34 35 36
-        on right: 32
-    cond_2linha (50)
-        on left: 37 38
-        on right: 34
-    case (51)
-        on left: 39
-        on right: 33 42
-    case_default (52)
-        on left: 40
+    cond_linha (50)
+        on left: 35 36 37
         on right: 33
-    case_linha (53)
-        on left: 41 42 43
-        on right: 39
-    loop (54)
-        on left: 44 45 46
+    cond_2linha (51)
+        on left: 38 39
+        on right: 35
+    case (52)
+        on left: 40
+        on right: 34 43
+    case_default (53)
+        on left: 41
+        on right: 34
+    case_linha (54)
+        on left: 42 43 44
+        on right: 40
+    loop (55)
+        on left: 45 46 47
         on right: 7
-    loopcond (55)
-        on left: 47
-        on right: 44
+    loopcond (56)
+        on left: 48
+        on right: 45
 
 
 State 0
@@ -206,11 +211,14 @@ State 1
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
 
+    $default  reduce using rule 10 (math_expr)
+
     line         go to state 16
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
 
 
 State 2
@@ -222,16 +230,16 @@ State 2
 
 State 3
 
-    8 math_expr: T_INT .
+    8 number: T_INT .
 
-    $default  reduce using rule 8 (math_expr)
+    $default  reduce using rule 8 (number)
 
 
 State 4
 
-    9 math_expr: T_REAL .
+    9 number: T_REAL .
 
-    $default  reduce using rule 9 (math_expr)
+    $default  reduce using rule 9 (number)
 
 
 State 5
@@ -243,84 +251,83 @@ State 5
 
 State 6
 
-   11 math_expr: T_LEFT . math_expr T_RIGHT
+   12 math_expr: T_LEFT . number T_RIGHT
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
-    T_LEFT  shift, and go to state 6
 
-    math_expr  go to state 21
+    number  go to state 22
 
 
 State 7
 
-   22 assing_expr: T_ID . assing_expr_linha T_SEMMICOLON
+   23 assing_expr: T_ID . assing_expr_linha T_SEMMICOLON
 
-    T_ASSING                shift, and go to state 22
-    T_COMPLEXOPERATORPLUS   shift, and go to state 23
-    T_COMPLEXOPERATORMINUS  shift, and go to state 24
+    T_ASSING                shift, and go to state 23
+    T_COMPLEXOPERATORPLUS   shift, and go to state 24
+    T_COMPLEXOPERATORMINUS  shift, and go to state 25
 
-    assing_expr_linha   go to state 25
-    assing_expr_2linha  go to state 26
+    assing_expr_linha   go to state 26
+    assing_expr_2linha  go to state 27
 
 
 State 8
 
-   32 cond: T_CONDITIONALIF . T_LEFT bool_expr T_RIGHT cond_linha
-
-    T_LEFT  shift, and go to state 27
-
-
-State 9
-
-   33 cond: T_CONDITIONALSWITCH . T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
+   33 cond: T_CONDITIONALIF . T_LEFT bool_expr T_RIGHT cond_linha
 
     T_LEFT  shift, and go to state 28
 
 
-State 10
+State 9
 
-   44 loop: T_LOOPFOR . T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+   34 cond: T_CONDITIONALSWITCH . T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
 
     T_LEFT  shift, and go to state 29
 
 
-State 11
+State 10
 
-   45 loop: T_LOOPWHILE . T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+   45 loop: T_LOOPFOR . T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
 
     T_LEFT  shift, and go to state 30
 
 
+State 11
+
+   46 loop: T_LOOPWHILE . T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+
+    T_LEFT  shift, and go to state 31
+
+
 State 12
 
-   46 loop: T_LOOPDO . T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
+   47 loop: T_LOOPDO . T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
 
-    T_LEFTCURLY  shift, and go to state 31
+    T_LEFTCURLY  shift, and go to state 32
 
 
 State 13
 
-   24 assing_expr: T_TYPEDOUBLE . T_ID assing_expr_2linha T_SEMMICOLON
-
-    T_ID  shift, and go to state 32
-
-
-State 14
-
-   23 assing_expr: T_TYPEINT . T_ID assing_expr_2linha T_SEMMICOLON
+   25 assing_expr: T_TYPEDOUBLE . T_ID assing_expr_2linha T_SEMMICOLON
 
     T_ID  shift, and go to state 33
 
 
+State 14
+
+   24 assing_expr: T_TYPEINT . T_ID assing_expr_2linha T_SEMMICOLON
+
+    T_ID  shift, and go to state 34
+
+
 State 15
 
-   25 assing_expr: T_CONST . assing_expr_3linha T_SEMMICOLON
+   26 assing_expr: T_CONST . assing_expr_3linha T_SEMMICOLON
 
-    T_TYPEDOUBLE  shift, and go to state 34
-    T_TYPEINT     shift, and go to state 35
+    T_TYPEDOUBLE  shift, and go to state 35
+    T_TYPEINT     shift, and go to state 36
 
-    assing_expr_3linha  go to state 36
+    assing_expr_3linha  go to state 37
 
 
 State 16
@@ -332,123 +339,129 @@ State 16
 
 State 17
 
-    4 line: math_expr . T_SEMMICOLON
-   10 math_expr: math_expr . T_OPERATOR math_expr
+   11 math_expr: number . T_OPERATOR number
 
-    T_OPERATOR    shift, and go to state 37
-    T_SEMMICOLON  shift, and go to state 38
+    T_OPERATOR  shift, and go to state 38
 
 
 State 18
+
+    4 line: math_expr . T_SEMMICOLON
+
+    T_SEMMICOLON  shift, and go to state 39
+
+
+State 19
 
     5 line: assing_expr .
 
     $default  reduce using rule 5 (line)
 
 
-State 19
+State 20
 
     6 line: cond .
 
     $default  reduce using rule 6 (line)
 
 
-State 20
+State 21
 
     7 line: loop .
 
     $default  reduce using rule 7 (line)
 
 
-State 21
-
-   10 math_expr: math_expr . T_OPERATOR math_expr
-   11          | T_LEFT math_expr . T_RIGHT
-
-    T_OPERATOR  shift, and go to state 37
-    T_RIGHT     shift, and go to state 39
-
-
 State 22
 
-   29 assing_expr_2linha: T_ASSING . math_expr
+   12 math_expr: T_LEFT number . T_RIGHT
+
+    T_RIGHT  shift, and go to state 40
+
+
+State 23
+
+   30 assing_expr_2linha: T_ASSING . math_expr
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
 
-    math_expr  go to state 40
+    $default  reduce using rule 10 (math_expr)
 
-
-State 23
-
-   27 assing_expr_linha: T_COMPLEXOPERATORPLUS .
-
-    $default  reduce using rule 27 (assing_expr_linha)
+    number     go to state 17
+    math_expr  go to state 41
 
 
 State 24
 
-   28 assing_expr_linha: T_COMPLEXOPERATORMINUS .
+   28 assing_expr_linha: T_COMPLEXOPERATORPLUS .
 
     $default  reduce using rule 28 (assing_expr_linha)
 
 
 State 25
 
-   22 assing_expr: T_ID assing_expr_linha . T_SEMMICOLON
+   29 assing_expr_linha: T_COMPLEXOPERATORMINUS .
 
-    T_SEMMICOLON  shift, and go to state 41
+    $default  reduce using rule 29 (assing_expr_linha)
 
 
 State 26
 
-   26 assing_expr_linha: assing_expr_2linha .
+   23 assing_expr: T_ID assing_expr_linha . T_SEMMICOLON
 
-    $default  reduce using rule 26 (assing_expr_linha)
+    T_SEMMICOLON  shift, and go to state 42
 
 
 State 27
 
-   32 cond: T_CONDITIONALIF T_LEFT . bool_expr T_RIGHT cond_linha
+   27 assing_expr_linha: assing_expr_2linha .
 
-    T_ID  shift, and go to state 42
-
-    bool_expr  go to state 43
+    $default  reduce using rule 27 (assing_expr_linha)
 
 
 State 28
 
-   33 cond: T_CONDITIONALSWITCH T_LEFT . T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
+   33 cond: T_CONDITIONALIF T_LEFT . bool_expr T_RIGHT cond_linha
 
-    T_ID  shift, and go to state 44
+    T_ID  shift, and go to state 43
+
+    bool_expr  go to state 44
 
 
 State 29
 
-   44 loop: T_LOOPFOR T_LEFT . loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+   34 cond: T_CONDITIONALSWITCH T_LEFT . T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
+
+    T_ID  shift, and go to state 45
+
+
+State 30
+
+   45 loop: T_LOOPFOR T_LEFT . loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
 
     T_ID          shift, and go to state 7
     T_TYPEDOUBLE  shift, and go to state 13
     T_TYPEINT     shift, and go to state 14
     T_CONST       shift, and go to state 15
 
-    assing_expr  go to state 45
-    loopcond     go to state 46
-
-
-State 30
-
-   45 loop: T_LOOPWHILE T_LEFT . bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
-
-    T_ID  shift, and go to state 42
-
-    bool_expr  go to state 47
+    assing_expr  go to state 46
+    loopcond     go to state 47
 
 
 State 31
 
-   46 loop: T_LOOPDO T_LEFTCURLY . line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
+   46 loop: T_LOOPWHILE T_LEFT . bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+
+    T_ID  shift, and go to state 43
+
+    bool_expr  go to state 48
+
+
+State 32
+
+   47 loop: T_LOOPDO T_LEFTCURLY . line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
 
     T_INT                shift, and go to state 3
     T_REAL               shift, and go to state 4
@@ -464,432 +477,452 @@ State 31
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
 
-    line         go to state 48
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
+    $default  reduce using rule 10 (math_expr)
 
-
-State 32
-
-   24 assing_expr: T_TYPEDOUBLE T_ID . assing_expr_2linha T_SEMMICOLON
-
-    T_ASSING  shift, and go to state 22
-
-    assing_expr_2linha  go to state 49
+    line         go to state 49
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
 
 
 State 33
 
-   23 assing_expr: T_TYPEINT T_ID . assing_expr_2linha T_SEMMICOLON
+   25 assing_expr: T_TYPEDOUBLE T_ID . assing_expr_2linha T_SEMMICOLON
 
-    T_ASSING  shift, and go to state 22
+    T_ASSING  shift, and go to state 23
 
     assing_expr_2linha  go to state 50
 
 
 State 34
 
-   31 assing_expr_3linha: T_TYPEDOUBLE . T_ID assing_expr_2linha
+   24 assing_expr: T_TYPEINT T_ID . assing_expr_2linha T_SEMMICOLON
 
-    T_ID  shift, and go to state 51
+    T_ASSING  shift, and go to state 23
+
+    assing_expr_2linha  go to state 51
 
 
 State 35
 
-   30 assing_expr_3linha: T_TYPEINT . T_ID assing_expr_2linha
+   32 assing_expr_3linha: T_TYPEDOUBLE . T_ID assing_expr_2linha
 
     T_ID  shift, and go to state 52
 
 
 State 36
 
-   25 assing_expr: T_CONST assing_expr_3linha . T_SEMMICOLON
+   31 assing_expr_3linha: T_TYPEINT . T_ID assing_expr_2linha
 
-    T_SEMMICOLON  shift, and go to state 53
+    T_ID  shift, and go to state 53
 
 
 State 37
 
-   10 math_expr: math_expr T_OPERATOR . math_expr
+   26 assing_expr: T_CONST assing_expr_3linha . T_SEMMICOLON
 
-    T_INT   shift, and go to state 3
-    T_REAL  shift, and go to state 4
-    T_LEFT  shift, and go to state 6
-
-    math_expr  go to state 54
+    T_SEMMICOLON  shift, and go to state 54
 
 
 State 38
+
+   11 math_expr: number T_OPERATOR . number
+
+    T_INT   shift, and go to state 3
+    T_REAL  shift, and go to state 4
+
+    number  go to state 55
+
+
+State 39
 
     4 line: math_expr T_SEMMICOLON .
 
     $default  reduce using rule 4 (line)
 
 
-State 39
-
-   11 math_expr: T_LEFT math_expr T_RIGHT .
-
-    $default  reduce using rule 11 (math_expr)
-
-
 State 40
 
-   10 math_expr: math_expr . T_OPERATOR math_expr
-   29 assing_expr_2linha: T_ASSING math_expr .
+   12 math_expr: T_LEFT number T_RIGHT .
 
-    T_OPERATOR  shift, and go to state 37
-
-    $default  reduce using rule 29 (assing_expr_2linha)
+    $default  reduce using rule 12 (math_expr)
 
 
 State 41
 
-   22 assing_expr: T_ID assing_expr_linha T_SEMMICOLON .
+   30 assing_expr_2linha: T_ASSING math_expr .
 
-    $default  reduce using rule 22 (assing_expr)
+    $default  reduce using rule 30 (assing_expr_2linha)
 
 
 State 42
 
-   12 bool_expr: T_ID . bool_expr_linha
+   23 assing_expr: T_ID assing_expr_linha T_SEMMICOLON .
 
-    T_EQUAL         shift, and go to state 55
-    T_GREATER       shift, and go to state 56
-    T_GREATEREQUAL  shift, and go to state 57
-    T_MINOREQUAL    shift, and go to state 58
-    T_MINOR         shift, and go to state 59
-    T_NOTEQUAL      shift, and go to state 60
-
-    $default  reduce using rule 13 (bool_expr_linha)
-
-    bool_expr_linha  go to state 61
+    $default  reduce using rule 23 (assing_expr)
 
 
 State 43
 
-   32 cond: T_CONDITIONALIF T_LEFT bool_expr . T_RIGHT cond_linha
+   13 bool_expr: T_ID . bool_expr_linha
 
-    T_RIGHT  shift, and go to state 62
+    T_EQUAL         shift, and go to state 56
+    T_GREATER       shift, and go to state 57
+    T_GREATEREQUAL  shift, and go to state 58
+    T_MINOREQUAL    shift, and go to state 59
+    T_MINOR         shift, and go to state 60
+    T_NOTEQUAL      shift, and go to state 61
+
+    $default  reduce using rule 14 (bool_expr_linha)
+
+    bool_expr_linha  go to state 62
 
 
 State 44
 
-   33 cond: T_CONDITIONALSWITCH T_LEFT T_ID . T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
+   33 cond: T_CONDITIONALIF T_LEFT bool_expr . T_RIGHT cond_linha
 
     T_RIGHT  shift, and go to state 63
 
 
 State 45
 
-   47 loopcond: assing_expr . bool_expr T_SEMMICOLON T_ID assing_expr_linha
+   34 cond: T_CONDITIONALSWITCH T_LEFT T_ID . T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY
 
-    T_ID  shift, and go to state 42
-
-    bool_expr  go to state 64
+    T_RIGHT  shift, and go to state 64
 
 
 State 46
 
-   44 loop: T_LOOPFOR T_LEFT loopcond . T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+   48 loopcond: assing_expr . bool_expr T_SEMMICOLON T_ID assing_expr_linha
 
-    T_RIGHT  shift, and go to state 65
+    T_ID  shift, and go to state 43
+
+    bool_expr  go to state 65
 
 
 State 47
 
-   45 loop: T_LOOPWHILE T_LEFT bool_expr . T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
+   45 loop: T_LOOPFOR T_LEFT loopcond . T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
 
     T_RIGHT  shift, and go to state 66
 
 
 State 48
 
-   46 loop: T_LOOPDO T_LEFTCURLY line . T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
+   46 loop: T_LOOPWHILE T_LEFT bool_expr . T_RIGHT T_LEFTCURLY line T_RIGHTCURLY
 
-    T_RIGHTCURLY  shift, and go to state 67
+    T_RIGHT  shift, and go to state 67
 
 
 State 49
 
-   24 assing_expr: T_TYPEDOUBLE T_ID assing_expr_2linha . T_SEMMICOLON
+   47 loop: T_LOOPDO T_LEFTCURLY line . T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
 
-    T_SEMMICOLON  shift, and go to state 68
+    T_RIGHTCURLY  shift, and go to state 68
 
 
 State 50
 
-   23 assing_expr: T_TYPEINT T_ID assing_expr_2linha . T_SEMMICOLON
+   25 assing_expr: T_TYPEDOUBLE T_ID assing_expr_2linha . T_SEMMICOLON
 
     T_SEMMICOLON  shift, and go to state 69
 
 
 State 51
 
-   31 assing_expr_3linha: T_TYPEDOUBLE T_ID . assing_expr_2linha
+   24 assing_expr: T_TYPEINT T_ID assing_expr_2linha . T_SEMMICOLON
 
-    T_ASSING  shift, and go to state 22
-
-    assing_expr_2linha  go to state 70
+    T_SEMMICOLON  shift, and go to state 70
 
 
 State 52
 
-   30 assing_expr_3linha: T_TYPEINT T_ID . assing_expr_2linha
+   32 assing_expr_3linha: T_TYPEDOUBLE T_ID . assing_expr_2linha
 
-    T_ASSING  shift, and go to state 22
+    T_ASSING  shift, and go to state 23
 
     assing_expr_2linha  go to state 71
 
 
 State 53
 
-   25 assing_expr: T_CONST assing_expr_3linha T_SEMMICOLON .
+   31 assing_expr_3linha: T_TYPEINT T_ID . assing_expr_2linha
 
-    $default  reduce using rule 25 (assing_expr)
+    T_ASSING  shift, and go to state 23
+
+    assing_expr_2linha  go to state 72
 
 
 State 54
 
-   10 math_expr: math_expr . T_OPERATOR math_expr
-   10          | math_expr T_OPERATOR math_expr .
+   26 assing_expr: T_CONST assing_expr_3linha T_SEMMICOLON .
 
-    T_OPERATOR  shift, and go to state 37
-
-    T_OPERATOR  [reduce using rule 10 (math_expr)]
-    $default    reduce using rule 10 (math_expr)
+    $default  reduce using rule 26 (assing_expr)
 
 
 State 55
 
-   14 bool_expr_linha: T_EQUAL . bool_expr_2linha
+   11 math_expr: number T_OPERATOR number .
 
-    T_INT   shift, and go to state 3
-    T_REAL  shift, and go to state 4
-    T_LEFT  shift, and go to state 6
-    T_ID    shift, and go to state 72
-
-    math_expr         go to state 73
-    bool_expr_2linha  go to state 74
+    $default  reduce using rule 11 (math_expr)
 
 
 State 56
 
-   15 bool_expr_linha: T_GREATER . bool_expr_2linha
+   15 bool_expr_linha: T_EQUAL . bool_expr_2linha
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
-    T_ID    shift, and go to state 72
+    T_ID    shift, and go to state 73
 
-    math_expr         go to state 73
+    $default  reduce using rule 10 (math_expr)
+
+    number            go to state 17
+    math_expr         go to state 74
     bool_expr_2linha  go to state 75
 
 
 State 57
 
-   16 bool_expr_linha: T_GREATEREQUAL . bool_expr_2linha
+   16 bool_expr_linha: T_GREATER . bool_expr_2linha
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
-    T_ID    shift, and go to state 72
+    T_ID    shift, and go to state 73
 
-    math_expr         go to state 73
+    $default  reduce using rule 10 (math_expr)
+
+    number            go to state 17
+    math_expr         go to state 74
     bool_expr_2linha  go to state 76
 
 
 State 58
 
-   17 bool_expr_linha: T_MINOREQUAL . bool_expr_2linha
+   17 bool_expr_linha: T_GREATEREQUAL . bool_expr_2linha
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
-    T_ID    shift, and go to state 72
+    T_ID    shift, and go to state 73
 
-    math_expr         go to state 73
+    $default  reduce using rule 10 (math_expr)
+
+    number            go to state 17
+    math_expr         go to state 74
     bool_expr_2linha  go to state 77
 
 
 State 59
 
-   18 bool_expr_linha: T_MINOR . bool_expr_2linha
+   18 bool_expr_linha: T_MINOREQUAL . bool_expr_2linha
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
-    T_ID    shift, and go to state 72
+    T_ID    shift, and go to state 73
 
-    math_expr         go to state 73
+    $default  reduce using rule 10 (math_expr)
+
+    number            go to state 17
+    math_expr         go to state 74
     bool_expr_2linha  go to state 78
 
 
 State 60
 
-   19 bool_expr_linha: T_NOTEQUAL . bool_expr_2linha
+   19 bool_expr_linha: T_MINOR . bool_expr_2linha
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
-    T_ID    shift, and go to state 72
+    T_ID    shift, and go to state 73
 
-    math_expr         go to state 73
+    $default  reduce using rule 10 (math_expr)
+
+    number            go to state 17
+    math_expr         go to state 74
     bool_expr_2linha  go to state 79
 
 
 State 61
 
-   12 bool_expr: T_ID bool_expr_linha .
+   20 bool_expr_linha: T_NOTEQUAL . bool_expr_2linha
 
-    $default  reduce using rule 12 (bool_expr)
+    T_INT   shift, and go to state 3
+    T_REAL  shift, and go to state 4
+    T_LEFT  shift, and go to state 6
+    T_ID    shift, and go to state 73
+
+    $default  reduce using rule 10 (math_expr)
+
+    number            go to state 17
+    math_expr         go to state 74
+    bool_expr_2linha  go to state 80
 
 
 State 62
 
-   32 cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT . cond_linha
+   13 bool_expr: T_ID bool_expr_linha .
+
+    $default  reduce using rule 13 (bool_expr)
+
+
+State 63
+
+   33 cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT . cond_linha
 
     T_INT         shift, and go to state 3
     T_REAL        shift, and go to state 4
     T_LEFT        shift, and go to state 6
     T_ID          shift, and go to state 7
-    T_LEFTCURLY   shift, and go to state 80
+    T_LEFTCURLY   shift, and go to state 81
     T_TYPEDOUBLE  shift, and go to state 13
     T_TYPEINT     shift, and go to state 14
     T_CONST       shift, and go to state 15
 
-    math_expr    go to state 81
-    assing_expr  go to state 82
-    cond_linha   go to state 83
+    T_INT         [reduce using rule 10 (math_expr)]
+    T_REAL        [reduce using rule 10 (math_expr)]
+    T_LEFT        [reduce using rule 10 (math_expr)]
+    T_ID          [reduce using rule 10 (math_expr)]
+    T_TYPEDOUBLE  [reduce using rule 10 (math_expr)]
+    T_TYPEINT     [reduce using rule 10 (math_expr)]
+    T_CONST       [reduce using rule 10 (math_expr)]
+    $default      reduce using rule 10 (math_expr)
 
-
-State 63
-
-   33 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT . T_LEFTCURLY case case_default T_RIGHTCURLY
-
-    T_LEFTCURLY  shift, and go to state 84
+    number       go to state 17
+    math_expr    go to state 82
+    assing_expr  go to state 83
+    cond_linha   go to state 84
 
 
 State 64
 
-   47 loopcond: assing_expr bool_expr . T_SEMMICOLON T_ID assing_expr_linha
+   34 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT . T_LEFTCURLY case case_default T_RIGHTCURLY
 
-    T_SEMMICOLON  shift, and go to state 85
+    T_LEFTCURLY  shift, and go to state 85
 
 
 State 65
 
-   44 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT . T_LEFTCURLY line T_RIGHTCURLY
+   48 loopcond: assing_expr bool_expr . T_SEMMICOLON T_ID assing_expr_linha
 
-    T_LEFTCURLY  shift, and go to state 86
+    T_SEMMICOLON  shift, and go to state 86
 
 
 State 66
 
-   45 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT . T_LEFTCURLY line T_RIGHTCURLY
+   45 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT . T_LEFTCURLY line T_RIGHTCURLY
 
     T_LEFTCURLY  shift, and go to state 87
 
 
 State 67
 
-   46 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY . T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
+   46 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT . T_LEFTCURLY line T_RIGHTCURLY
 
-    T_LOOPWHILE  shift, and go to state 88
+    T_LEFTCURLY  shift, and go to state 88
 
 
 State 68
 
-   24 assing_expr: T_TYPEDOUBLE T_ID assing_expr_2linha T_SEMMICOLON .
+   47 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY . T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON
 
-    $default  reduce using rule 24 (assing_expr)
+    T_LOOPWHILE  shift, and go to state 89
 
 
 State 69
 
-   23 assing_expr: T_TYPEINT T_ID assing_expr_2linha T_SEMMICOLON .
+   25 assing_expr: T_TYPEDOUBLE T_ID assing_expr_2linha T_SEMMICOLON .
 
-    $default  reduce using rule 23 (assing_expr)
+    $default  reduce using rule 25 (assing_expr)
 
 
 State 70
 
-   31 assing_expr_3linha: T_TYPEDOUBLE T_ID assing_expr_2linha .
+   24 assing_expr: T_TYPEINT T_ID assing_expr_2linha T_SEMMICOLON .
 
-    $default  reduce using rule 31 (assing_expr_3linha)
+    $default  reduce using rule 24 (assing_expr)
 
 
 State 71
 
-   30 assing_expr_3linha: T_TYPEINT T_ID assing_expr_2linha .
+   32 assing_expr_3linha: T_TYPEDOUBLE T_ID assing_expr_2linha .
 
-    $default  reduce using rule 30 (assing_expr_3linha)
+    $default  reduce using rule 32 (assing_expr_3linha)
 
 
 State 72
 
-   20 bool_expr_2linha: T_ID .
+   31 assing_expr_3linha: T_TYPEINT T_ID assing_expr_2linha .
 
-    $default  reduce using rule 20 (bool_expr_2linha)
+    $default  reduce using rule 31 (assing_expr_3linha)
 
 
 State 73
 
-   10 math_expr: math_expr . T_OPERATOR math_expr
-   21 bool_expr_2linha: math_expr .
-
-    T_OPERATOR  shift, and go to state 37
+   21 bool_expr_2linha: T_ID .
 
     $default  reduce using rule 21 (bool_expr_2linha)
 
 
 State 74
 
-   14 bool_expr_linha: T_EQUAL bool_expr_2linha .
+   22 bool_expr_2linha: math_expr .
 
-    $default  reduce using rule 14 (bool_expr_linha)
+    $default  reduce using rule 22 (bool_expr_2linha)
 
 
 State 75
 
-   15 bool_expr_linha: T_GREATER bool_expr_2linha .
+   15 bool_expr_linha: T_EQUAL bool_expr_2linha .
 
     $default  reduce using rule 15 (bool_expr_linha)
 
 
 State 76
 
-   16 bool_expr_linha: T_GREATEREQUAL bool_expr_2linha .
+   16 bool_expr_linha: T_GREATER bool_expr_2linha .
 
     $default  reduce using rule 16 (bool_expr_linha)
 
 
 State 77
 
-   17 bool_expr_linha: T_MINOREQUAL bool_expr_2linha .
+   17 bool_expr_linha: T_GREATEREQUAL bool_expr_2linha .
 
     $default  reduce using rule 17 (bool_expr_linha)
 
 
 State 78
 
-   18 bool_expr_linha: T_MINOR bool_expr_2linha .
+   18 bool_expr_linha: T_MINOREQUAL bool_expr_2linha .
 
     $default  reduce using rule 18 (bool_expr_linha)
 
 
 State 79
 
-   19 bool_expr_linha: T_NOTEQUAL bool_expr_2linha .
+   19 bool_expr_linha: T_MINOR bool_expr_2linha .
 
     $default  reduce using rule 19 (bool_expr_linha)
 
 
 State 80
 
-   34 cond_linha: T_LEFTCURLY . line T_RIGHTCURLY cond_2linha
+   20 bool_expr_linha: T_NOTEQUAL bool_expr_2linha .
+
+    $default  reduce using rule 20 (bool_expr_linha)
+
+
+State 81
+
+   35 cond_linha: T_LEFTCURLY . line T_RIGHTCURLY cond_2linha
 
     T_INT                shift, and go to state 3
     T_REAL               shift, and go to state 4
@@ -905,81 +938,56 @@ State 80
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
 
-    line         go to state 89
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
+    $default  reduce using rule 10 (math_expr)
 
-
-State 81
-
-   10 math_expr: math_expr . T_OPERATOR math_expr
-   35 cond_linha: math_expr .
-
-    T_OPERATOR  shift, and go to state 37
-
-    $default  reduce using rule 35 (cond_linha)
+    line         go to state 90
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
 
 
 State 82
 
-   36 cond_linha: assing_expr .
+   36 cond_linha: math_expr .
 
     $default  reduce using rule 36 (cond_linha)
 
 
 State 83
 
-   32 cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha .
+   37 cond_linha: assing_expr .
 
-    $default  reduce using rule 32 (cond)
+    $default  reduce using rule 37 (cond_linha)
 
 
 State 84
 
-   33 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY . case case_default T_RIGHTCURLY
+   33 cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha .
 
-    T_CONDITIONALCASE  shift, and go to state 90
-
-    case  go to state 91
+    $default  reduce using rule 33 (cond)
 
 
 State 85
 
-   47 loopcond: assing_expr bool_expr T_SEMMICOLON . T_ID assing_expr_linha
+   34 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY . case case_default T_RIGHTCURLY
 
-    T_ID  shift, and go to state 92
+    T_CONDITIONALCASE  shift, and go to state 91
+
+    case  go to state 92
 
 
 State 86
 
-   44 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY . line T_RIGHTCURLY
+   48 loopcond: assing_expr bool_expr T_SEMMICOLON . T_ID assing_expr_linha
 
-    T_INT                shift, and go to state 3
-    T_REAL               shift, and go to state 4
-    T_QUIT               shift, and go to state 5
-    T_LEFT               shift, and go to state 6
-    T_ID                 shift, and go to state 7
-    T_CONDITIONALIF      shift, and go to state 8
-    T_CONDITIONALSWITCH  shift, and go to state 9
-    T_LOOPFOR            shift, and go to state 10
-    T_LOOPWHILE          shift, and go to state 11
-    T_LOOPDO             shift, and go to state 12
-    T_TYPEDOUBLE         shift, and go to state 13
-    T_TYPEINT            shift, and go to state 14
-    T_CONST              shift, and go to state 15
-
-    line         go to state 93
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
+    T_ID  shift, and go to state 93
 
 
 State 87
 
-   45 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY . line T_RIGHTCURLY
+   45 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY . line T_RIGHTCURLY
 
     T_INT                shift, and go to state 3
     T_REAL               shift, and go to state 4
@@ -995,311 +1003,352 @@ State 87
     T_TYPEINT            shift, and go to state 14
     T_CONST              shift, and go to state 15
 
+    $default  reduce using rule 10 (math_expr)
+
     line         go to state 94
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
 
 
 State 88
 
-   46 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE . T_LEFT bool_expr T_RIGHT T_SEMMICOLON
+   46 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY . line T_RIGHTCURLY
 
-    T_LEFT  shift, and go to state 95
+    T_INT                shift, and go to state 3
+    T_REAL               shift, and go to state 4
+    T_QUIT               shift, and go to state 5
+    T_LEFT               shift, and go to state 6
+    T_ID                 shift, and go to state 7
+    T_CONDITIONALIF      shift, and go to state 8
+    T_CONDITIONALSWITCH  shift, and go to state 9
+    T_LOOPFOR            shift, and go to state 10
+    T_LOOPWHILE          shift, and go to state 11
+    T_LOOPDO             shift, and go to state 12
+    T_TYPEDOUBLE         shift, and go to state 13
+    T_TYPEINT            shift, and go to state 14
+    T_CONST              shift, and go to state 15
+
+    $default  reduce using rule 10 (math_expr)
+
+    line         go to state 95
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
 
 
 State 89
 
-   34 cond_linha: T_LEFTCURLY line . T_RIGHTCURLY cond_2linha
+   47 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE . T_LEFT bool_expr T_RIGHT T_SEMMICOLON
 
-    T_RIGHTCURLY  shift, and go to state 96
+    T_LEFT  shift, and go to state 96
 
 
 State 90
 
-   39 case: T_CONDITIONALCASE . math_expr T_TWODOTS line case_linha
+   35 cond_linha: T_LEFTCURLY line . T_RIGHTCURLY cond_2linha
+
+    T_RIGHTCURLY  shift, and go to state 97
+
+
+State 91
+
+   40 case: T_CONDITIONALCASE . math_expr T_TWODOTS line case_linha
 
     T_INT   shift, and go to state 3
     T_REAL  shift, and go to state 4
     T_LEFT  shift, and go to state 6
 
-    math_expr  go to state 97
+    $default  reduce using rule 10 (math_expr)
 
-
-State 91
-
-   33 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case . case_default T_RIGHTCURLY
-
-    T_CONDITIONALDEFAULT  shift, and go to state 98
-
-    case_default  go to state 99
+    number     go to state 17
+    math_expr  go to state 98
 
 
 State 92
 
-   47 loopcond: assing_expr bool_expr T_SEMMICOLON T_ID . assing_expr_linha
+   34 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case . case_default T_RIGHTCURLY
 
-    T_ASSING                shift, and go to state 22
-    T_COMPLEXOPERATORPLUS   shift, and go to state 23
-    T_COMPLEXOPERATORMINUS  shift, and go to state 24
+    T_CONDITIONALDEFAULT  shift, and go to state 99
 
-    assing_expr_linha   go to state 100
-    assing_expr_2linha  go to state 26
+    case_default  go to state 100
 
 
 State 93
 
-   44 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line . T_RIGHTCURLY
+   48 loopcond: assing_expr bool_expr T_SEMMICOLON T_ID . assing_expr_linha
 
-    T_RIGHTCURLY  shift, and go to state 101
+    T_ASSING                shift, and go to state 23
+    T_COMPLEXOPERATORPLUS   shift, and go to state 24
+    T_COMPLEXOPERATORMINUS  shift, and go to state 25
+
+    assing_expr_linha   go to state 101
+    assing_expr_2linha  go to state 27
 
 
 State 94
 
-   45 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line . T_RIGHTCURLY
+   45 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line . T_RIGHTCURLY
 
     T_RIGHTCURLY  shift, and go to state 102
 
 
 State 95
 
-   46 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT . bool_expr T_RIGHT T_SEMMICOLON
+   46 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line . T_RIGHTCURLY
 
-    T_ID  shift, and go to state 42
-
-    bool_expr  go to state 103
+    T_RIGHTCURLY  shift, and go to state 103
 
 
 State 96
 
-   34 cond_linha: T_LEFTCURLY line T_RIGHTCURLY . cond_2linha
+   47 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT . bool_expr T_RIGHT T_SEMMICOLON
 
-    T_CONDITIONALELSE  shift, and go to state 104
+    T_ID  shift, and go to state 43
 
-    $default  reduce using rule 37 (cond_2linha)
-
-    cond_2linha  go to state 105
+    bool_expr  go to state 104
 
 
 State 97
 
-   10 math_expr: math_expr . T_OPERATOR math_expr
-   39 case: T_CONDITIONALCASE math_expr . T_TWODOTS line case_linha
+   35 cond_linha: T_LEFTCURLY line T_RIGHTCURLY . cond_2linha
 
-    T_OPERATOR  shift, and go to state 37
-    T_TWODOTS   shift, and go to state 106
+    T_CONDITIONALELSE  shift, and go to state 105
+
+    $default  reduce using rule 38 (cond_2linha)
+
+    cond_2linha  go to state 106
 
 
 State 98
 
-   40 case_default: T_CONDITIONALDEFAULT . T_TWODOTS line
+   40 case: T_CONDITIONALCASE math_expr . T_TWODOTS line case_linha
 
     T_TWODOTS  shift, and go to state 107
 
 
 State 99
 
-   33 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default . T_RIGHTCURLY
+   41 case_default: T_CONDITIONALDEFAULT . T_TWODOTS line
 
-    T_RIGHTCURLY  shift, and go to state 108
+    T_TWODOTS  shift, and go to state 108
 
 
 State 100
 
-   47 loopcond: assing_expr bool_expr T_SEMMICOLON T_ID assing_expr_linha .
+   34 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default . T_RIGHTCURLY
 
-    $default  reduce using rule 47 (loopcond)
+    T_RIGHTCURLY  shift, and go to state 109
 
 
 State 101
 
-   44 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY .
+   48 loopcond: assing_expr bool_expr T_SEMMICOLON T_ID assing_expr_linha .
 
-    $default  reduce using rule 44 (loop)
+    $default  reduce using rule 48 (loopcond)
 
 
 State 102
 
-   45 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY .
+   45 loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY .
 
     $default  reduce using rule 45 (loop)
 
 
 State 103
 
-   46 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr . T_RIGHT T_SEMMICOLON
-
-    T_RIGHT  shift, and go to state 109
-
-
-State 104
-
-   38 cond_2linha: T_CONDITIONALELSE . T_LEFTCURLY line T_RIGHTCURLY
-
-    T_LEFTCURLY  shift, and go to state 110
-
-
-State 105
-
-   34 cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha .
-
-    $default  reduce using rule 34 (cond_linha)
-
-
-State 106
-
-   39 case: T_CONDITIONALCASE math_expr T_TWODOTS . line case_linha
-
-    T_INT                shift, and go to state 3
-    T_REAL               shift, and go to state 4
-    T_QUIT               shift, and go to state 5
-    T_LEFT               shift, and go to state 6
-    T_ID                 shift, and go to state 7
-    T_CONDITIONALIF      shift, and go to state 8
-    T_CONDITIONALSWITCH  shift, and go to state 9
-    T_LOOPFOR            shift, and go to state 10
-    T_LOOPWHILE          shift, and go to state 11
-    T_LOOPDO             shift, and go to state 12
-    T_TYPEDOUBLE         shift, and go to state 13
-    T_TYPEINT            shift, and go to state 14
-    T_CONST              shift, and go to state 15
-
-    line         go to state 111
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
-
-
-State 107
-
-   40 case_default: T_CONDITIONALDEFAULT T_TWODOTS . line
-
-    T_INT                shift, and go to state 3
-    T_REAL               shift, and go to state 4
-    T_QUIT               shift, and go to state 5
-    T_LEFT               shift, and go to state 6
-    T_ID                 shift, and go to state 7
-    T_CONDITIONALIF      shift, and go to state 8
-    T_CONDITIONALSWITCH  shift, and go to state 9
-    T_LOOPFOR            shift, and go to state 10
-    T_LOOPWHILE          shift, and go to state 11
-    T_LOOPDO             shift, and go to state 12
-    T_TYPEDOUBLE         shift, and go to state 13
-    T_TYPEINT            shift, and go to state 14
-    T_CONST              shift, and go to state 15
-
-    line         go to state 112
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
-
-
-State 108
-
-   33 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY .
-
-    $default  reduce using rule 33 (cond)
-
-
-State 109
-
-   46 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT . T_SEMMICOLON
-
-    T_SEMMICOLON  shift, and go to state 113
-
-
-State 110
-
-   38 cond_2linha: T_CONDITIONALELSE T_LEFTCURLY . line T_RIGHTCURLY
-
-    T_INT                shift, and go to state 3
-    T_REAL               shift, and go to state 4
-    T_QUIT               shift, and go to state 5
-    T_LEFT               shift, and go to state 6
-    T_ID                 shift, and go to state 7
-    T_CONDITIONALIF      shift, and go to state 8
-    T_CONDITIONALSWITCH  shift, and go to state 9
-    T_LOOPFOR            shift, and go to state 10
-    T_LOOPWHILE          shift, and go to state 11
-    T_LOOPDO             shift, and go to state 12
-    T_TYPEDOUBLE         shift, and go to state 13
-    T_TYPEINT            shift, and go to state 14
-    T_CONST              shift, and go to state 15
-
-    line         go to state 114
-    math_expr    go to state 17
-    assing_expr  go to state 18
-    cond         go to state 19
-    loop         go to state 20
-
-
-State 111
-
-   39 case: T_CONDITIONALCASE math_expr T_TWODOTS line . case_linha
-
-    T_CONDITIONALCASE  shift, and go to state 90
-    T_BREAK            shift, and go to state 115
-
-    $default  reduce using rule 41 (case_linha)
-
-    case        go to state 116
-    case_linha  go to state 117
-
-
-State 112
-
-   40 case_default: T_CONDITIONALDEFAULT T_TWODOTS line .
-
-    $default  reduce using rule 40 (case_default)
-
-
-State 113
-
-   46 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON .
+   46 loop: T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY .
 
     $default  reduce using rule 46 (loop)
 
 
+State 104
+
+   47 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr . T_RIGHT T_SEMMICOLON
+
+    T_RIGHT  shift, and go to state 110
+
+
+State 105
+
+   39 cond_2linha: T_CONDITIONALELSE . T_LEFTCURLY line T_RIGHTCURLY
+
+    T_LEFTCURLY  shift, and go to state 111
+
+
+State 106
+
+   35 cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha .
+
+    $default  reduce using rule 35 (cond_linha)
+
+
+State 107
+
+   40 case: T_CONDITIONALCASE math_expr T_TWODOTS . line case_linha
+
+    T_INT                shift, and go to state 3
+    T_REAL               shift, and go to state 4
+    T_QUIT               shift, and go to state 5
+    T_LEFT               shift, and go to state 6
+    T_ID                 shift, and go to state 7
+    T_CONDITIONALIF      shift, and go to state 8
+    T_CONDITIONALSWITCH  shift, and go to state 9
+    T_LOOPFOR            shift, and go to state 10
+    T_LOOPWHILE          shift, and go to state 11
+    T_LOOPDO             shift, and go to state 12
+    T_TYPEDOUBLE         shift, and go to state 13
+    T_TYPEINT            shift, and go to state 14
+    T_CONST              shift, and go to state 15
+
+    $default  reduce using rule 10 (math_expr)
+
+    line         go to state 112
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
+
+
+State 108
+
+   41 case_default: T_CONDITIONALDEFAULT T_TWODOTS . line
+
+    T_INT                shift, and go to state 3
+    T_REAL               shift, and go to state 4
+    T_QUIT               shift, and go to state 5
+    T_LEFT               shift, and go to state 6
+    T_ID                 shift, and go to state 7
+    T_CONDITIONALIF      shift, and go to state 8
+    T_CONDITIONALSWITCH  shift, and go to state 9
+    T_LOOPFOR            shift, and go to state 10
+    T_LOOPWHILE          shift, and go to state 11
+    T_LOOPDO             shift, and go to state 12
+    T_TYPEDOUBLE         shift, and go to state 13
+    T_TYPEINT            shift, and go to state 14
+    T_CONST              shift, and go to state 15
+
+    $default  reduce using rule 10 (math_expr)
+
+    line         go to state 113
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
+
+
+State 109
+
+   34 cond: T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY .
+
+    $default  reduce using rule 34 (cond)
+
+
+State 110
+
+   47 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT . T_SEMMICOLON
+
+    T_SEMMICOLON  shift, and go to state 114
+
+
+State 111
+
+   39 cond_2linha: T_CONDITIONALELSE T_LEFTCURLY . line T_RIGHTCURLY
+
+    T_INT                shift, and go to state 3
+    T_REAL               shift, and go to state 4
+    T_QUIT               shift, and go to state 5
+    T_LEFT               shift, and go to state 6
+    T_ID                 shift, and go to state 7
+    T_CONDITIONALIF      shift, and go to state 8
+    T_CONDITIONALSWITCH  shift, and go to state 9
+    T_LOOPFOR            shift, and go to state 10
+    T_LOOPWHILE          shift, and go to state 11
+    T_LOOPDO             shift, and go to state 12
+    T_TYPEDOUBLE         shift, and go to state 13
+    T_TYPEINT            shift, and go to state 14
+    T_CONST              shift, and go to state 15
+
+    $default  reduce using rule 10 (math_expr)
+
+    line         go to state 115
+    number       go to state 17
+    math_expr    go to state 18
+    assing_expr  go to state 19
+    cond         go to state 20
+    loop         go to state 21
+
+
+State 112
+
+   40 case: T_CONDITIONALCASE math_expr T_TWODOTS line . case_linha
+
+    T_CONDITIONALCASE  shift, and go to state 91
+    T_BREAK            shift, and go to state 116
+
+    $default  reduce using rule 42 (case_linha)
+
+    case        go to state 117
+    case_linha  go to state 118
+
+
+State 113
+
+   41 case_default: T_CONDITIONALDEFAULT T_TWODOTS line .
+
+    $default  reduce using rule 41 (case_default)
+
+
 State 114
 
-   38 cond_2linha: T_CONDITIONALELSE T_LEFTCURLY line . T_RIGHTCURLY
+   47 loop: T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON .
 
-    T_RIGHTCURLY  shift, and go to state 118
+    $default  reduce using rule 47 (loop)
 
 
 State 115
 
-   43 case_linha: T_BREAK . T_SEMMICOLON
+   39 cond_2linha: T_CONDITIONALELSE T_LEFTCURLY line . T_RIGHTCURLY
 
-    T_SEMMICOLON  shift, and go to state 119
+    T_RIGHTCURLY  shift, and go to state 119
 
 
 State 116
 
-   42 case_linha: case .
+   44 case_linha: T_BREAK . T_SEMMICOLON
 
-    $default  reduce using rule 42 (case_linha)
+    T_SEMMICOLON  shift, and go to state 120
 
 
 State 117
 
-   39 case: T_CONDITIONALCASE math_expr T_TWODOTS line case_linha .
+   43 case_linha: case .
 
-    $default  reduce using rule 39 (case)
+    $default  reduce using rule 43 (case_linha)
 
 
 State 118
 
-   38 cond_2linha: T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY .
+   40 case: T_CONDITIONALCASE math_expr T_TWODOTS line case_linha .
 
-    $default  reduce using rule 38 (cond_2linha)
+    $default  reduce using rule 40 (case)
 
 
 State 119
 
-   43 case_linha: T_BREAK T_SEMMICOLON .
+   39 cond_2linha: T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY .
 
-    $default  reduce using rule 43 (case_linha)
+    $default  reduce using rule 39 (cond_2linha)
+
+
+State 120
+
+   44 case_linha: T_BREAK T_SEMMICOLON .
+
+    $default  reduce using rule 44 (case_linha)

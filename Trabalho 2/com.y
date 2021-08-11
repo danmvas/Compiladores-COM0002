@@ -49,10 +49,13 @@ line: T_QUIT 						{ printf("Até mais...\n"); exit(0); }
 	| loop 						 
 	;
 
-math_expr: T_INT							{ printf("Inteiro: \n"); } // printar a árvore
+number: T_INT							{ printf("Inteiro: \n"); } // printar a árvore
 	| T_REAL								{ printf("Real: \n"); } // printar a árvore
-	| math_expr T_OPERATOR math_expr		{ printf("Operação básica: \n"); } // printar a árvore
-	| T_LEFT math_expr T_RIGHT				{ printf("Parenteses: \n"); } // printar a árvore
+	;
+
+math_expr:
+	| number T_OPERATOR number		{ printf("Operação básica: \n"); } // printar a árvore
+	| T_LEFT number T_RIGHT				{ printf("Parenteses: \n"); } // printar a árvore
 	;	
 
 bool_expr: T_ID bool_expr_linha				
