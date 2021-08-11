@@ -1,0 +1,20 @@
+for (int i = 0; i < 10; i++) {
+    if (i == 10) j++;
+}
+if (num) {
+    int a = 0;
+} else {
+    int b = 0;
+}
+while (a < 10) {
+    i++;
+}
+do {
+    j--;
+} while (b < 10);
+// Isso é um comentário
+switch (num) { 
+    case 1: i = 1; 
+    case 2: i = 10; break; 
+    default: i = 5; 
+}

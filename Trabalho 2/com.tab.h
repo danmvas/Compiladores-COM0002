@@ -47,39 +47,38 @@ extern int yydebug;
   {
     T_INT = 258,
     T_REAL = 259,
-    T_NEWLINE = 260,
-    T_QUIT = 261,
-    T_OPERATOR = 262,
-    T_LEFT = 263,
-    T_RIGHT = 264,
-    T_ID = 265,
-    T_ASSING = 266,
-    T_COMPLEXOPERATORPLUS = 267,
-    T_COMPLEXOPERATORMINUS = 268,
-    T_CONDITIONALIF = 269,
-    T_RIGHTCURLY = 270,
-    T_LEFTCURLY = 271,
-    T_CONDITIONALELSE = 272,
-    T_CONDITIONALSWITCH = 273,
-    T_CONDITIONALCASE = 274,
-    T_TWODOTS = 275,
-    T_CONDITIONALDEFAULT = 276,
-    T_LOOPFOR = 277,
-    T_LOOPWHILE = 278,
-    T_LOOPDO = 279,
-    T_BREAK = 280,
-    T_EQUAL = 281,
-    T_SEMMICOLON = 282,
-    T_LOOPCONTINUE = 283,
-    T_TYPEDOUBLE = 284,
-    T_TYPEINT = 285,
-    T_RETURN = 286,
-    T_SPACE = 287,
-    T_CONST = 288,
-    T_PLUS = 289,
-    T_MINUS = 290,
-    T_MULTIPLY = 291,
-    T_DIVIDE = 292
+    T_QUIT = 260,
+    T_OPERATOR = 261,
+    T_LEFT = 262,
+    T_RIGHT = 263,
+    T_ID = 264,
+    T_ASSING = 265,
+    T_COMPLEXOPERATORPLUS = 266,
+    T_COMPLEXOPERATORMINUS = 267,
+    T_CONDITIONALIF = 268,
+    T_RIGHTCURLY = 269,
+    T_LEFTCURLY = 270,
+    T_CONDITIONALELSE = 271,
+    T_CONDITIONALSWITCH = 272,
+    T_CONDITIONALCASE = 273,
+    T_TWODOTS = 274,
+    T_CONDITIONALDEFAULT = 275,
+    T_LOOPFOR = 276,
+    T_LOOPWHILE = 277,
+    T_LOOPDO = 278,
+    T_BREAK = 279,
+    T_EQUAL = 280,
+    T_SEMMICOLON = 281,
+    T_LOOPCONTINUE = 282,
+    T_TYPEDOUBLE = 283,
+    T_TYPEINT = 284,
+    T_RETURN = 285,
+    T_CONST = 286,
+    T_GREATER = 287,
+    T_GREATEREQUAL = 288,
+    T_MINOREQUAL = 289,
+    T_MINOR = 290,
+    T_NOTEQUAL = 291
   };
 #endif
 
@@ -94,7 +93,7 @@ union YYSTYPE
 	float fval;
 	bool bval;
 
-#line 98 "com.tab.h" /* yacc.c:1909  */
+#line 97 "com.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

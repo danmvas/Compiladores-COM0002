@@ -17,12 +17,18 @@ ID          [a-zA-Z][a-zA-Z0-9]*
 
 "sair"						{return T_QUIT;}
 [ \t]	                    ; // ignore todos os espaços em branco
+
 {DIGITO}+\.{DIGITO}+ 		{yylval.fval = atof(yytext); return T_REAL;}
 {DIGITO}+					{yylval.ival = atoi(yytext); return T_INT;}
-\n							{return T_NEWLINE;}
+\n							; //{return T_NEWLINE;}
 "++"                        {return T_COMPLEXOPERATORPLUS;}
 "--"                        {return T_COMPLEXOPERATORMINUS;}
 "=="                        {return T_EQUAL;}
+">"                         {return T_GREATER;}
+">="                        {return T_GREATEREQUAL;}
+"<="                        {return T_MINOREQUAL;}
+"<"                         {return T_MINOR;}
+"!="                        {return T_NOTEQUAL;}
 "="                         {return T_ASSING;}
 ":"                         {return T_TWODOTS;}
 "+"|"-"|"*"|"/"             {return T_OPERATOR;}
@@ -46,7 +52,6 @@ return                      {return T_RETURN;}
 "{"                         {return T_LEFTCURLY;}
 "}"                         {return T_RIGHTCURLY;}
 ";"                         {return T_SEMMICOLON;}
-[ ]                         {return T_SPACE;}
 .							{printf("Caracter misterioso... %s\n", yytext);}
 
 %%
