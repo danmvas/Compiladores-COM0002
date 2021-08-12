@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 extern int yylex();
 extern int yyparse();
@@ -38,26 +39,26 @@ void yyerror(const char* s);
 %%
 
 calculation:	/* Aqui temos a representação do epsilon na gramática... */
-	| calculation line
+	| calculation line				
 	;
 
 line: T_QUIT 						{ printf("Até mais...\n"); exit(0); }
-	| math_expr T_SEMMICOLON														
-	| assing_expr 					
-	| cond 												
-	| loop 						 
+	| math_expr																	
+	| assing_expr 						
+	| cond 										
+	| loop 						 		
 	;
 
-number: T_INT								{ printf("Inteiro: \n"); } // printar a árvore
-	| T_REAL								{ printf("Real: \n"); } // printar a árvore
+number: T_INT						{ printf("Inteiro: \n"); }
+	| T_REAL						{ printf("Real: \n"); }
 	;
 
-math_expr: number						{ printf("Numero: \n"); }
-	| number T_OPERATOR number			{ printf("Operação básica: \n"); } // printar a árvore
-	| T_LEFT number T_RIGHT				{ printf("Parenteses: \n"); } // printar a árvore
+math_expr: number						
+	| number T_OPERATOR number		{ printf("Operação básica: \n"); }
+	| T_LEFT math_expr T_RIGHT		{ printf("Parenteses: \n"); }
 	;	
 
-bool_expr: T_ID bool_expr_linha				
+bool_expr: T_ID bool_expr_linha		{ printf("Boolean: \n"); }
 	;
 
 bool_expr_linha: 							 // vazio
@@ -73,10 +74,10 @@ bool_expr_2linha: T_ID
 	| math_expr						    					    		
 	;
 
-assing_expr: T_ID assing_expr_linha	T_SEMMICOLON		{ printf("Atribuição de valor: \n"); } // printar a árvore
-	| T_TYPEINT T_ID assing_expr_2linha	T_SEMMICOLON	{ printf("Declaração de variável int: \n"); } // printar a árvore
-	| T_TYPEDOUBLE T_ID assing_expr_2linha T_SEMMICOLON	{ printf("Declaração de variável double: \n"); } // printar a árvore
-	| T_CONST assing_expr_3linha T_SEMMICOLON			{ printf("Declaração de constante: \n"); } // printar a árvore
+assing_expr: T_ID assing_expr_linha	T_SEMMICOLON		{ printf("Atribuição de valor: \n"); }
+	| T_TYPEINT T_ID assing_expr_2linha	T_SEMMICOLON	{ printf("Declaração de variável int: \n"); }
+	| T_TYPEDOUBLE T_ID assing_expr_2linha T_SEMMICOLON	{ printf("Declaração de variável double: \n"); }
+	| T_CONST assing_expr_3linha T_SEMMICOLON			{ printf("Declaração de constante: \n"); }
 	;
 
 assing_expr_linha: assing_expr_2linha					
@@ -91,8 +92,8 @@ assing_expr_3linha: T_TYPEINT T_ID assing_expr_2linha
 	| T_TYPEDOUBLE T_ID assing_expr_2linha
 	;
 
-cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha				    			 { printf("If: \n"); } // printar a árvore
-	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY { printf("Switch: \n"); } // printar a árvore
+cond: T_CONDITIONALIF T_LEFT bool_expr T_RIGHT cond_linha				    			 { printf("If: \n"); }
+	| T_CONDITIONALSWITCH T_LEFT T_ID T_RIGHT T_LEFTCURLY case case_default T_RIGHTCURLY { printf("Switch: \n"); }
 	;
 
 cond_linha: T_LEFTCURLY line T_RIGHTCURLY cond_2linha		
@@ -104,7 +105,7 @@ cond_2linha: 											 // vazio
 	| T_CONDITIONALELSE T_LEFTCURLY line T_RIGHTCURLY	
 	;
 
-case: T_CONDITIONALCASE math_expr T_TWODOTS line case_linha	
+case: T_CONDITIONALCASE math_expr T_TWODOTS line case_linha										{ }
 	;					
 
 case_default: T_CONDITIONALDEFAULT T_TWODOTS line									
@@ -115,9 +116,9 @@ case_linha:							 // vazio
 	| T_BREAK T_SEMMICOLON									
 	;
 
-loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY							{ printf("Loop for: \n"); } // printar a árvore
-	| T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY						{ printf("Loop while: \n"); } // printar a árvore
-	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON 	{ printf("Loop do while: \n"); } // printar a árvore
+loop: T_LOOPFOR T_LEFT loopcond T_RIGHT T_LEFTCURLY line T_RIGHTCURLY							{ printf("Loop for: \n"); }
+	| T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_LEFTCURLY line T_RIGHTCURLY						{ printf("Loop while: \n"); }
+	| T_LOOPDO T_LEFTCURLY line T_RIGHTCURLY T_LOOPWHILE T_LEFT bool_expr T_RIGHT T_SEMMICOLON 	{ printf("Loop do while: \n"); }
 	;
 
 loopcond: assing_expr bool_expr T_SEMMICOLON T_ID assing_expr_linha 
