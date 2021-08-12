@@ -62,7 +62,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "com.y" /* yacc.c:339  */
+#line 1 "com2.y" /* yacc.c:339  */
 
 
 #include <stdio.h>
@@ -75,8 +75,12 @@ extern int yyparse();
 extern FILE* yyin;
 
 void yyerror(const char* s);
+int altura = 0;
+int indexarvore = 0;
+char* pseudoarvore[4096];
+int pseudoaltura[4096];
 
-#line 80 "com.tab.c" /* yacc.c:339  */
+#line 84 "com2.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -95,9 +99,9 @@ void yyerror(const char* s);
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "com.tab.h".  */
-#ifndef YY_YY_COM_TAB_H_INCLUDED
-# define YY_YY_COM_TAB_H_INCLUDED
+   by #include "com2.tab.h".  */
+#ifndef YY_YY_COM2_TAB_H_INCLUDED
+# define YY_YY_COM2_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -153,13 +157,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 18 "com.y" /* yacc.c:355  */
+#line 22 "com2.y" /* yacc.c:355  */
 
 	int ival;
 	float fval;
 	bool bval;
 
-#line 163 "com.tab.c" /* yacc.c:355  */
+#line 167 "com2.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -172,11 +176,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_COM_TAB_H_INCLUDED  */
+#endif /* !YY_YY_COM2_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 180 "com.tab.c" /* yacc.c:358  */
+#line 184 "com2.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -454,11 +458,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    41,    41,    42,    45,    46,    47,    48,    49,    52,
-      53,    56,    57,    58,    61,    64,    65,    66,    67,    68,
-      69,    70,    73,    74,    77,    78,    79,    80,    83,    84,
-      85,    88,    91,    92,    95,    96,    99,   100,   101,   104,
-     105,   108,   111,   114,   115,   116,   119,   120,   121,   124
+       0,    45,    45,    46,    49,    50,    51,    52,    53,    56,
+      57,    60,    61,    62,    65,    68,    69,    70,    71,    72,
+      73,    74,    77,    78,    81,    82,    83,    84,    87,    88,
+      89,    92,    95,    96,    99,   100,   103,   104,   105,   108,
+     109,   112,   115,   118,   119,   120,   123,   124,   125,   128
 };
 #endif
 
@@ -1564,104 +1568,128 @@ yyreduce:
     int yychar_backup = yychar;
     switch (yyn)
       {
-          case 4:
-#line 45 "com.y" /* yacc.c:1646  */
+          case 3:
+#line 46 "com2.y" /* yacc.c:1646  */
+    { printf("Altura: %d\n", altura); indexarvore++; pseudoaltura[indexarvore] = altura; pseudoarvore[indexarvore] = "_"; altura = 0;}
+#line 1575 "com2.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 49 "com2.y" /* yacc.c:1646  */
     { printf("Até mais...\n"); exit(0); }
-#line 1571 "com.tab.c" /* yacc.c:1646  */
+#line 1581 "com2.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 5:
+#line 50 "com2.y" /* yacc.c:1646  */
+    { altura++; }
+#line 1587 "com2.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 6:
+#line 51 "com2.y" /* yacc.c:1646  */
+    { altura++; }
+#line 1593 "com2.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 8:
+#line 53 "com2.y" /* yacc.c:1646  */
+    { altura++; }
+#line 1599 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 52 "com.y" /* yacc.c:1646  */
-    { printf("Inteiro: \n"); }
-#line 1577 "com.tab.c" /* yacc.c:1646  */
+#line 56 "com2.y" /* yacc.c:1646  */
+    { printf("Inteiro: %d\n", (yyvsp[0].ival)); indexarvore++; pseudoarvore[indexarvore] = "inteiro";}
+#line 1605 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 53 "com.y" /* yacc.c:1646  */
-    { printf("Real: \n"); }
-#line 1583 "com.tab.c" /* yacc.c:1646  */
+#line 57 "com2.y" /* yacc.c:1646  */
+    { printf("Real: \n"); indexarvore++; pseudoarvore[indexarvore] = "real";}
+#line 1611 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 57 "com.y" /* yacc.c:1646  */
-    { printf("Operação básica: \n"); }
-#line 1589 "com.tab.c" /* yacc.c:1646  */
+#line 61 "com2.y" /* yacc.c:1646  */
+    { printf("Operação básica: \n"); altura++; indexarvore++; pseudoarvore[indexarvore] = "operacao";}
+#line 1617 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 58 "com.y" /* yacc.c:1646  */
-    { printf("Parenteses: \n"); }
-#line 1595 "com.tab.c" /* yacc.c:1646  */
+#line 62 "com2.y" /* yacc.c:1646  */
+    { printf("Parenteses: \n"); altura++; indexarvore++; pseudoarvore[indexarvore] = "parenteses";}
+#line 1623 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 61 "com.y" /* yacc.c:1646  */
-    { printf("Boolean: \n"); }
-#line 1601 "com.tab.c" /* yacc.c:1646  */
+#line 65 "com2.y" /* yacc.c:1646  */
+    { printf("Boolean: \n"); indexarvore++; pseudoarvore[indexarvore] = "boolean";}
+#line 1629 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 77 "com.y" /* yacc.c:1646  */
-    { printf("Atribuição de valor: \n"); }
-#line 1607 "com.tab.c" /* yacc.c:1646  */
+#line 81 "com2.y" /* yacc.c:1646  */
+    { printf("Atribuição de valor: \n"); indexarvore++; pseudoarvore[indexarvore] = "atribuicao";}
+#line 1635 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 78 "com.y" /* yacc.c:1646  */
-    { printf("Declaração de variável int: \n"); }
-#line 1613 "com.tab.c" /* yacc.c:1646  */
+#line 82 "com2.y" /* yacc.c:1646  */
+    { printf("Declaração de variável int: \n"); indexarvore++; pseudoarvore[indexarvore] = "int";}
+#line 1641 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 79 "com.y" /* yacc.c:1646  */
-    { printf("Declaração de variável double: \n"); }
-#line 1619 "com.tab.c" /* yacc.c:1646  */
+#line 83 "com2.y" /* yacc.c:1646  */
+    { printf("Declaração de variável double: \n"); indexarvore++; pseudoarvore[indexarvore] = "double";}
+#line 1647 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 80 "com.y" /* yacc.c:1646  */
-    { printf("Declaração de constante: \n"); }
-#line 1625 "com.tab.c" /* yacc.c:1646  */
+#line 84 "com2.y" /* yacc.c:1646  */
+    { printf("Declaração de constante: \n"); indexarvore++; pseudoarvore[indexarvore] = "const";}
+#line 1653 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 95 "com.y" /* yacc.c:1646  */
-    { printf("If: \n"); }
-#line 1631 "com.tab.c" /* yacc.c:1646  */
+#line 99 "com2.y" /* yacc.c:1646  */
+    { printf("If: \n"); indexarvore++; pseudoarvore[indexarvore] = "if";}
+#line 1659 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 96 "com.y" /* yacc.c:1646  */
-    { printf("Switch: \n"); }
-#line 1637 "com.tab.c" /* yacc.c:1646  */
+#line 100 "com2.y" /* yacc.c:1646  */
+    { printf("Switch: \n"); indexarvore++; pseudoarvore[indexarvore] = "switch";}
+#line 1665 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 108 "com.y" /* yacc.c:1646  */
-    { }
-#line 1643 "com.tab.c" /* yacc.c:1646  */
+#line 112 "com2.y" /* yacc.c:1646  */
+    { indexarvore++; pseudoarvore[indexarvore] = "case";}
+#line 1671 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 119 "com.y" /* yacc.c:1646  */
-    { printf("Loop for: \n"); }
-#line 1649 "com.tab.c" /* yacc.c:1646  */
+#line 123 "com2.y" /* yacc.c:1646  */
+    { printf("Loop for: \n"); indexarvore++; pseudoarvore[indexarvore] = "for";}
+#line 1677 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 120 "com.y" /* yacc.c:1646  */
-    { printf("Loop while: \n"); }
-#line 1655 "com.tab.c" /* yacc.c:1646  */
+#line 124 "com2.y" /* yacc.c:1646  */
+    { printf("Loop while: \n"); indexarvore++; pseudoarvore[indexarvore] = "while";}
+#line 1683 "com2.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 121 "com.y" /* yacc.c:1646  */
-    { printf("Loop do while: \n"); }
-#line 1661 "com.tab.c" /* yacc.c:1646  */
+#line 125 "com2.y" /* yacc.c:1646  */
+    { printf("Loop do while: \n"); indexarvore++; pseudoarvore[indexarvore] = "do";}
+#line 1689 "com2.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1665 "com.tab.c" /* yacc.c:1646  */
+#line 1693 "com2.tab.c" /* yacc.c:1646  */
         default: break;
       }
     if (yychar_backup != yychar)
@@ -1901,7 +1929,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 127 "com.y" /* yacc.c:1906  */
+#line 131 "com2.y" /* yacc.c:1906  */
 
 
 int main( argc, argv )
@@ -1909,6 +1937,9 @@ int argc;
 char **argv;
 {
 	++argv, --argc;
+	for (int i = 0; i < 4096; i++) {
+		pseudoarvore[i] = "";
+	}
 	if ( argc > 0 )
         yyin = fopen( argv[0], "r" );
     else {
@@ -1918,6 +1949,27 @@ char **argv;
 			yyparse();
 		} while(!feof(yyin));
 	}
+
+	
+	int tabs = 0;
+	int feitos = 0;
+	printf("\n\nÁvore: \n");
+	for (int i = 4095; i >= 0; i--) {
+		if (pseudoarvore[i] != "") {
+			if (pseudoarvore[i] == "_") {
+				tabs = pseudoaltura[i];
+			} else{
+				for (int j = 0; j < feitos; j++) {
+					printf("\t");
+				}
+				printf("%s\n", pseudoarvore[i]);
+				feitos++;
+				
+			}
+			
+		}
+	}
+	
 
 	return 0;
 }

@@ -148,7 +148,7 @@ char **argv;
 		} while(!feof(yyin));
 	}
 
-	/*
+	
 	int tabs = 0;
 	int feitos = 0;
 	printf("\n\nÁvore: \n");
@@ -157,18 +157,17 @@ char **argv;
 			if (pseudoarvore[i] == "_") {
 				tabs = pseudoaltura[i];
 			} else{
-				if (pseudoarvore[i+1] != "boolean") {
-					for (int j = 0; j < feitos; j++) {
-						printf("\t");
-					}
-					printf("%s\n", pseudoarvore[i]);
-					feitos++;
+				for (int j = 0; j < feitos; j++) {
+					printf("\t");
 				}
+				printf("%s\n", pseudoarvore[i]);
+				feitos++;
+				
 			}
 			
 		}
 	}
-	*/
+	
 
 	return 0;
 }
