@@ -1,0 +1,301 @@
+Gramática
+
+    0 $accept: method_body $end
+
+    1 $@1: %empty
+
+    2 method_body: $@1 statement_list marker
+
+    3 statement_list: statement
+    4               | statement marker statement_list
+
+    5 marker: %empty
+
+    6 statement: declaration
+    7          | assignment
+    8          | system_print
+
+    9 declaration: primitive_type IDENTIFIER SEMI_COLON
+
+   10 primitive_type: INT_WORD
+   11               | FLOAT_WORD
+
+   12 assignment: IDENTIFIER EQUALS expression SEMI_COLON
+
+   13 expression: FLOAT
+   14           | INT
+
+   15 system_print: SYSTEM_OUT LEFT_BRACKET expression RIGHT_BRACKET SEMI_COLON
+
+
+Terminais, com as regras onde eles aparecem
+
+$end (0) 0
+error (256)
+INT (258) 14
+FLOAT (259) 13
+IDENTIFIER (260) 9 12
+INT_WORD (261) 10
+FLOAT_WORD (262) 11
+SEMI_COLON (263) 9 12 15
+EQUALS (264) 12
+LEFT_BRACKET (265) 15
+RIGHT_BRACKET (266) 15
+SYSTEM_OUT (267) 15
+
+
+Não terminais com as regras onde eles aparecem
+
+$accept (13)
+    à esquerda: 0
+method_body (14)
+    à esquerda: 2, à direita: 0
+$@1 (15)
+    à esquerda: 1, à direita: 2
+statement_list (16)
+    à esquerda: 3 4, à direita: 2 4
+marker (17)
+    à esquerda: 5, à direita: 2 4
+statement (18)
+    à esquerda: 6 7 8, à direita: 3 4
+declaration (19)
+    à esquerda: 9, à direita: 6
+primitive_type (20)
+    à esquerda: 10 11, à direita: 9
+assignment (21)
+    à esquerda: 12, à direita: 7
+expression (22)
+    à esquerda: 13 14, à direita: 12 15
+system_print (23)
+    à esquerda: 15, à direita: 8
+
+
+Estado 0
+
+    0 $accept: . method_body $end
+
+    $padrão  reduzir usando a regra 1 ($@1)
+
+    method_body  ir ao estado 1
+    $@1          ir ao estado 2
+
+
+Estado 1
+
+    0 $accept: method_body . $end
+
+    $end  deslocar, e ir ao estado 3
+
+
+Estado 2
+
+    2 method_body: $@1 . statement_list marker
+
+    IDENTIFIER  deslocar, e ir ao estado 4
+    INT_WORD    deslocar, e ir ao estado 5
+    FLOAT_WORD  deslocar, e ir ao estado 6
+    SYSTEM_OUT  deslocar, e ir ao estado 7
+
+    statement_list  ir ao estado 8
+    statement       ir ao estado 9
+    declaration     ir ao estado 10
+    primitive_type  ir ao estado 11
+    assignment      ir ao estado 12
+    system_print    ir ao estado 13
+
+
+Estado 3
+
+    0 $accept: method_body $end .
+
+    $padrão  aceitar
+
+
+Estado 4
+
+   12 assignment: IDENTIFIER . EQUALS expression SEMI_COLON
+
+    EQUALS  deslocar, e ir ao estado 14
+
+
+Estado 5
+
+   10 primitive_type: INT_WORD .
+
+    $padrão  reduzir usando a regra 10 (primitive_type)
+
+
+Estado 6
+
+   11 primitive_type: FLOAT_WORD .
+
+    $padrão  reduzir usando a regra 11 (primitive_type)
+
+
+Estado 7
+
+   15 system_print: SYSTEM_OUT . LEFT_BRACKET expression RIGHT_BRACKET SEMI_COLON
+
+    LEFT_BRACKET  deslocar, e ir ao estado 15
+
+
+Estado 8
+
+    2 method_body: $@1 statement_list . marker
+
+    $padrão  reduzir usando a regra 5 (marker)
+
+    marker  ir ao estado 16
+
+
+Estado 9
+
+    3 statement_list: statement .
+    4               | statement . marker statement_list
+
+    $end      reduzir usando a regra 3 (statement_list)
+    $padrão  reduzir usando a regra 5 (marker)
+
+    marker  ir ao estado 17
+
+
+Estado 10
+
+    6 statement: declaration .
+
+    $padrão  reduzir usando a regra 6 (statement)
+
+
+Estado 11
+
+    9 declaration: primitive_type . IDENTIFIER SEMI_COLON
+
+    IDENTIFIER  deslocar, e ir ao estado 18
+
+
+Estado 12
+
+    7 statement: assignment .
+
+    $padrão  reduzir usando a regra 7 (statement)
+
+
+Estado 13
+
+    8 statement: system_print .
+
+    $padrão  reduzir usando a regra 8 (statement)
+
+
+Estado 14
+
+   12 assignment: IDENTIFIER EQUALS . expression SEMI_COLON
+
+    INT    deslocar, e ir ao estado 19
+    FLOAT  deslocar, e ir ao estado 20
+
+    expression  ir ao estado 21
+
+
+Estado 15
+
+   15 system_print: SYSTEM_OUT LEFT_BRACKET . expression RIGHT_BRACKET SEMI_COLON
+
+    INT    deslocar, e ir ao estado 19
+    FLOAT  deslocar, e ir ao estado 20
+
+    expression  ir ao estado 22
+
+
+Estado 16
+
+    2 method_body: $@1 statement_list marker .
+
+    $padrão  reduzir usando a regra 2 (method_body)
+
+
+Estado 17
+
+    4 statement_list: statement marker . statement_list
+
+    IDENTIFIER  deslocar, e ir ao estado 4
+    INT_WORD    deslocar, e ir ao estado 5
+    FLOAT_WORD  deslocar, e ir ao estado 6
+    SYSTEM_OUT  deslocar, e ir ao estado 7
+
+    statement_list  ir ao estado 23
+    statement       ir ao estado 9
+    declaration     ir ao estado 10
+    primitive_type  ir ao estado 11
+    assignment      ir ao estado 12
+    system_print    ir ao estado 13
+
+
+Estado 18
+
+    9 declaration: primitive_type IDENTIFIER . SEMI_COLON
+
+    SEMI_COLON  deslocar, e ir ao estado 24
+
+
+Estado 19
+
+   14 expression: INT .
+
+    $padrão  reduzir usando a regra 14 (expression)
+
+
+Estado 20
+
+   13 expression: FLOAT .
+
+    $padrão  reduzir usando a regra 13 (expression)
+
+
+Estado 21
+
+   12 assignment: IDENTIFIER EQUALS expression . SEMI_COLON
+
+    SEMI_COLON  deslocar, e ir ao estado 25
+
+
+Estado 22
+
+   15 system_print: SYSTEM_OUT LEFT_BRACKET expression . RIGHT_BRACKET SEMI_COLON
+
+    RIGHT_BRACKET  deslocar, e ir ao estado 26
+
+
+Estado 23
+
+    4 statement_list: statement marker statement_list .
+
+    $padrão  reduzir usando a regra 4 (statement_list)
+
+
+Estado 24
+
+    9 declaration: primitive_type IDENTIFIER SEMI_COLON .
+
+    $padrão  reduzir usando a regra 9 (declaration)
+
+
+Estado 25
+
+   12 assignment: IDENTIFIER EQUALS expression SEMI_COLON .
+
+    $padrão  reduzir usando a regra 12 (assignment)
+
+
+Estado 26
+
+   15 system_print: SYSTEM_OUT LEFT_BRACKET expression RIGHT_BRACKET . SEMI_COLON
+
+    SEMI_COLON  deslocar, e ir ao estado 27
+
+
+Estado 27
+
+   15 system_print: SYSTEM_OUT LEFT_BRACKET expression RIGHT_BRACKET SEMI_COLON .
+
+    $padrão  reduzir usando a regra 15 (system_print)
