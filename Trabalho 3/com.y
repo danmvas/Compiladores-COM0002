@@ -41,7 +41,6 @@ void defineVar(string name, int type);
 
 string genLabel();
 string getLabel(int n);
-//char *strdup (const char *s) throw ();
 
 void backpatch(vector<int> *list, int num);
 
@@ -73,7 +72,7 @@ void printLineNumber(int num)
 		int sType;
 	} expr_type;
 	struct {
-		vector<int> *trueList, *falseList;//no need for next because every if has else
+		vector<int> *trueList, *falseList;
 	} bexpr_type;
 	struct {
 		vector<int> *nextList;
@@ -81,20 +80,42 @@ void printLineNumber(int num)
 	int sType;
 }
 
-%token <ival> INT
-%token <fval> FLOAT
-%token <idval> IDENTIFIER
+%token <ival> T_INT
+%token <fval> T_REAL
+%token <idval> T_ID
+%token <bval> T_BOOL
 
-%token INT_WORD
-%token FLOAT_WORD
+%token T_TYPEINT
+%token T_TYPEDOUBLE
+%token T_TYPEBOOLEAN
+%token T_CONST
 
-%token SEMI_COLON
-%token EQUALS
+%token T_SEMICOLON
+%token T_ASSING
 
-%token LEFT_BRACKET
-%token RIGHT_BRACKET
+%token T_LEFTBRACKET
+%token T_RIGHTBRACKET
+%token T_LEFTCURLY
+%token T_RIGHTCURLY
+
+%token T_COMPLEXOPERATORPLUS 
+%token T_COMPLEXOPERATORMINUS
+%token T_ARITH_OP 
+%token T_RELA_OP 
+%token T_BOOL_OP 
+
+%token T_CONDITIONALIF 
+%token T_CONDITIONALELSE 
+%token T_LOOPWHILE 
+%token T_LOOPFOR 
+%token T_LOOPDO 
+%token T_CONDITIONALSWITCH 
+%token T_CONDITIONALCASE 
+%token T_BREAK 
+%token T_CONDITIONALDEFAULT
 
 %token SYSTEM_OUT
+%token T_QUIT
 
 %type <sType> primitive_type
 %type <expr_type> expression
@@ -142,7 +163,7 @@ statement:
     ;
 
 declaration: 
-	primitive_type IDENTIFIER SEMI_COLON
+	primitive_type T_ID T_SEMICOLON
 	{
 		string str($2);
 		if($1 == INT_T)
@@ -156,12 +177,12 @@ declaration:
 	;
 
 primitive_type: 
-	INT_WORD {$$ = INT_T;}
-	| FLOAT_WORD {$$ = FLOAT_T;}
+	T_TYPEINT {$$ = INT_T;}
+	| T_TYPEDOUBLE {$$ = FLOAT_T;}
 	;
 
 assignment: 
-	IDENTIFIER EQUALS expression SEMI_COLON
+	T_ID T_ASSING expression T_SEMICOLON
 	{
 		string str($1);
 		/* after expression finishes, its result should be on top of stack. 
@@ -186,9 +207,9 @@ assignment:
 	;
 
 expression: 
-	FLOAT 	{$$.sType = FLOAT_T; writeCode("ldc "+to_string($1));}
-	| INT 	{$$.sType = INT_T;  writeCode("ldc "+to_string($1));} 
-    | IDENTIFIER {
+	T_REAL 	{$$.sType = FLOAT_T; writeCode("ldc "+to_string($1));}
+	| T_INT 	{$$.sType = INT_T;  writeCode("ldc "+to_string($1));} 
+    | T_ID {
 		string str($1);
 		if(checkId(str))
 		{
@@ -208,12 +229,12 @@ expression:
 			$$.sType = ERROR_T;
 		}
 	}
-	| LEFT_BRACKET expression RIGHT_BRACKET {$$.sType = $2.sType;}
+	| T_LEFTBRACKET expression T_RIGHTBRACKET {$$.sType = $2.sType;}
 	;
     ;
 
 system_print:
-	SYSTEM_OUT LEFT_BRACKET expression RIGHT_BRACKET SEMI_COLON
+	SYSTEM_OUT T_LEFTBRACKET expression T_RIGHTBRACKET T_SEMICOLON
 	{
 		if($3.sType == INT_T)
 		{		

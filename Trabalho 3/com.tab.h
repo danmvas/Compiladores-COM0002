@@ -52,16 +52,36 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    FLOAT = 259,
-    IDENTIFIER = 260,
-    INT_WORD = 261,
-    FLOAT_WORD = 262,
-    SEMI_COLON = 263,
-    EQUALS = 264,
-    LEFT_BRACKET = 265,
-    RIGHT_BRACKET = 266,
-    SYSTEM_OUT = 267
+    T_INT = 258,
+    T_REAL = 259,
+    T_ID = 260,
+    T_BOOL = 261,
+    T_TYPEINT = 262,
+    T_TYPEDOUBLE = 263,
+    T_TYPEBOOLEAN = 264,
+    T_CONST = 265,
+    T_SEMICOLON = 266,
+    T_ASSING = 267,
+    T_LEFTBRACKET = 268,
+    T_RIGHTBRACKET = 269,
+    T_LEFTCURLY = 270,
+    T_RIGHTCURLY = 271,
+    T_COMPLEXOPERATORPLUS = 272,
+    T_COMPLEXOPERATORMINUS = 273,
+    T_ARITH_OP = 274,
+    T_RELA_OP = 275,
+    T_BOOL_OP = 276,
+    T_CONDITIONALIF = 277,
+    T_CONDITIONALELSE = 278,
+    T_LOOPWHILE = 279,
+    T_LOOPFOR = 280,
+    T_LOOPDO = 281,
+    T_CONDITIONALSWITCH = 282,
+    T_CONDITIONALCASE = 283,
+    T_BREAK = 284,
+    T_CONDITIONALDEFAULT = 285,
+    SYSTEM_OUT = 286,
+    T_QUIT = 287
   };
 #endif
 
@@ -81,14 +101,14 @@ union YYSTYPE
 		int sType;
 	} expr_type;
 	struct {
-		vector<int> *trueList, *falseList;//no need for next because every if has else
+		vector<int> *trueList, *falseList;
 	} bexpr_type;
 	struct {
 		vector<int> *nextList;
 	} stmt_type;
 	int sType;
 
-#line 92 "com.tab.h" /* yacc.c:1909  */
+#line 112 "com.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
