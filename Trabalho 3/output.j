@@ -60,7 +60,7 @@ getstatic      java/lang/System/out Ljava/io/PrintStream;
 iload 1
 invokevirtual java/io/PrintStream/println(I)V
 .line 8
-goto 
+goto L_7
 .line 9
 L_6:
 L_7:
@@ -76,7 +76,7 @@ getstatic      java/lang/System/out Ljava/io/PrintStream;
 iload 1
 invokevirtual java/io/PrintStream/println(I)V
 .line 11
-goto 
+goto L_10
 L_9:
 .line 12
 ldc 666
@@ -95,7 +95,7 @@ istore 1
 getstatic      java/lang/System/out Ljava/io/PrintStream;
 iload 1
 invokevirtual java/io/PrintStream/println(I)V
-goto 
+goto L_13
 L_12:
 .line 16
 .line 17
@@ -105,14 +105,24 @@ istore 3
 L_14:
 iload 3
 ldc 10
-if_icmplt 
-goto 
+if_icmplt L_16
+goto L_17
 L_15:
 iload 3
 ldc 1
 iadd
 istore 3
-goto 
+goto L_14
 .line 18
 L_16:
 .line 19
+iload 3
+istore 1
+getstatic      java/lang/System/out Ljava/io/PrintStream;
+iload 1
+invokevirtual java/io/PrintStream/println(I)V
+.line 20
+goto L_15
+L_17:
+return
+.end method

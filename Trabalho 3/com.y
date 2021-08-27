@@ -177,7 +177,6 @@ comando:
 	| if			{$$.nextList = $1.nextList;}
 	| for 			{$$.nextList = $1.nextList;}
 	// acrescentar o switch
-	// acrescentar o for
 	// acrescentar o while
 	// acrescentar o do while
     ;
