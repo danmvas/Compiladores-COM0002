@@ -2133,9 +2133,9 @@ char **argv;
     printf("##########################################################################\n");
 
     printf("======================TABELA DE SIMBOLOS======================\n");
-    printf("ID\t\t\t DESCRIÇÃO \t\t\t TIPO\t\t\t LINHA\t\t\t COLUNA\n");
+    printf("ID\t DESCRIÇÃO \t\t\t TIPO\t\t\t LINHA\t\t\t COLUNA\n");
     for(int i=0; i<num_tokens; i++) {
-        printf("%d\t\t\t %s\t\t\t %s\t\t\t %d\t\t\t %d\n",
+        printf("%d\t %s\t\t\t %s\t\t\t %d\t\t\t %d\n",
             tabelaDeSimbolos[i]-> id,
             tabelaDeSimbolos[i]-> descricao,
             tabelaDeSimbolos[i]-> tipo,

@@ -96,6 +96,7 @@ void printLineNumber(int num)
 %token T_TYPEBOOLEAN
 %token T_CONST
 
+%token T_TWODOTS
 %token T_SEMICOLON
 %token T_ASSING
 
@@ -465,6 +466,24 @@ for:
 		$$.nextList = $5.falseList;
 	}
 	;
+
+switch:
+	T_CONDITIONALSWITCH
+	T_LEFTBRACKET
+	expressao
+	T_RIGHTBRACKET
+	T_LEFTCURLY
+	T_CONDITIONALCASE
+	T_LEFTBRACKET
+	expressao
+	T_RIGHTBRACKET
+	T_TWODOTS
+	
+	T_RIGHTCURLY
+;
+
+case: 
+;
 
 %%
 

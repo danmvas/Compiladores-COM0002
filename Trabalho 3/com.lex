@@ -51,6 +51,7 @@ BOOLEANOP "&&"|"||"
 {BOOLEANOP} 				{ yylval.aopval = strdup(yytext); return T_BOOL_OP; }
 {BOOLEAN} 					{ if(!strcmp(yytext,"true")){ yylval.bval = 1;} else { yylval.bval = 0; } return T_BOOL; }
 {ID}						{ yylval.idval = strdup(yytext);return T_ID; }
+":"							{ return T_TWODOTS; }
 ";" 						{ return T_SEMICOLON; }
 "=" 						{ return T_ASSING; }
 "(" 						{ return T_LEFTBRACKET; }
