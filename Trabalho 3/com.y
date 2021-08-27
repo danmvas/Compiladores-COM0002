@@ -33,17 +33,20 @@ int labelsCount = 0;	/* to generate labels */
 
 typedef enum {INT_T, FLOAT_T, BOOL_T, VOID_T, ERROR_T} type_enum;
 
-map<string, pair<int,type_enum> > symbTab;
+map<string, pair<int,type_enum> > tabelaSimbolos;
 
 bool checkId(string id);
 string getOp(string op);
 void defineVar(string name, int type);
+
+void arithCast(int from , int to, string op);
 
 string genLabel();
 string getLabel(int n);
 
 void backpatch(vector<int> *list, int num);
 
+vector<int> * merge (vector<int> *list1, vector<int>* list2);
 vector<string> codeList;
 void writeCode(string x);
 
@@ -60,7 +63,7 @@ void printLineNumber(int num)
 	using namespace std;
 }
 
-%start method_body
+%start inicio
 
 %union{
 	int ival;
@@ -84,6 +87,9 @@ void printLineNumber(int num)
 %token <fval> T_REAL
 %token <idval> T_ID
 %token <bval> T_BOOL
+%token <aopval> T_ARITH_OP
+%token <aopval> T_RELA_OP
+%token <aopval> T_BOOL_OP
 
 %token T_TYPEINT
 %token T_TYPEDOUBLE
@@ -100,9 +106,6 @@ void printLineNumber(int num)
 
 %token T_COMPLEXOPERATORPLUS 
 %token T_COMPLEXOPERATORMINUS
-%token T_ARITH_OP 
-%token T_RELA_OP 
-%token T_BOOL_OP 
 
 %token T_CONDITIONALIF 
 %token T_CONDITIONALELSE 
@@ -115,55 +118,77 @@ void printLineNumber(int num)
 %token T_CONDITIONALDEFAULT
 
 %token SYSTEM_OUT
-%token T_QUIT
 
-%type <sType> primitive_type
-%type <expr_type> expression
-%type <stmt_type> statement
-%type <stmt_type> statement_list
+%type <sType> tipo
+%type <expr_type> expressao
+%type <expr_type> numeros
+%type <expr_type> expressao_matematica
+%type <bexpr_type> expressao_booleana
+%type <stmt_type> comando
+%type <stmt_type> lista_comandos
+%type <stmt_type> if
+%type <stmt_type> if_solo
+%type <stmt_type> if_solo_linhas
+%type <stmt_type> if_solo_linha
+%type <stmt_type> if_else
+%type <stmt_type> for
 
-%type <ival> marker
+%type <ival> marcador
+%type <ival> goto
 
+
+%left T_ARITH_OP T_BOOL_OP
 
 %%
 
-method_body: 
+inicio: 
 	{	generateHeader();	}
-	statement_list
-	marker
+	lista_comandos
+	marcador
 	{
 		backpatch($2.nextList,$3);
 		generateFooter();
 	}
 	;
 
-statement_list: 
-	 statement 
+lista_comandos: 
+	 comando 
 	| 
-	statement
-	marker
-	statement_list 
+	comando
+	marcador
+	lista_comandos 
 	{
 		backpatch($1.nextList,$2);
 		$$.nextList = $3.nextList;
 	}
 	;
 
-marker:
+marcador:
 {
 	$$ = labelsCount;
 	writeCode(genLabel() + ":");
 }
 ;
 
-statement: 
-	declaration {vector<int> * v = new vector<int>(); $$.nextList =v;}
-	| assignment {vector<int> * v = new vector<int>(); $$.nextList =v;}
-    | system_print {vector<int> * v = new vector<int>(); $$.nextList =v;}
+comando: 
+	  declaracao 	{vector<int> * v = new vector<int>(); $$.nextList =v;}
+	| atribuicao 	{vector<int> * v = new vector<int>(); $$.nextList =v;}
+    | printar 		{vector<int> * v = new vector<int>(); $$.nextList =v;}
+	| if			{$$.nextList = $1.nextList;}
+	| for 			{$$.nextList = $1.nextList;}
+	// acrescentar o switch
+	// acrescentar o for
+	// acrescentar o while
+	// acrescentar o do while
     ;
 
-declaration: 
-	primitive_type T_ID T_SEMICOLON
+declaracao: 
+	declaracao_normal
+	| declaracao_valor
+	;
+
+declaracao_normal: 
+	tipo T_ID T_SEMICOLON
 	{
 		string str($2);
 		if($1 == INT_T)
@@ -176,27 +201,28 @@ declaration:
 	}
 	;
 
-primitive_type: 
-	T_TYPEINT {$$ = INT_T;}
-	| T_TYPEDOUBLE {$$ = FLOAT_T;}
-	;
-
-assignment: 
-	T_ID T_ASSING expression T_SEMICOLON
+declaracao_valor: 
+	tipo T_ID T_ASSING expressao T_SEMICOLON
 	{
-		string str($1);
-		/* after expression finishes, its result should be on top of stack. 
-		we just store the top of stack to the identifier*/
+		string str($2);
+		if($1 == INT_T)
+		{
+			defineVar(str,INT_T);
+		}else if ($1 == FLOAT_T)
+		{
+			defineVar(str,FLOAT_T);
+		}
+
 		if(checkId(str))
 		{
-			if($3.sType == symbTab[str].second)
+			if($4.sType == tabelaSimbolos[str].second)
 			{
-				if($3.sType == INT_T)
+				if($4.sType == INT_T)
 				{
-					writeCode("istore " + to_string(symbTab[str].first));
-				}else if ($3.sType == FLOAT_T)
+					writeCode("istore " + to_string(tabelaSimbolos[str].first));
+				}else if ($4.sType == FLOAT_T)
 				{
-					writeCode("fstore " + to_string(symbTab[str].first));
+					writeCode("fstore " + to_string(tabelaSimbolos[str].first));
 				}
 			}
 		}else{
@@ -206,20 +232,49 @@ assignment:
 	}
 	;
 
-expression: 
-	T_REAL 	{$$.sType = FLOAT_T; writeCode("ldc "+to_string($1));}
-	| T_INT 	{$$.sType = INT_T;  writeCode("ldc "+to_string($1));} 
+tipo: 
+	  T_TYPEINT 		{$$ = INT_T;}
+	| T_TYPEDOUBLE 		{$$ = FLOAT_T;}
+	| T_TYPEBOOLEAN 	{$$ = BOOL_T;}
+	;
+
+atribuicao: 
+	T_ID T_ASSING expressao T_SEMICOLON
+	{
+		string str($1);
+		if(checkId(str))
+		{
+			if($3.sType == tabelaSimbolos[str].second)
+			{
+				if($3.sType == INT_T)
+				{
+					writeCode("istore " + to_string(tabelaSimbolos[str].first));
+				}else if ($3.sType == FLOAT_T)
+				{
+					writeCode("fstore " + to_string(tabelaSimbolos[str].first));
+				}
+			}
+		}else{
+			string err = "identifier: "+str+" isn't declared in this scope";
+			yyerror(err.c_str());
+		}
+	}
+	;
+
+expressao: 
+	  numeros
+	| expressao_matematica
     | T_ID {
 		string str($1);
 		if(checkId(str))
 		{
-			$$.sType = symbTab[str].second;
-			if(symbTab[str].second == INT_T)
+			$$.sType = tabelaSimbolos[str].second;
+			if(tabelaSimbolos[str].second == INT_T)
 			{
-				writeCode("iload " + to_string(symbTab[str].first));
-			}else if (symbTab[str].second == FLOAT_T)
+				writeCode("iload " + to_string(tabelaSimbolos[str].first));
+			}else if (tabelaSimbolos[str].second == FLOAT_T)
 			{
-				writeCode("fload " + to_string(symbTab[str].first));
+				writeCode("fload " + to_string(tabelaSimbolos[str].first));
 			}
 		}
 		else
@@ -229,27 +284,186 @@ expression:
 			$$.sType = ERROR_T;
 		}
 	}
-	| T_LEFTBRACKET expression T_RIGHTBRACKET {$$.sType = $2.sType;}
+	| T_LEFTBRACKET expressao T_RIGHTBRACKET {$$.sType = $2.sType;}
 	;
-    ;
 
-system_print:
-	SYSTEM_OUT T_LEFTBRACKET expression T_RIGHTBRACKET T_SEMICOLON
+numeros:
+	T_REAL 	{$$.sType = FLOAT_T; writeCode("ldc "+to_string($1));}
+	| T_INT 	{$$.sType = INT_T;  writeCode("ldc "+to_string($1));} 
+	;
+
+expressao_matematica:
+	expressao T_ARITH_OP expressao	{arithCast($1.sType, $3.sType, string($2));}
+	;
+
+
+printar:
+	SYSTEM_OUT T_LEFTBRACKET expressao T_RIGHTBRACKET T_SEMICOLON
 	{
 		if($3.sType == INT_T)
 		{		
-			writeCode("istore " + to_string(symbTab["1syso_int_var"].first));
+			writeCode("istore " + to_string(tabelaSimbolos["1syso_int_var"].first));
 			writeCode("getstatic      java/lang/System/out Ljava/io/PrintStream;");
-			writeCode("iload " + to_string(symbTab["1syso_int_var"].first ));
+			writeCode("iload " + to_string(tabelaSimbolos["1syso_int_var"].first ));
 			writeCode("invokevirtual java/io/PrintStream/println(I)V");
 
 		}else if ($3.sType == FLOAT_T)
 		{
-			writeCode("fstore " + to_string(symbTab["1syso_float_var"].first));
+			writeCode("fstore " + to_string(tabelaSimbolos["1syso_float_var"].first));
 			writeCode("getstatic      java/lang/System/out Ljava/io/PrintStream;");
-			writeCode("fload " + to_string(symbTab["1syso_float_var"].first ));
+			writeCode("fload " + to_string(tabelaSimbolos["1syso_float_var"].first ));
 			writeCode("invokevirtual java/io/PrintStream/println(F)V");
 		}
+	}
+	;
+
+expressao_booleana:
+	T_BOOL
+	{
+		if($1)
+		{
+			/* bool is 'true' */
+			$$.trueList = new vector<int> ();
+			$$.trueList->push_back(codeList.size());
+			$$.falseList = new vector<int>();
+			writeCode("goto ");
+		}else
+		{
+			$$.trueList = new vector<int> ();
+			$$.falseList= new vector<int>();
+			$$.falseList->push_back(codeList.size());
+			writeCode("goto ");
+		}
+	}
+	|expressao_booleana
+	T_BOOL_OP 
+	marcador
+	expressao_booleana
+	{
+		if(!strcmp($2, "&&"))
+		{
+			backpatch($1.trueList, $3);
+			$$.trueList = $4.trueList;
+			$$.falseList = merge($1.falseList,$4.falseList);
+		}
+		else if (!strcmp($2,"||"))
+		{
+			backpatch($1.falseList,$3);
+			$$.trueList = merge($1.trueList, $4.trueList);
+			$$.falseList = $4.falseList;
+		}
+	}	
+	| expressao T_RELA_OP expressao		
+	{
+		string op ($2);
+		$$.trueList = new vector<int>();
+		$$.trueList ->push_back (codeList.size());
+		$$.falseList = new vector<int>();
+		$$.falseList->push_back(codeList.size()+1);
+		writeCode(getOp(op)+ " ");
+		writeCode("goto ");
+	}
+	/*|expression T_RELA_OP T_BOOL 	// to be considered */ 
+	;
+
+goto:
+{
+	$$ = codeList.size();
+	writeCode("goto ");
+}
+;
+
+if:
+	if_solo
+	|
+	if_else
+	;
+
+if_solo: 
+	 if_solo_linhas
+	|
+	 if_solo_linha
+	;
+
+if_solo_linhas: 
+	T_CONDITIONALIF T_LEFTBRACKET 
+	expressao_booleana 
+	T_RIGHTBRACKET T_LEFTCURLY 
+	marcador
+	lista_comandos
+	goto 
+	T_RIGHTCURLY
+	marcador
+	{
+		backpatch($3.trueList,$6);
+		backpatch($3.falseList,$10);
+		$$.nextList = $7.nextList;
+		$$.nextList->push_back($8);
+	}
+	;
+
+if_solo_linha: 
+	T_CONDITIONALIF T_LEFTBRACKET 
+	expressao_booleana 
+	T_RIGHTBRACKET 
+	marcador
+	comando
+	goto 
+	marcador
+	{
+		backpatch($3.trueList,$5);
+		backpatch($3.falseList,$8);
+		$$.nextList = $6.nextList;
+		$$.nextList->push_back($7);
+	}
+	;
+
+if_else: 
+	T_CONDITIONALIF T_LEFTBRACKET 
+	expressao_booleana 
+	T_RIGHTBRACKET T_LEFTCURLY 
+	marcador
+	lista_comandos
+	goto 
+	T_RIGHTCURLY 
+	T_CONDITIONALELSE T_LEFTCURLY 
+	marcador
+	lista_comandos 
+	T_RIGHTCURLY
+	{
+		backpatch($3.trueList,$6);
+		backpatch($3.falseList,$12);
+		$$.nextList = merge($7.nextList, $13.nextList);
+		$$.nextList->push_back($8);
+	}
+	;
+
+for:
+	T_LOOPFOR 
+	T_LEFTBRACKET
+	atribuicao
+	marcador
+	expressao_booleana
+	T_SEMICOLON
+	marcador
+	atribuicao
+	goto
+	T_RIGHTBRACKET
+	T_LEFTCURLY
+	marcador
+	lista_comandos
+	goto
+	T_RIGHTCURLY
+	{
+		backpatch($5.trueList,$12);
+		vector<int> * v = new vector<int> ();
+		v->push_back($9);
+		backpatch(v,$4);
+		v = new vector<int>();
+		v->push_back($14);
+		backpatch(v,$7);
+		backpatch($13.nextList,$7);
+		$$.nextList = $5.falseList;
 	}
 	;
 
@@ -322,7 +536,34 @@ void generateFooter()
 
 bool checkId(string op)
 {
-	return (symbTab.find(op) != symbTab.end());
+	return (tabelaSimbolos.find(op) != tabelaSimbolos.end());
+}
+
+void arithCast(int from , int to, string op)
+{
+	if(from == to)
+	{
+		if(from == INT_T)
+		{
+			writeCode("i" + getOp(op));
+		}else if (from == FLOAT_T)
+		{
+			writeCode("f" + getOp(op));
+		}
+	}
+	else
+	{
+		yyerror("cast not implemented yet");
+	}
+}
+
+string getOp(string op)
+{
+	if(inst_list.find(op) != inst_list.end())
+	{
+		return inst_list[op];
+	}
+	return "";
 }
 
 void defineVar(string name, int type)
@@ -341,7 +582,7 @@ void defineVar(string name, int type)
 		{
 			writeCode("fconst_0\nfstore " + to_string(varaiblesNum));
 		}
-		symbTab[name] = make_pair(varaiblesNum++,(type_enum)type);
+		tabelaSimbolos[name] = make_pair(varaiblesNum++,(type_enum)type);
 	}
 }
 
@@ -373,5 +614,23 @@ void printCode(void)
 	for ( int i = 0 ; i < codeList.size() ; i++)
 	{
 		fout<<codeList[i]<<endl;
+	}
+}
+
+vector<int> * merge(vector<int> *list1, vector<int> *list2)
+{
+	if(list1 && list2){
+		vector<int> *list = new vector<int> (*list1);
+		list->insert(list->end(), list2->begin(),list2->end());
+		return list;
+	}else if(list1)
+	{
+		return list1;
+	}else if (list2)
+	{
+		return list2;
+	}else
+	{
+		return new vector<int>();
 	}
 }

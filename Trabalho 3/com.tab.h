@@ -40,7 +40,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 59 "com.y" /* yacc.c:1909  */
+#line 61 "com.y" /* yacc.c:1909  */
 
 	#include <vector>
 	using namespace std;
@@ -56,21 +56,21 @@ extern int yydebug;
     T_REAL = 259,
     T_ID = 260,
     T_BOOL = 261,
-    T_TYPEINT = 262,
-    T_TYPEDOUBLE = 263,
-    T_TYPEBOOLEAN = 264,
-    T_CONST = 265,
-    T_SEMICOLON = 266,
-    T_ASSING = 267,
-    T_LEFTBRACKET = 268,
-    T_RIGHTBRACKET = 269,
-    T_LEFTCURLY = 270,
-    T_RIGHTCURLY = 271,
-    T_COMPLEXOPERATORPLUS = 272,
-    T_COMPLEXOPERATORMINUS = 273,
-    T_ARITH_OP = 274,
-    T_RELA_OP = 275,
-    T_BOOL_OP = 276,
+    T_ARITH_OP = 262,
+    T_RELA_OP = 263,
+    T_BOOL_OP = 264,
+    T_TYPEINT = 265,
+    T_TYPEDOUBLE = 266,
+    T_TYPEBOOLEAN = 267,
+    T_CONST = 268,
+    T_SEMICOLON = 269,
+    T_ASSING = 270,
+    T_LEFTBRACKET = 271,
+    T_RIGHTBRACKET = 272,
+    T_LEFTCURLY = 273,
+    T_RIGHTCURLY = 274,
+    T_COMPLEXOPERATORPLUS = 275,
+    T_COMPLEXOPERATORMINUS = 276,
     T_CONDITIONALIF = 277,
     T_CONDITIONALELSE = 278,
     T_LOOPWHILE = 279,
@@ -80,8 +80,7 @@ extern int yydebug;
     T_CONDITIONALCASE = 283,
     T_BREAK = 284,
     T_CONDITIONALDEFAULT = 285,
-    SYSTEM_OUT = 286,
-    T_QUIT = 287
+    SYSTEM_OUT = 286
   };
 #endif
 
@@ -90,7 +89,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 66 "com.y" /* yacc.c:1909  */
+#line 68 "com.y" /* yacc.c:1909  */
 
 	int ival;
 	float fval;
@@ -108,7 +107,7 @@ union YYSTYPE
 	} stmt_type;
 	int sType;
 
-#line 112 "com.tab.h" /* yacc.c:1909  */
+#line 111 "com.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

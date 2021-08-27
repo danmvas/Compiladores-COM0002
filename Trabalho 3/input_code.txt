@@ -1,3 +1,20 @@
-int x ; 
+int x; 
 x = 5;
-print(x);
+print(x+1);
+int y = 10;
+print(y);
+if (x == 5) {
+    print(y + 1);
+}
+if (y > 10) {
+    print(0);
+} else {
+    print(666);
+}
+
+if (true) print(333);
+
+for ( x = 0 ; x < 10 ; x = x + 1;)
+{
+	System.out.println(x);
+}

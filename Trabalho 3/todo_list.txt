@@ -1,0 +1,6 @@
+- expressao booleana (entender o que diabos está acontecendo)
+- for
+- while
+- do while
+- switch
+- declaração de constante

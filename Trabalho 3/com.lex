@@ -26,7 +26,6 @@ RELATIONALOP "=="|"!="|">"|">="|"<"|"<="
 BOOLEANOP "&&"|"||"
 
 %%
-"sair"						{ return T_QUIT; }
 [ \t]	                    ; // ignore todos os espaços em branco
 \/\/[^\n\r]+?([\n\r])       ; // ignore o comentário de uma linha
 "print"						{ return SYSTEM_OUT; }
@@ -45,13 +44,13 @@ BOOLEANOP "&&"|"||"
 "default"					{ return T_CONDITIONALDEFAULT; }
 {INT}						{ yylval.ival = atoi(yytext); return T_INT; }
 {DOUBLE}					{ yylval.fval = atof(yytext); return T_REAL; }
-{ID}						{ yylval.idval = strdup(yytext);return T_ID; }
 "++"						{ return T_COMPLEXOPERATORPLUS; }
 "--"						{ return T_COMPLEXOPERATORMINUS; }
 {OPERATOR}					{ yylval.aopval = strdup(yytext); return T_ARITH_OP; }
 {RELATIONALOP} 				{ yylval.aopval = strdup(yytext); return T_RELA_OP; }
 {BOOLEANOP} 				{ yylval.aopval = strdup(yytext); return T_BOOL_OP; }
-{BOOLEAN} 					{ if(!strcmp(yytext,"true")){ yylval.bval = 1;} else { yylval.bval = 0;} return T_BOOL; }
+{BOOLEAN} 					{ if(!strcmp(yytext,"true")){ yylval.bval = 1;} else { yylval.bval = 0; } return T_BOOL; }
+{ID}						{ yylval.idval = strdup(yytext);return T_ID; }
 ";" 						{ return T_SEMICOLON; }
 "=" 						{ return T_ASSING; }
 "(" 						{ return T_LEFTBRACKET; }
