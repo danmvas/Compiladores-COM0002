@@ -30,3 +30,9 @@ do {
     print(i);
     i = i + 1;
 } while (i < 0);
+
+int xablau = 10;
+switch (xablau) {
+    case 1: print(333);
+    case 10: print(-666);
+}

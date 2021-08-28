@@ -58,6 +58,9 @@ void printLineNumber(int num)
 
 %}
 
+%define parse.lac full
+%define parse.error verbose
+
 %code requires {
 	#include <vector>
 	using namespace std;
@@ -98,6 +101,7 @@ void printLineNumber(int num)
 
 %token T_SEMICOLON
 %token T_ASSING
+%token T_DOISPONTOS
 
 %token T_LEFTBRACKET
 %token T_RIGHTBRACKET
@@ -134,7 +138,10 @@ void printLineNumber(int num)
 %type <stmt_type> for
 %type <stmt_type> while
 %type <stmt_type> do_while
-%type <stmt_type> expressao_matematica_unitaria
+%type <stmt_type> switch
+%type <stmt_type> case
+%type <stmt_type> cases
+%type <stmt_type> default
 
 %type <ival> marcador
 %type <ival> goto
@@ -181,7 +188,7 @@ comando:
 	| for 			{$$.nextList = $1.nextList;}
 	| while 		{$$.nextList = $1.nextList;}
 	| do_while 		{$$.nextList = $1.nextList;}
-	// acrescentar o switch
+	| switch 		{$$.nextList = $1.nextList;}
     ;
 
 declaracao: 
@@ -496,6 +503,51 @@ do_while:
 	}
 	;
 
+switch: T_CONDITIONALSWITCH T_LEFTBRACKET expressao T_RIGHTBRACKET T_LEFTCURLY cases T_RIGHTCURLY
+{
+	string str("switch");
+	if($3.sType == INT_T)
+	{
+		defineVar(str,INT_T);
+		writeCode("istore " + to_string(tabelaSimbolos[str].first));
+	} else if ($3.sType == FLOAT_T)
+	{
+		defineVar(str,FLOAT_T);
+		writeCode("fstore " + to_string(tabelaSimbolos[str].first));
+	}
+	$$.nextList = $6.nextList;
+}
+;
+
+default: T_CONDITIONALDEFAULT T_DOISPONTOS lista_comandos
+{
+    $$.nextList = $3.nextList;
+}
+;
+
+case: T_CONDITIONALCASE expressao T_DOISPONTOS marcador lista_comandos marcador
+{
+	if($2.sType == INT_T)
+	{		
+		writeCode("iload " + to_string(tabelaSimbolos["1syso_int_var"].first));
+		writeCode("iload " + to_string(tabelaSimbolos["switch"].first));
+		writeCode("if_icmpne " + getLabel($6));
+		writeCode("goto " + getLabel($4));
+		$$.nextList = $5.nextList;
+
+	}else if ($2.sType == FLOAT_T)
+	{
+		writeCode("fload " + to_string(tabelaSimbolos["1syso_float_var"].first));
+		writeCode("fload " + to_string(tabelaSimbolos["switch"].first));
+		writeCode("if_icmpeq " + getLabel($4));
+		writeCode("goto " + getLabel($6));
+		$$.nextList = $5.nextList;
+	}
+};
+
+cases: case
+| cases case
+| cases default;
 
 %%
 

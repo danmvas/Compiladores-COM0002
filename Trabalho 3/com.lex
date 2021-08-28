@@ -52,6 +52,7 @@ BOOLEANOP "&&"|"||"
 {BOOLEAN} 					{ if(!strcmp(yytext,"true")){ yylval.bval = 1;} else { yylval.bval = 0; } return T_BOOL; }
 {ID}						{ yylval.idval = strdup(yytext);return T_ID; }
 ";" 						{ return T_SEMICOLON; }
+":" 						{ return T_DOISPONTOS; }
 "=" 						{ return T_ASSING; }
 "(" 						{ return T_LEFTBRACKET; }
 ")" 						{ return T_RIGHTBRACKET; }
