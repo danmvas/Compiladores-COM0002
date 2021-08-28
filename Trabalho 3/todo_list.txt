@@ -1,5 +1,4 @@
 - expressao booleana (entender o que diabos está acontecendo)
-- while
-- do while
 - switch
 - declaração de constante
+- operacao unitaria ++, --

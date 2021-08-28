@@ -1,20 +1,32 @@
-int x; 
-x = 5;
-print(x+1);
-int y = 10;
-print(y);
-if (x == 5) {
-    print(y + 1);
-}
-if (y > 10) {
-    print(0);
+int num;
+num = 50;
+if (num == 50)  print(50);
+
+int x = 10;
+if (x >= 10) {
+    print(10);
+    print(333);
 } else {
-    print(666);
+    print(-10);
+    print(-333);
 }
 
-if (true) print(333);
-
-for ( x = 0 ; x < 10 ; x = x + 1;)
+int y;
+for ( x = 0 ; x < 2 ; x = x + 1;)
 {
-	print(x);
+	for(y = x ; y < x + 5; y = y + 1;)
+	{
+		print(y);
+	}
 }
+
+int i = 0;
+while (i < 5) {
+    print(i);
+    i = i + 1;
+}
+
+do {
+    print(i);
+    i = i + 1;
+} while (i < 0);

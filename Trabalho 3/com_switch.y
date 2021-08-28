@@ -132,9 +132,6 @@ void printLineNumber(int num)
 %type <stmt_type> if_solo_linha
 %type <stmt_type> if_else
 %type <stmt_type> for
-%type <stmt_type> while
-%type <stmt_type> do_while
-%type <stmt_type> expressao_matematica_unitaria
 
 %type <ival> marcador
 %type <ival> goto
@@ -179,9 +176,9 @@ comando:
     | printar 		{vector<int> * v = new vector<int>(); $$.nextList =v;}
 	| if			{$$.nextList = $1.nextList;}
 	| for 			{$$.nextList = $1.nextList;}
-	| while 		{$$.nextList = $1.nextList;}
-	| do_while 		{$$.nextList = $1.nextList;}
 	// acrescentar o switch
+	// acrescentar o while
+	// acrescentar o do while
     ;
 
 declaracao: 
@@ -298,6 +295,7 @@ expressao_matematica:
 	expressao T_ARITH_OP expressao	{arithCast($1.sType, $3.sType, string($2));}
 	;
 
+
 printar:
 	SYSTEM_OUT T_LEFTBRACKET expressao T_RIGHTBRACKET T_SEMICOLON
 	{
@@ -323,6 +321,7 @@ expressao_booleana:
 	{
 		if($1)
 		{
+			/* bool is 'true' */
 			$$.trueList = new vector<int> ();
 			$$.trueList->push_back(codeList.size());
 			$$.falseList = new vector<int>();
@@ -335,7 +334,10 @@ expressao_booleana:
 			writeCode("goto ");
 		}
 	}
-	| expressao_booleana T_BOOL_OP marcador expressao_booleana
+	|expressao_booleana
+	T_BOOL_OP 
+	marcador
+	expressao_booleana
 	{
 		if(!strcmp($2, "&&"))
 		{
@@ -360,6 +362,7 @@ expressao_booleana:
 		writeCode(getOp(op)+ " ");
 		writeCode("goto ");
 	}
+	/*|expression T_RELA_OP T_BOOL 	// to be considered */ 
 	;
 
 goto:
@@ -434,6 +437,35 @@ if_else:
 	}
 	;
 
+switch: T_CONDITIONALSWITCH T_LEFTBRACKET expressao T_RIGHTBRACKET T_LEFTCURLY marcador cases goto T_RIGHTCURLY
+	{
+		// primeiro verifica se expressao já é uma váriavel, se for, não precisa fazer isso
+		string str("switch");
+		if($3 == INT_T)
+		{
+			defineVar(str,INT_T);
+		}else if ($3 == FLOAT_T)
+		{
+			defineVar(str,FLOAT_T);
+		}
+	}
+	;
+
+case: T_CONDITIONALCASE expressao ':' T_LEFTCURLY marcador lista_comandos goto T_RIGHTCURLY {
+	backpatch($3.trueList,$5);
+	backpatch($3.falseList,$8);
+	$$.nextList = $6.nextList;
+	$$.nextList->push_back($7);
+}
+
+default: T_CONDITIONALDEFAULT ':' T_LEFTCURLY lista_comandos T_RIGHTCURLY {
+
+}
+
+cases: case 
+	| default 
+	| case cases
+
 for:
 	T_LOOPFOR 
 	T_LEFTBRACKET
@@ -462,40 +494,6 @@ for:
 		$$.nextList = $5.falseList;
 	}
 	;
-
-while:
-	marcador 
-	T_LOOPWHILE T_LEFTBRACKET
-	expressao_booleana
-	T_RIGHTBRACKET T_LEFTCURLY 
-	marcador
-	lista_comandos
-	T_RIGHTCURLY
-	{
-		writeCode("goto " + getLabel($1));
-		backpatch($8.nextList,$1);
-		backpatch($4.trueList,$7);
-		$$.nextList = $4.falseList;
-	}
-	;
-
-do_while:
-	marcador
-	T_LOOPDO T_LEFTCURLY
-	lista_comandos
-	T_RIGHTCURLY 
-	T_LOOPWHILE T_LEFTBRACKET
-	expressao_booleana
-	T_RIGHTBRACKET T_SEMICOLON
-	marcador
-	{
-		writeCode("goto " + getLabel($1));
-		backpatch($4.nextList,$1);
-		backpatch($8.trueList,$11);
-		$$.nextList = $8.falseList;
-	}
-	;
-
 
 %%
 
