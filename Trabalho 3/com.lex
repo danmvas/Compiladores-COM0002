@@ -40,7 +40,6 @@ BOOLEANOP "&&"|"||"
 "do"						{ return T_LOOPDO; }
 "switch"					{ return T_CONDITIONALSWITCH; }
 "case"						{ return T_CONDITIONALCASE; }
-"break"						{ return T_BREAK; }
 "default"					{ return T_CONDITIONALDEFAULT; }
 {INT}						{ yylval.ival = atoi(yytext); return T_INT; }
 {DOUBLE}					{ yylval.fval = atof(yytext); return T_REAL; }

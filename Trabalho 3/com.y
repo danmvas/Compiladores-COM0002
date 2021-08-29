@@ -148,7 +148,6 @@ void escreveLinha(int num)
 %token T_LOOPDO 
 %token T_CONDITIONALSWITCH 
 %token T_CONDITIONALCASE 
-%token T_BREAK 
 %token T_CONDITIONALDEFAULT
 
 %token SYSTEM_OUT
