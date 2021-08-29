@@ -40,7 +40,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 64 "com.y" /* yacc.c:1909  */
+#line 89 "com.y" /* yacc.c:1909  */
 
 	#include <vector>
 	using namespace std;
@@ -54,8 +54,8 @@ extern int yydebug;
   {
     T_INT = 258,
     T_REAL = 259,
-    T_ID = 260,
-    T_BOOL = 261,
+    T_BOOL = 260,
+    T_ID = 261,
     T_ARITH_OP = 262,
     T_RELA_OP = 263,
     T_BOOL_OP = 264,
@@ -90,7 +90,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 71 "com.y" /* yacc.c:1909  */
+#line 98 "com.y" /* yacc.c:1909  */
 
 	int ival;
 	float fval;

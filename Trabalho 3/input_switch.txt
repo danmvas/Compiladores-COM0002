@@ -1,0 +1,5 @@
+int teste = 10;
+switch (teste) {
+    case 1: print(333);
+    case 10: print(-666);
+}

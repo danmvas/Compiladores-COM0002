@@ -9,9 +9,9 @@
 
 	#define YY_DECL int yylex()
 
-	int lineCounter = 1;
+	int contLinha = 1;
 
-	extern int printLineNumber(int num);
+	extern int escreveLinha(int num);
 %}
 
 LETRA  [a-zA-Z]
@@ -58,6 +58,6 @@ BOOLEANOP "&&"|"||"
 ")" 						{ return T_RIGHTBRACKET; }
 "{" 						{ return T_LEFTCURLY; }
 "}" 						{ return T_RIGHTCURLY ;}
-\n							{ ++lineCounter;	printLineNumber(lineCounter); }
+\n							{ ++contLinha;	escreveLinha(contLinha); }
 .							printf( "Caracter não reconhecido: %s. Encontrado em linha: %d e coluna: %d\n", yytext, 1, 1 );
 %%

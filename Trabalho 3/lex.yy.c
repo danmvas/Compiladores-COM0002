@@ -522,9 +522,9 @@ char *yytext;
 
 	#define YY_DECL int yylex()
 
-	int lineCounter = 1;
+	int contLinha = 1;
 
-	extern int printLineNumber(int num);
+	extern int escreveLinha(int num);
 #line 529 "lex.yy.c"
 #line 530 "lex.yy.c"
 
@@ -967,7 +967,7 @@ case 33:
 /* rule 33 can match eol */
 YY_RULE_SETUP
 #line 61 "com.lex"
-{ ++lineCounter;	printLineNumber(lineCounter); }
+{ ++contLinha;	escreveLinha(contLinha); }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP

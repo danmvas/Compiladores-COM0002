@@ -1,4 +1,0 @@
-- expressao booleana (entender o que diabos está acontecendo)
-- switch
-- declaração de constante
-- operacao unitaria ++, --
